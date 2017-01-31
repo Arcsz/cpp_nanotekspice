@@ -1,42 +1,55 @@
 ##
-## Makefile for Makefile in /home/riamon_v/rendu/CPE/CPE_colle_semaine6
-## 
-## Made by vincent riamon
-## Login   <riamon_v@epitech.net>
-## 
-## Started on  Tue May 31 18:19:41 2016 vincent riamon
-## Last update Mon Jan 30 13:46:21 2017 Riamon Vincent
+## Makefile :D
+##
+## Made by David Zeng
+## Login   <zeng_d@epitech.net>
+##
+## Started on  Mon Oct 12 13:31:18 2015 David Zeng
+## Last update Tue Jan 31 18:41:21 2017 Riamon Vincent
 ##
 
-CXX = g++
+NAME:=		nanotekspice
+SRCDIR:=	src/
+INCLUDE:=	include/ \
+		include/components \
+		include/gates
 
-NAME = nanotekspice
+SRC:=		main.cpp \
 
-LIBNAME = libnanotekspice.a
+CXX:=		g++
+CXXFLAGS:=	-W -Wall -Wextra -g
+SRC:=		$(addprefix $(SRCDIR), $(SRC))
+OBJ:=		$(SRC:.cpp=.o)
+RM:=		rm -f
 
-RM = rm -rf
-
-SRCS =  src/main.cpp \
-
-CXXFLAGS = -Wall -Wextra -Werror -Iinclude -g
-
-OBJS = $(SRCS:.cpp=.o)
+DEFAULT:=	"\033[00;0m"
+GREEN:=		"\033[0;32;1m"
+RED:=		"\033[0;31;1m"
+CYAN:=		"\033[0;36;1m"
 
 all: $(NAME) $(LIBNAME)
 
-$(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
-
-$(LIBNAME):
-	@ar rc $(LIBNAME) $(OBJS)
-	@ranlib $(LIBNAME)
+$(NAME): $(OBJ)
+	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) && \
+		echo -e $(GREEN)"[BIN]"$(CYAN) $(NAME)$(DEFAULT) || \
+		echo -e $(RED)"[XX]"$(DEFAULT) $(NAME)
+	for file in $(SRC); do fgrep -niH -e TODO -e FIXME $$file --color=auto; done; true
 
 clean:
-	$(RM) $(OBJS)
+	echo -e $(CYAN)"Cleaning $(NAME) tmp files..." $(DEFAULT)
+	$(RM) $(OBJ)
 
-fclean: clean
-	$(RM) $(NAME) $(LIBNAME)
+fclean:	clean
+	echo -e $(CYAN)"Cleaning $(NAME) executable..." $(DEFAULT)
+	$(RM) $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+.SILENT: all $(NAME) clean fclean re
+
+.cpp.o:
+	@$(CXX) -c $< -o $@ $(CXXFLAGS) $(foreach dir, $(INCLUDE), -I$(dir)) && \
+		echo -e $(GREEN)"[OK]"$(DEFAULT) $< || \
+		echo -e $(RED)"[KO]"$(DEFAULT) $<
