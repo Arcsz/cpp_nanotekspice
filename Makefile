@@ -5,19 +5,19 @@
 ## Login   <zeng_d@epitech.net>
 ##
 ## Started on  Mon Oct 12 13:31:18 2015 David Zeng
-## Last update Tue Jan 31 18:41:21 2017 Riamon Vincent
+## Last update Tue Jan 31 22:13:02 2017 Riamon Vincent
 ##
 
 NAME:=		nanotekspice
-SRCDIR:=	src/
-INCLUDE:=	include/ \
-		include/components \
-		include/gates
+SRCDIR:=	lib/src/
 
 SRC:=		main.cpp \
 
+LIB:=		libnanotekspice.a
+
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g
+LDFLAGS:=	-L./ -lnanotekspice
 SRC:=		$(addprefix $(SRCDIR), $(SRC))
 OBJ:=		$(SRC:.cpp=.o)
 RM:=		rm -f
@@ -27,19 +27,24 @@ GREEN:=		"\033[0;32;1m"
 RED:=		"\033[0;31;1m"
 CYAN:=		"\033[0;36;1m"
 
-all: $(NAME) $(LIBNAME)
+all: $(LIB) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) && \
+	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) $(LDFLAGS) && \
 		echo -e $(GREEN)"[BIN]"$(CYAN) $(NAME)$(DEFAULT) || \
 		echo -e $(RED)"[XX]"$(DEFAULT) $(NAME)
 	for file in $(SRC); do fgrep -niH -e TODO -e FIXME $$file --color=auto; done; true
 
+$(LIB):
+	make -C ./lib/
+
 clean:
+	make clean -C ./lib/
 	echo -e $(CYAN)"Cleaning $(NAME) tmp files..." $(DEFAULT)
 	$(RM) $(OBJ)
 
 fclean:	clean
+	make fclean -C ./lib/
 	echo -e $(CYAN)"Cleaning $(NAME) executable..." $(DEFAULT)
 	$(RM) $(NAME)
 
