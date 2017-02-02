@@ -27,7 +27,7 @@ SRC:=		$(COMPDIR)Input.cpp \
 		$(GATESDIR)XOR-4030.cpp \
 
 CXX:=		g++
-CXXFLAGS:=	-W -Wall -Wextra -g
+CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14
 SRC:=		$(addprefix $(SRCDIR), $(SRC))
 OBJ:=		$(SRC:.cpp=.o)
 RM:=		rm -f

@@ -16,7 +16,7 @@ SRC:=		main.cpp \
 LIB:=		libnanotekspice.a
 
 CXX:=		g++
-CXXFLAGS:=	-W -Wall -Wextra -g
+CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14
 LDFLAGS:=	-L./ -lnanotekspice
 SRC:=		$(addprefix $(SRCDIR), $(SRC))
 OBJ:=		$(SRC:.cpp=.o)
