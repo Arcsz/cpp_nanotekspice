@@ -9,9 +9,10 @@
 ##
 
 NAME:=		nanotekspice
-SRCDIR:=	lib/src/
+SRCDIR:=	src/
+INCLUDE:=	lib/include/
 
-SRC:=		main.cpp \
+SRC:=		main.cpp
 
 LIB:=		libnanotekspice.a
 

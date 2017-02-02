@@ -16,6 +16,7 @@ INCLUDE:=	include/ \
 		include/gates
 
 SRC:=		components/Input.cpp \
+		parser/Parser.cpp
 
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14
@@ -31,7 +32,7 @@ CYAN:=		"\033[0;36;1m"
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
 clean:
