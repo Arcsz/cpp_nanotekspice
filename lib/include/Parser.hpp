@@ -28,15 +28,30 @@ public:
   // create actual tree based on inputs
   nts::t_ast_node *createTree() override;
 
+  // try to parse file, THROW FILE EXCEPTION
+  void parseFile(std::string const& filename);
+
 private:
+  // create an ast_node
+  nts::t_ast_node *createNode(std::string const& lexeme, nts::ASTNodeType type,
+			      std::string const& value);
+
+  // push ast_node into another ast_node
+  void pushNode(nts::t_ast_node *node, nts::t_ast_node *child);
+
+  // parse chipset
+  bool parseChipset(nts::t_ast_node *root);
+  bool parseComponent(nts::t_ast_node *line);
+
+  // parse links
+  bool parseLinks(nts::t_ast_node *root);
+  bool parseLink(nts::t_ast_node *line);
 
 private:
   // list of input from feed()
   std::vector<std::string> _inputStream;
   // list of components
   std::map<std::string, nts::IComponent*> _components;
-  // list of outputs
-  std::vector<std::string> _output;
 };
 
 #endif /* !PARSER_HPP_ */

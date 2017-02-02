@@ -11,16 +11,13 @@
 #include "../lib/include/Parser.hpp"
 
 int main(int argc, char **argv) {
-  Parser parser;
+  if (argc < 2) {
+    std::cerr << "USAGE: " << argv[0] << " [FILENAME] [ARGS...]" << std::endl;
+  }
 
-  parser.feed("hello world my friend");
-  parser.feed("ab   ");
-  parser.feed("     ab");
-  parser.feed("     ab   ");
-  parser.feed("       ");
-  parser.feed("           #");
-  parser.feed("#         ");
-  parser.feed("        #         ");
+  Parser parser;
+  // TODO: parse command line and give right arg to parser
+  parser.parseFile(argv[1]);
   parser.createTree();
   return 0;
 }
