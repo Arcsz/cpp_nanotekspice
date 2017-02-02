@@ -5,17 +5,26 @@
 ## Login   <zeng_d@epitech.net>
 ##
 ## Started on  Mon Oct 12 13:31:18 2015 David Zeng
-## Last update Tue Jan 31 22:09:50 2017 Riamon Vincent
+## Last update Thu Feb  2 11:08:19 2017 Riamon Vincent
 ##
 
 NAME:=		../libnanotekspice.a
 SRCDIR:=	src/
+COMPDIR:=	components/
+GATESDIR:=	gates/
 
 INCLUDE:=	include/ \
 		include/components \
 		include/gates
 
-SRC:=		components/Input.cpp \
+SRC:=		$(COMPDIR)Input.cpp \
+		$(COMPDIR)Output.cpp \
+		$(COMPDIR)True.cpp \
+		$(COMPDIR)False.cpp \
+		$(COMPDIR)Clock.cpp \
+		$(GATESDIR)AND-4081.cpp \
+		$(GATESDIR)OR-4071.cpp \
+		$(GATESDIR)XOR-4030.cpp \
 
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g
@@ -31,8 +40,10 @@ CYAN:=		"\033[0;36;1m"
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	echo -e $(GREEN)"[LIB]"$(CYAN) $(NAME)$(DEFAULT)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	for file in $(SRC); do fgrep -niH -e TODO -e FIXME $$file --color=auto; done; true
 
 clean:
 	echo -e $(CYAN)"Cleaning $(NAME) tmp files..." $(DEFAULT)
