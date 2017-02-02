@@ -5,7 +5,7 @@
 ## Login   <zeng_d@epitech.net>
 ##
 ## Started on  Mon Oct 12 13:31:18 2015 David Zeng
-## Last update Thu Feb  2 11:34:29 2017 Riamon Vincent
+## Last update Thu Feb  2 21:17:41 2017 Riamon Vincent
 ##
 
 NAME:=		../libnanotekspice.a
@@ -28,6 +28,14 @@ SRC:=		$(COMPDIR)Input.cpp \
 		$(GATESDIR)NOR-4001.cpp \
 		$(GATESDIR)NAND-4011.cpp \
 		$(GATESDIR)INVERSE-4069.cpp \
+		$(GATESDIR)FlipFlop-4013.cpp \
+		$(GATESDIR)counter-4040.cpp \
+		$(GATESDIR)decoder-4514.cpp \
+		$(GATESDIR)adder-4008.cpp \
+		$(GATESDIR)register-4094.cpp \
+		$(GATESDIR)Jdecade-4017.cpp \
+		$(GATESDIR)rand-4801.cpp \
+		$(GATESDIR)rdonly-2716.cpp \
 
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14
