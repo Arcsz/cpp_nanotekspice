@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 19:33:43 2017 Riamon Vincent
+// Last update Fri Feb  3 14:34:20 2017 Riamon Vincent
 //
 
 #ifndef adder4008_HPP_
@@ -15,7 +15,7 @@
 
 class adder4008 : public nts::IComponent {
 public:
-  adder4008();
+  adder4008(nts::Tristate val);
   virtual ~adder4008();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

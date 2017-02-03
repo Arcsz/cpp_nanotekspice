@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 12:36:11 2017 Riamon Vincent
+// Last update Fri Feb  3 14:39:19 2017 Riamon Vincent
 //
 
 #ifndef FLIPFLOP4013_HPP_
@@ -15,7 +15,7 @@
 
 class FLIPFLOP4013 : public nts::IComponent {
 public:
-  FLIPFLOP4013();
+  FLIPFLOP4013(nts::Tristate val);
   virtual ~FLIPFLOP4013();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 13:16:56 2017 Riamon Vincent
+// Last update Fri Feb  3 14:41:40 2017 Riamon Vincent
 //
 
 #include "counter-4040.hpp"
 
-counter4040::counter4040() {
+counter4040::counter4040(__attribute__((unused))nts::Tristate val) {
 }
 
 counter4040::~counter4040() {

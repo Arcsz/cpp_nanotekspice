@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 10:59:48 2017 Riamon Vincent
+// Last update Fri Feb  3 14:38:22 2017 Riamon Vincent
 //
 
 #include "OR-4071.hpp"
 
-OR4071::OR4071() {
+OR4071::OR4071(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i < 14; i++)
     _pins[i] = NULL;
   _outputs[3] = std::make_pair(1, 2);

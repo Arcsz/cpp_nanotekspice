@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 20:53:25 2017 Riamon Vincent
+// Last update Fri Feb  3 14:40:11 2017 Riamon Vincent
 //
 
 #include "rand-4801.hpp"
 
-rand4801::rand4801() {
+rand4801::rand4801(__attribute__((unused))nts::Tristate val) {
 }
 
 rand4801::~rand4801() {

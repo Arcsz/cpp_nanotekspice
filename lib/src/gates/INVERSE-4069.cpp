@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 11:32:52 2017 Riamon Vincent
+// Last update Fri Feb  3 14:41:55 2017 Riamon Vincent
 //
 
 #include "INVERSE-4069.hpp"
 
-INVERSE4069::INVERSE4069() {
+INVERSE4069::INVERSE4069(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i < 14; i++)
     _pins[i] = NULL;
   _outputs[2] = 1;

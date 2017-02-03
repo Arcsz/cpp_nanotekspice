@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 20:19:08 2017 Riamon Vincent
+// Last update Fri Feb  3 14:38:36 2017 Riamon Vincent
 //
 
 #ifndef register4094_HPP_
@@ -15,7 +15,7 @@
 
 class register4094 : public nts::IComponent {
 public:
-  register4094();
+  register4094(nts::Tristate val);
   virtual ~register4094();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

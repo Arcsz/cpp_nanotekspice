@@ -5,7 +5,7 @@
 ## Login   <zeng_d@epitech.net>
 ##
 ## Started on  Mon Oct 12 13:31:18 2015 David Zeng
-## Last update Thu Feb  2 21:17:41 2017 Riamon Vincent
+## Last update Fri Feb  3 18:28:21 2017 Riamon Vincent
 ##
 
 NAME:=		../libnanotekspice.a
@@ -36,6 +36,7 @@ SRC:=		$(COMPDIR)Input.cpp \
 		$(GATESDIR)Jdecade-4017.cpp \
 		$(GATESDIR)rand-4801.cpp \
 		$(GATESDIR)rdonly-2716.cpp \
+		Component.cpp \
 
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14

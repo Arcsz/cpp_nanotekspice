@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 11:04:47 2017 Riamon Vincent
+// Last update Fri Feb  3 14:40:26 2017 Riamon Vincent
 //
 
 #ifndef XOR4030_HPP_
@@ -15,7 +15,7 @@
 
 class XOR4030 : public nts::IComponent {
 public:
-  XOR4030();
+  XOR4030(nts::Tristate val);
   virtual ~XOR4030();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

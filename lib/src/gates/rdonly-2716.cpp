@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 21:18:03 2017 Riamon Vincent
+// Last update Fri Feb  3 14:42:48 2017 Riamon Vincent
 //
 
 #include "rdonly-2716.hpp"
 
-rdonly2716::rdonly2716() {
+rdonly2716::rdonly2716(__attribute__((unused))nts::Tristate val) {
 }
 
 rdonly2716::~rdonly2716() {

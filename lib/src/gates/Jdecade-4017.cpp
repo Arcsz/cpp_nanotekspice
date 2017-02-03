@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 20:27:37 2017 Riamon Vincent
+// Last update Fri Feb  3 14:37:58 2017 Riamon Vincent
 //
 
 #include "Jdecade-4017.hpp"
 
-Jdecade4017::Jdecade4017() {
+Jdecade4017::Jdecade4017(__attribute__((unused))nts::Tristate val) {
 }
 
 Jdecade4017::~Jdecade4017() {

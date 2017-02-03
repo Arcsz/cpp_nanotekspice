@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 09:44:01 2017 Riamon Vincent
+// Last update Fri Feb  3 14:39:05 2017 Riamon Vincent
 //
 
 #include "AND-4081.hpp"
 
-AND4081::AND4081() {
+AND4081::AND4081(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i < 14; i++)
     _pins[i] = NULL;
   _outputs[3] = std::make_pair(1, 2);

@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 19:33:31 2017 Riamon Vincent
+// Last update Fri Feb  3 14:36:27 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
 
-adder4008::adder4008() {
+adder4008::adder4008(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i <= 16; i++)
     _pins[i] = NULL;
   _outputs[10] = std::make_pair(6, 7);

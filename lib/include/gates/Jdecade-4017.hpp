@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 20:27:17 2017 Riamon Vincent
+// Last update Fri Feb  3 14:37:52 2017 Riamon Vincent
 //
 
 #ifndef Jdecade4017_HPP_
@@ -15,7 +15,7 @@
 
 class Jdecade4017 : public nts::IComponent {
 public:
-  Jdecade4017();
+  Jdecade4017(nts::Tristate val);
   virtual ~Jdecade4017();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

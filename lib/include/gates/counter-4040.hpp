@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 13:07:45 2017 Riamon Vincent
+// Last update Fri Feb  3 14:41:35 2017 Riamon Vincent
 //
 
 #ifndef counter4040_HPP_
@@ -15,7 +15,7 @@
 
 class counter4040 : public nts::IComponent {
 public:
-  counter4040();
+  counter4040(nts::Tristate val);
   virtual ~counter4040();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

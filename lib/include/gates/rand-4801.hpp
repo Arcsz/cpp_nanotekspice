@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 20:38:12 2017 Riamon Vincent
+// Last update Fri Feb  3 14:40:01 2017 Riamon Vincent
 //
 
 #ifndef rand4801_HPP_
@@ -15,7 +15,7 @@
 
 class rand4801 : public nts::IComponent {
 public:
-  rand4801();
+  rand4801(nts::Tristate val);
   virtual ~rand4801();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

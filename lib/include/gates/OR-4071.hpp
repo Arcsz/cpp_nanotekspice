@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 10:24:35 2017 Riamon Vincent
+// Last update Fri Feb  3 14:38:12 2017 Riamon Vincent
 //
 
 #ifndef OR4071_HPP_
@@ -15,7 +15,7 @@
 
 class OR4071 : public nts::IComponent {
 public:
-  OR4071();
+  OR4071(nts::Tristate val);
   virtual ~OR4071();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

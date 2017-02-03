@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 11:30:56 2017 Riamon Vincent
+// Last update Fri Feb  3 14:41:50 2017 Riamon Vincent
 //
 
 #ifndef INVERSE4069_HPP_
@@ -15,7 +15,7 @@
 
 class INVERSE4069 : public nts::IComponent {
 public:
-  INVERSE4069();
+  INVERSE4069(nts::Tristate val);
   virtual ~INVERSE4069();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

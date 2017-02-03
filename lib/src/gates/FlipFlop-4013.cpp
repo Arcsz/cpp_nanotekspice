@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 13:10:53 2017 Riamon Vincent
+// Last update Fri Feb  3 14:39:25 2017 Riamon Vincent
 //
 
 #include "FlipFlop-4013.hpp"
 
-FLIPFLOP4013::FLIPFLOP4013() {
+FLIPFLOP4013::FLIPFLOP4013(__attribute__((unused))nts::Tristate val) {
 }
 
 FLIPFLOP4013::~FLIPFLOP4013() {

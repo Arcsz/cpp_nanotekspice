@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Thu Feb  2 11:18:48 2017 Riamon Vincent
+// Last update Fri Feb  3 14:39:38 2017 Riamon Vincent
 //
 
 #ifndef NAND4011_HPP_
@@ -15,7 +15,7 @@
 
 class NAND4011 : public nts::IComponent {
 public:
-  NAND4011();
+  NAND4011(nts::Tristate val);
   virtual ~NAND4011();
   virtual nts::Tristate Compute(size_t this_pin = 1);
   virtual void SetLink(size_t this_pin,

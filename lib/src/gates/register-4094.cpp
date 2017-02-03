@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 20:20:09 2017 Riamon Vincent
+// Last update Fri Feb  3 14:38:42 2017 Riamon Vincent
 //
 
 #include "register-4094.hpp"
 
-register4094::register4094() {
+register4094::register4094(__attribute__((unused))nts::Tristate val) {
 }
 
 register4094::~register4094() {

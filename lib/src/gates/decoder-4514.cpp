@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  2 14:57:45 2017 Riamon Vincent
+// Last update Fri Feb  3 14:37:40 2017 Riamon Vincent
 //
 
 #include "decoder-4514.hpp"
 
-decoder4514::decoder4514() {
+decoder4514::decoder4514(__attribute__((unused))nts::Tristate val) {
 }
 
 decoder4514::~decoder4514() {
