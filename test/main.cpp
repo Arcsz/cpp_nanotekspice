@@ -12,83 +12,44 @@
 #include "../lib/include/Parser.hpp"
 #include "../lib/include/Exception.hpp"
 
+// ---------------------------------TEST UTILS-----------------------------------
+
+bool testFileShouldThrow(std::string const& filename, bool should) {
+  try {
+    nts::Parser parser;
+    parser.parseFile(filename);
+    parser.createTree();
+  } catch (nts::Exception const& e) {
+    std::cout << e.what() << std::endl;
+    return should;
+  }
+  return !should;
+}
+
 // -----------------------------------TEST---------------------------------------
 
 bool test1() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("test/parentheses.nts");
-    parser.createTree();
-  } catch (...) {
-    return false;
-  }
-  return true;
+  return testFileShouldThrow("test/parentheses.nts", false);
 }
 
 bool test2() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("caca.nts");
-  } catch (nts::FileException const& e) {
-    std::cout << e.what() << std::endl;
-    return true;
-  }
-
-  return false;
+  return testFileShouldThrow("caca.nts", true);
 }
 
 bool test3() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("test/many_token.nts");
-    parser.createTree();
-  } catch (nts::ParserException const& e) {
-    std::cout << e.what() << std::endl;
-    return true;
-  }
-  return false;
+  return testFileShouldThrow("test/many_token.nts", true);
 }
 
 bool test4() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("test/missing_chipset.nts");
-    parser.createTree();
-  } catch (nts::ParserException const& e) {
-    std::cout << e.what() << std::endl;
-    return true;
-  }
-  return false;
+  return testFileShouldThrow("test/missing_chipset.nts", true);
 }
 
 bool test5() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("test/missing_link.nts");
-    parser.createTree();
-  } catch (nts::ParserException const& e) {
-    std::cout << e.what() << std::endl;
-    return true;
-  }
-  return false;
+  return testFileShouldThrow("test/missing_link.nts", true);
 }
 
 bool test6() {
-  nts::Parser parser;
-
-  try {
-    parser.parseFile("test/double_chipset.nts");
-    parser.createTree();
-  } catch (nts::ParserException const& e) {
-    std::cout << e.what() << std::endl;
-    return true;
-  }
-  return false;
+  return testFileShouldThrow("test/double_chipset.nts", true);
 }
 
 // -------------------------------TEST ENGINE------------------------------------
@@ -117,20 +78,16 @@ int main() {
   int i = 1;
   for (TEST t : tests) {
     std::cout << "\033[0;36;1m" << "\nTest " << i << ": ";
-
     try {
-
       if (t()) {
 	std::cout << "\033[0;32;1m""Passed""\033[00;0m" << std::endl;
       } else {
 	std::cout << "\033[0;31;1m""Failed""\033[00;0m" << std::endl;
       }
-
     } catch (std::exception const& e) {
       std::cout << e.what() << std::endl;
       std::cout << "\033[0;31;1m""Failed""\033[00;0m" << std::endl;
     }
-
     ++i;
   }
 

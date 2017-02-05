@@ -232,7 +232,7 @@ bool nts::Parser::parseLink(t_ast_node *links) {
 
   std::string line = _inputs.front();
   if (line == ".links:" || line == ".chipsets:") {
-    throw ParserException("Expected link but got Section: " + line);
+    throw ParserException("Expected link but got section: " + line);
   }
 
   _inputs.pop();
