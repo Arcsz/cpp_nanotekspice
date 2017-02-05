@@ -64,7 +64,7 @@ fclean:	clean
 	echo -e $(CYAN)"Cleaning $(NAME) executable..." $(DEFAULT)
 	$(RM) $(NAME)
 
-re: fclean all test
+re: fclean all
 
 .PHONY: all clean fclean re
 

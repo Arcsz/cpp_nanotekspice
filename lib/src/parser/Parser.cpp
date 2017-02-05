@@ -14,11 +14,9 @@
 #include "Exception.hpp"
 
 nts::Parser::Parser() {
-
 }
 
 nts::Parser::~Parser() {
-
 }
 
 void nts::Parser::feed(std::string const& input) {
@@ -126,14 +124,13 @@ bool nts::Parser::parseChipset(t_ast_node *root) {
   }
   _inputs.pop();
 
-  // create a chipset node
   t_ast_node *chipsetNode = createNode(line, ASTNodeType::SECTION, "chipsets");
 
   // check first component and push as many component as possible
-  if (!parseComponent(chipsetNode)) {
+  if (_inputs.empty() || !parseComponent(chipsetNode)) {
     throw ParserException("Expected at least 1 component"); // TODO CONFIRM THIS
   } else {
-    while (parseComponent(chipsetNode));
+    while (!_inputs.empty() && parseComponent(chipsetNode));
   }
 
   pushNode(root, chipsetNode);
@@ -150,7 +147,7 @@ Option<std::string> nts::Parser::getCompValue(std::string const& line,
 
     if (name.empty() || value[value.size() - 1] != ')') {
       throw ParserException("Syntax error while parsing component "
-			    "with the following line\n" + line);
+			    "with the following line:\n" + line);
     }
 
     value = value.substr(0, value.size() - 1);
@@ -161,20 +158,14 @@ Option<std::string> nts::Parser::getCompValue(std::string const& line,
 }
 
 bool nts::Parser::parseComponent(t_ast_node *chipsets) {
-  if (_inputs.empty()) {
-    return false;
-  }
-
   std::string line = _inputs.front();
   if (line == ".links:") {
     return false;
   }
 
-  std::stringstream lineStream(line);
-
-  //parse component
   std::string component;
   std::string name;
+  std::stringstream lineStream(line);
   if (!(lineStream >> component) || !(lineStream >> name)) {
     return false;
   }
@@ -215,26 +206,54 @@ bool nts::Parser::parseLinks(t_ast_node *root) {
   t_ast_node *linksNode = createNode(line, ASTNodeType::SECTION, "links");
 
   // check first link and push as many link as possible
-  if (!parseLink(linksNode)) {
+  if (_inputs.empty() || !parseLink(linksNode)) {
     throw ParserException("Expected at least 1 link"); // TODO CONFIRM THIS
   } else {
-    while (parseLink(linksNode));
+    while (!_inputs.empty() && parseLink(linksNode));
   }
 
   pushNode(root, linksNode);
   return true;
 }
 
-bool nts::Parser::parseLink(t_ast_node *links) {
-  if (_inputs.empty()) {
-    return false;
+nts::t_ast_node *nts::Parser::getLink(std::string const& str, ASTNodeType type) {
+  std::string name = str.substr(0, str.find(':'));
+  std::string pin = str.substr(str.find(':') + 1, str.size());
+
+  if (name.empty() || pin.empty()) {
+    throw ParserException("Syntax error while parsing link: " + str);
   }
 
+  t_ast_node *link = createNode(str, type, "link");
+  pushNode(link, createNode(name, ASTNodeType::COMPONENT, "component"));
+  pushNode(link, createNode(pin, ASTNodeType::STRING, "pin"));
+  return link;
+}
+
+bool nts::Parser::parseLink(t_ast_node *links) {
   std::string line = _inputs.front();
   if (line == ".links:" || line == ".chipsets:") {
     throw ParserException("Expected link but got section: " + line);
   }
 
+  std::string link1;
+  std::string link2;
+  std::stringstream lineStream(line);
+  if (!(lineStream >> link1) || !(lineStream >> link2)) {
+    return false;
+  }
+  // throw exception if there is still smth in the stringstream
+  if (lineStream.rdbuf()->in_avail() != 0) {
+    std::string remain;
+    getline(lineStream, remain);
+    throw ParserException("Expected end of line but got: " + remain);
+  }
+
+  t_ast_node *newLine = createNode(line, ASTNodeType::NEWLINE, "newline");
+  pushNode(newLine, getLink(link1, ASTNodeType::LINK));
+  pushNode(newLine, getLink(link2, ASTNodeType::LINK_END));
+
+  pushNode(links, newLine);
   _inputs.pop();
   return true;
 }

@@ -55,6 +55,8 @@ namespace nts {
     bool parseLinks(t_ast_node *root);
     bool parseLink(t_ast_node *line);
 
+    t_ast_node *getLink(std::string const& str, ASTNodeType type);
+
     // parse value contained in parentheses
     Option<std::string> getCompValue(std::string const& line,
 				     std::string& name) const;

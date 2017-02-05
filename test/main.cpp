@@ -29,7 +29,7 @@ bool testFileShouldThrow(std::string const& filename, bool should) {
 // -----------------------------------TEST---------------------------------------
 
 bool test1() {
-  return testFileShouldThrow("test/parentheses.nts", false);
+  return testFileShouldThrow("test/parentheses.nts", true);
 }
 
 bool test2() {
@@ -52,6 +52,10 @@ bool test6() {
   return testFileShouldThrow("test/double_chipset.nts", true);
 }
 
+bool test7() {
+  return testFileShouldThrow("test/normal.nts", false);
+}
+
 // -------------------------------TEST ENGINE------------------------------------
 
 typedef std::function<bool()> TEST;
@@ -67,12 +71,13 @@ TEST test(TEST f, std::string const& str) {
 
 int main() {
   std::vector<TEST> tests = {
-    test(test1, "Empty value parentheses: \"input b()\""),
+    test(test1, "Non matching parentheses"),
     test(test2, "File not found"),
     test(test3, "Many token"),
     test(test4, "Missing chipset"),
     test(test5, "Missing link"),
     test(test6, "Double chipset"),
+    test(test7, "Normal"),
   };
 
   int i = 1;

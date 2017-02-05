@@ -1,8 +1,9 @@
-#test ()
+#test normal
 .chipsets:
 input		a
-input		b(
+input		b
 4081		gate
+input		test(1)
 
 .links:
 a:1		gate:1

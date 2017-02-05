@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     // TODO DELETE DUMP
     parser.dump(root);
   } catch (nts::Exception& e) {
-    std::cout << e.what() << std::endl;
+    std::cerr << e.what() << std::endl;
   }
   return 0;
 }
