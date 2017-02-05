@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Fri Feb  3 14:39:05 2017 Riamon Vincent
+// Last update Fri Feb  3 18:44:19 2017 Riamon Vincent
 //
 
 #include "AND-4081.hpp"
@@ -90,6 +90,5 @@ void AND4081::Dump(void) const {
       	std::cout << "NULL" << std::endl;
       else
       	std::cout << _pins[i]->Compute(_links.at(i)) << std::endl;
-      //std::cout << ((!_pins[i]) ? "NULL" : _pins[i]->Compute(_links.at(i))) << std::endl;
     }
 }

@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb  4 21:09:08 2017 David Zeng
-// Last update Sat Feb  4 21:09:08 2017 David Zeng
+// Last update Sun Feb  5 23:40:21 2017 Riamon Vincent
 //
 
 #include "Exception.hpp"
@@ -18,6 +18,15 @@ nts::Exception::~Exception() {
 
 char const *nts::Exception::what() const throw() {
   return _msg.c_str();
+}
+
+nts::InputException::InputException(std::string const& msg) : nts::Exception(msg) {
+}
+
+nts::ChipsetException::ChipsetException(std::string const& msg) : nts::Exception(msg) {
+}
+
+nts::PinException::PinException(std::string const& msg) : nts::Exception(msg) {
 }
 
 nts::FileException::FileException(std::string const& msg) : nts::Exception(msg) {

@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb  4 21:09:10 2017 David Zeng
-// Last update Sat Feb  4 21:09:10 2017 David Zeng
+// Last update Sun Feb  5 23:40:58 2017 Riamon Vincent
 //
 
 #ifndef EXCEPTION_HPP_
@@ -25,6 +25,21 @@ namespace nts {
 
   private:
     std::string _msg;
+  };
+
+  class InputException : public Exception {
+  public:
+    InputException(std::string const& msg);
+  };
+
+  class ChipsetException : public Exception {
+  public:
+    ChipsetException(std::string const& msg);
+  };
+
+  class PinException : public Exception {
+  public:
+    PinException(std::string const& msg);
   };
 
   /**
