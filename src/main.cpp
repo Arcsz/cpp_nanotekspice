@@ -8,16 +8,23 @@
 // Last update Thu Feb  2 00:55:24 2017 David Zeng
 //
 
+#include "../lib/include/Exception.hpp"
 #include "../lib/include/Parser.hpp"
 
 int main(int argc, char **argv) {
   if (argc < 2) {
     std::cerr << "USAGE: " << argv[0] << " [FILENAME] [ARGS...]" << std::endl;
+    return 1;
   }
 
-  Parser parser;
-  // TODO: parse command line and give right arg to parser
-  parser.parseFile(argv[1]);
-  parser.createTree();
+  try {
+    nts::Parser parser;
+    // TODO: parse command line and give right arg to parser
+    parser.parseFile(argv[1]);
+    nts::t_ast_node *root = parser.createTree();
+    parser.parseTree(*root);
+  } catch (nts::Exception& e) {
+    std::cout << e.what() << std::endl;
+  }
   return 0;
 }

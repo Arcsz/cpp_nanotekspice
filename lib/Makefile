@@ -13,10 +13,11 @@ SRCDIR:=	src/
 
 INCLUDE:=	include/ \
 		include/components \
-		include/gates
+		include/gates \
 
 SRC:=		components/Input.cpp \
-		parser/Parser.cpp
+		parser/Parser.cpp \
+		exception/Exception.cpp \
 
 CXX:=		g++
 CXXFLAGS:=	-W -Wall -Wextra -g -std=c++14

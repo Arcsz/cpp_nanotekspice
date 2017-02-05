@@ -11,47 +11,60 @@
 #ifndef PARSER_HPP_
 # define PARSER_HPP_
 
+# include <iostream>
+# include <queue>
 # include "cpp_nanotekspice_parser.hpp"
 # include "IComponent.hpp"
+# include "Option.hpp"
 
-class Parser : public nts::IParser {
-public:
-  Parser();
-  ~Parser();
+namespace nts {
 
-  // add input to inputstream
-  void feed(std::string const& input) override;
+  class Parser : public IParser {
+  public:
+    Parser();
+    ~Parser();
 
-  // parsetree with given root
-  void parseTree(nts::t_ast_node& root) override;
+    // add input to inputstream
+    void feed(std::string const& input) override;
 
-  // create actual tree based on inputs
-  nts::t_ast_node *createTree() override;
+    // parsetree with given root
+    void parseTree(t_ast_node& root) override;
 
-  // try to parse file, THROW FILE EXCEPTION
-  void parseFile(std::string const& filename);
+    // create actual tree based on inputs
+    t_ast_node *createTree() override;
 
-private:
-  // create an ast_node
-  nts::t_ast_node *createNode(std::string const& lexeme, nts::ASTNodeType type,
-			      std::string const& value);
+    // try to parse file, THROW FILE EXCEPTION
+    void parseFile(std::string const& filename);
 
-  // push ast_node into another ast_node
-  void pushNode(nts::t_ast_node *node, nts::t_ast_node *child);
+  private:
+    // create an ast_node
+    t_ast_node *createNode(std::string const& lexeme, ASTNodeType type,
+				std::string const& value);
 
-  // parse chipset
-  bool parseChipset(nts::t_ast_node *root);
-  bool parseComponent(nts::t_ast_node *line);
+    // push ast_node into another ast_node
+    void pushNode(t_ast_node *node, t_ast_node *child);
 
-  // parse links
-  bool parseLinks(nts::t_ast_node *root);
-  bool parseLink(nts::t_ast_node *line);
+    // parse chipset
+    bool parseChipset(t_ast_node *root);
+    bool parseComponent(t_ast_node *line);
 
-private:
-  // list of input from feed()
-  std::vector<std::string> _inputStream;
-  // list of components
-  std::map<std::string, nts::IComponent*> _components;
-};
+    // parse links
+    bool parseLinks(t_ast_node *root);
+    bool parseLink(t_ast_node *line);
+
+    // parse value contained in parentheses
+    Option<std::string> getCompValue(std::string const& line,
+				     std::string& name) const;
+
+  private:
+    // list of input from feed()
+    std::queue<std::string> _inputs;
+    // list of components and their name
+    std::map<IComponent*, std::string> _components;
+  };
+
+}
+
+std::ostream& operator<<(std::ostream& os, nts::t_ast_node node);
 
 #endif /* !PARSER_HPP_ */

@@ -23,6 +23,11 @@ SRC:=		$(addprefix $(SRCDIR), $(SRC))
 OBJ:=		$(SRC:.cpp=.o)
 RM:=		rm -f
 
+TEST:=		test_nanotekspice
+TESTSRC:=	$(filter-out src/main.cpp, $(SRC))
+TESTSRC +=	test/main.cpp
+TESTOBJ:=	$(TESTSRC:.cpp=.o)
+
 DEFAULT:=	"\033[00;0m"
 GREEN:=		"\033[0;32;1m"
 RED:=		"\033[0;31;1m"
@@ -50,6 +55,11 @@ fclean:	clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+$(TEST): $(TESTOBJ)
+	$(CXX) -o $(TEST) $(TESTOBJ) $(CXXFLAGS) $(LDFLAGS) && \
+		echo -e $(GREEN)"[BIN]"$(CYAN) $(TEST)$(DEFAULT) || \
+		echo -e $(RED)"[XX]"$(DEFAULT) $(TEST)
 
 .PHONY: all clean fclean re
 
