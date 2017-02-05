@@ -43,22 +43,11 @@ void nts::Parser::feed(std::string const& input) {
 }
 
 void nts::Parser::parseTree(t_ast_node& root) {
-  // TODO DELETE
-  if (root.type != ASTNodeType::NEWLINE) {
-    std::cout << root << std::endl;
-  }
-  if (root.children) {
-    if (root.type != ASTNodeType::NEWLINE) {
-      std::cout << "children:" << std::endl;
-    }
-    for (t_ast_node *node : *root.children) {
-      parseTree(*node);
-    }
-  }
+
 }
 
 nts::t_ast_node *nts::Parser::createTree() {
-  t_ast_node *root = createNode("", ASTNodeType::DEFAULT, "");
+  t_ast_node *root = createNode("", ASTNodeType::DEFAULT, "root");
 
   if (!parseChipset(root)) {
     throw ParserException("Missing chipset section");
@@ -80,6 +69,26 @@ void nts::Parser::parseFile(std::string const& filename) {
   std::string str;
   while (std::getline(file, str)) {
     feed(str);
+  }
+}
+
+void nts::Parser::dump(t_ast_node const *root) const {
+  // TODO DELETE
+  if (root->type != ASTNodeType::NEWLINE) {
+    std::cout << *root << std::endl;
+  }
+
+  if (root->children) {
+    if (root->type != ASTNodeType::NEWLINE) {
+      std::cout << "children:" << std::endl;
+    }
+    for (t_ast_node const *node : *root->children) {
+      dump(node);
+    }
+  }
+
+  if (root->type == ASTNodeType::NEWLINE) {
+    std::cout << std::endl;
   }
 }
 
@@ -118,7 +127,7 @@ bool nts::Parser::parseChipset(t_ast_node *root) {
   _inputs.pop();
 
   // create a chipset node
-  t_ast_node *chipsetNode = createNode(line, ASTNodeType::SECTION, "chipset");
+  t_ast_node *chipsetNode = createNode(line, ASTNodeType::SECTION, "chipsets");
 
   // check first component and push as many component as possible
   if (!parseComponent(chipsetNode)) {
@@ -133,11 +142,10 @@ bool nts::Parser::parseChipset(t_ast_node *root) {
 
 Option<std::string> nts::Parser::getCompValue(std::string const& line,
 					      std::string& name) const {
-  std::string value;
-
   size_t parenPos = name.find('(');
+
   if (parenPos != std::string::npos) {
-    value = name.substr(parenPos + 1);
+    std::string value = name.substr(parenPos + 1);
     name = name.substr(0, parenPos);
 
     if (name.empty() || value[value.size() - 1] != ')') {
@@ -170,6 +178,13 @@ bool nts::Parser::parseComponent(t_ast_node *chipsets) {
   if (!(lineStream >> component) || !(lineStream >> name)) {
     return false;
   }
+
+  // throw exception if there is still smth in the stringstream
+  if (lineStream.rdbuf()->in_avail() != 0) {
+    std::string remain;
+    getline(lineStream, remain);
+    throw ParserException("Expected end of line but got: " + remain);
+  }
   Option<std::string> optValue = getCompValue(line, name);
 
   // create node and push them in chipsets
@@ -191,6 +206,22 @@ bool nts::Parser::parseLinks(t_ast_node *root) {
     return false;
   }
 
+  std::string line = _inputs.front();
+  if (line != ".links:") {
+    return false;
+  }
+  _inputs.pop();
+
+  t_ast_node *linksNode = createNode(line, ASTNodeType::SECTION, "links");
+
+  // check first link and push as many link as possible
+  if (!parseLink(linksNode)) {
+    throw ParserException("Expected at least 1 link"); // TODO CONFIRM THIS
+  } else {
+    while (parseLink(linksNode));
+  }
+
+  pushNode(root, linksNode);
   return true;
 }
 
@@ -198,11 +229,17 @@ bool nts::Parser::parseLink(t_ast_node *links) {
   if (_inputs.empty()) {
     return false;
   }
+
+  std::string line = _inputs.front();
+  if (line == ".links:" || line == ".chipsets:") {
+    throw ParserException("Expected link but got Section: " + line);
+  }
+
+  _inputs.pop();
   return true;
 }
 
 std::ostream& operator<<(std::ostream& os, nts::t_ast_node node) {
-  os << "lexeme: " << node.lexeme;
-  os << " value: " << node.value;
+  os << "lexeme: \"" << node.lexeme << "\" value: \"" << node.value << "\"";
   return os;
 }

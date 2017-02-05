@@ -1,0 +1,9 @@
+#test many token
+.chipsets:
+input		a a b c d e f g h i j k l m o p q r s t u v w x y z
+input		b() e
+4081		gate
+
+.links:
+a:1		gate:1
+b:1		gate:2

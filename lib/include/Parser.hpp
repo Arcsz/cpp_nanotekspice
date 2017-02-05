@@ -36,6 +36,9 @@ namespace nts {
     // try to parse file, THROW FILE EXCEPTION
     void parseFile(std::string const& filename);
 
+    // dump every node
+    void dump(t_ast_node const *root) const;
+
   private:
     // create an ast_node
     t_ast_node *createNode(std::string const& lexeme, ASTNodeType type,

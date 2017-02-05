@@ -1,0 +1,4 @@
+#test missing chipset
+.links:
+a:1		gate:1
+b:1		gate:2

@@ -1,0 +1,5 @@
+#test missing link
+.chipsets:
+input		a
+input		b()
+4081		gate

@@ -44,26 +44,31 @@ $(NAME): $(OBJ)
 $(LIB):
 	make -C ./lib/
 
+$(TEST): $(TESTOBJ)
+	$(CXX) -o $(TEST) $(TESTOBJ) $(CXXFLAGS) $(LDFLAGS) && \
+		echo -e $(GREEN)"[BIN]"$(CYAN) $(TEST)$(DEFAULT) || \
+		echo -e $(RED)"[XX]"$(DEFAULT) $(TEST)
+
+test: $(TEST)
+	echo -e $(GREEN)"\nUNIT TESTS"$(DEFAULT)
+	./$(TEST)
+	rm -f $(TEST)
+
 clean:
 	make clean -C ./lib/
 	echo -e $(CYAN)"Cleaning $(NAME) tmp files..." $(DEFAULT)
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(TESTOBJ)
 
 fclean:	clean
 	make fclean -C ./lib/
 	echo -e $(CYAN)"Cleaning $(NAME) executable..." $(DEFAULT)
 	$(RM) $(NAME)
 
-re: fclean all
-
-$(TEST): $(TESTOBJ)
-	$(CXX) -o $(TEST) $(TESTOBJ) $(CXXFLAGS) $(LDFLAGS) && \
-		echo -e $(GREEN)"[BIN]"$(CYAN) $(TEST)$(DEFAULT) || \
-		echo -e $(RED)"[XX]"$(DEFAULT) $(TEST)
+re: fclean all test
 
 .PHONY: all clean fclean re
 
-.SILENT: all $(NAME) clean fclean re
+.SILENT: all $(NAME) clean fclean re test $(TEST)
 
 .cpp.o:
 	@$(CXX) -c $< -o $@ $(CXXFLAGS) $(foreach dir, $(INCLUDE), -I$(dir)) && \

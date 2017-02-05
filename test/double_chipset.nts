@@ -1,0 +1,12 @@
+#test double chipset
+.chipsets:
+input		a
+input		b
+4081		gate
+
+.links:
+a:1		gate:1
+b:1		gate:2
+
+.chipsets:
+input		c
