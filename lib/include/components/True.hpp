@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Tue Jan 31 12:33:49 2017 Riamon Vincent
-// Last update Tue Jan 31 16:25:48 2017 Riamon Vincent
+// Last update Wed Feb  1 10:49:08 2017 Riamon Vincent
 //
 
 #ifndef TRUE_HPP_
@@ -17,19 +17,19 @@ class True : public nts::IComponent {
 public:
   True();
   virtual ~True();
-  virtual nts::Tristate compute(size_t this_pin = 1);
-  virtual void setLink(size_t this_pin,
+  virtual nts::Tristate Compute(size_t this_pin = 1);
+  virtual void SetLink(size_t this_pin,
 		       nts::IComponent& comp,
 		       size_t target_pin);
-  virtual void dump(void) const;
+  virtual void Dump(void) const;
   nts::Tristate getValue(void) const;
-  std::pair<size_t, size_t> getLinks(void) const;
+  std::map<size_t, size_t> getLinks(void) const;
   void setValue(nts::Tristate const val);
 
 private:
   nts::Tristate _val;
-  IComponent *_pin[1];
-  std::pair<size_t, size_t> _links;
+  nts::IComponent *_pin[1];
+  std::map<size_t, size_t> _links;
 };
 
 #endif // !TRUE_HPP_
