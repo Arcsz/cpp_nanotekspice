@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb  4 21:09:10 2017 David Zeng
-// Last update Sun Feb  5 23:40:58 2017 Riamon Vincent
+// Last update Mon Feb  6 11:16:25 2017 Riamon Vincent
 //
 
 #ifndef EXCEPTION_HPP_
@@ -30,6 +30,11 @@ namespace nts {
   class InputException : public Exception {
   public:
     InputException(std::string const& msg);
+  };
+
+  class OutputException : public Exception {
+  public:
+    OutputException(std::string const& msg);
   };
 
   class ChipsetException : public Exception {

@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Fri Feb  3 14:37:58 2017 Riamon Vincent
+// Last update Mon Feb  6 11:55:07 2017 Riamon Vincent
 //
 
 #include "Jdecade-4017.hpp"
@@ -27,12 +27,19 @@ static int isInput(size_t pin) {
 
 void Jdecade4017::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin >= 14) {
-    std::cerr << "Pin " << this_pin << " doesn't exist" << std::endl; //TODO throw
-    return ;
+    std::stringstream ss;
+
+    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    throw nts::PinException(ss.str());
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
     _links[this_pin - 1] = target_pin;
-    comp.SetLink(target_pin, *this, this_pin);
+    try {
+      comp.SetLink(target_pin, *this, this_pin);
+    }
+    catch (nts::ChipsetException const& err) {
+      throw err;
+    }
   }
 }
 
@@ -42,8 +49,10 @@ nts::Tristate Jdecade4017::nand_gate(size_t first_pin, size_t second_pin) const 
 
 nts::Tristate Jdecade4017::Compute(size_t this_pin) {
   if (this_pin >= 14) {
-    std::cerr << "Pin " << this_pin << " doesn't exist" << std::endl; //TODO throw without ret
-    return nts::Tristate::UNDEFINED;
+    std::stringstream ss;
+
+    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    throw nts::PinException(ss.str());
   }
   return (nts::Tristate::UNDEFINED);
 }
@@ -51,10 +60,8 @@ nts::Tristate Jdecade4017::Compute(size_t this_pin) {
 nts::Tristate Jdecade4017::calcInput(size_t this_pin) {
   if (!_pins[this_pin - 1])
     return nts::Tristate::UNDEFINED;
-  if (!isInput(this_pin)) {
-    std::cerr << "Can't use output as an input" << std::endl; //TODO throw without ret
-    return nts::Tristate::UNDEFINED;
-  }
+  if (!isInput(this_pin))
+    throw nts::OutputException("Can't use output as an input");
   return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
 }
 
@@ -75,11 +82,10 @@ nts::Tristate Jdecade4017::calcOutput(size_t this_pin) {
 void Jdecade4017::Dump(void) const {
   std::cout << "4017 - Jdecade gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
-      std::cout << "\tpin n°" << i + 1 << "= ";
-      if (!_pins[i])
-      	std::cout << "NULL" << std::endl;
-      else
-      	std::cout << _pins[i]->Compute(_links.at(i)) << std::endl;
-      //std::cout << ((!_pins[i]) ? "NULL" : _pins[i]->Compute(_links.at(i))) << std::endl;
-    }
+    std::cout << "\tpin n°" << i + 1 << "= ";
+    if (!_pins[i])
+      std::cout << "NULL" << std::endl;
+    else
+      std::cout << _pins[i]->Compute(_links.at(i)) << std::endl;
+  }
 }

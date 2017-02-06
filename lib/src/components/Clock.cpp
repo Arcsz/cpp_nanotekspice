@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Wed Feb  1 10:02:51 2017 Riamon Vincent
+// Last update Mon Feb  6 10:39:13 2017 Riamon Vincent
 //
 
 #include "components/Clock.hpp"
@@ -14,8 +14,6 @@ Clock::Clock(nts::Tristate val){
   _val = val;
   _pin[0] = NULL;
   _links[0] = 0;
-  // _links.first = 0;
-  // _links.second = 0;
 }
 
 Clock::~Clock() {
@@ -23,22 +21,30 @@ Clock::~Clock() {
 
 nts::Tristate Clock::Compute(size_t this_pin) {
   if (this_pin >= 1) {
-      std::cerr << "Pin " << this_pin << " doesn't exist" << std::endl; // TODO throw
-      return nts::Tristate::UNDEFINED;
-    }
+    std::stringstream ss;
+
+    ss << "Pin " << this_pin << " doesn't exist" << std::endl;
+    throw nts::PinException(ss.str());
+  }
   return _val;
 }
 
 void Clock::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin >= 1) {
-      std::cerr << "Pin " << this_pin << " doesn't exist" << std::endl; // TODO throw
-      return ;
-    } else if (_pin[this_pin - 1] == NULL) {
-      _pin[this_pin - 1] = &comp;
-      _links[this_pin - 1] = target_pin;
-      // _links.first = this_pin - 1;
-      // _links.second = target_pin;
+    std::stringstream ss;
+
+    ss << "Pin " << this_pin << " doesn't exist" << std::endl;
+    throw nts::PinException(ss.str());
+  } else if (_pin[this_pin - 1] == NULL) {
+    _pin[this_pin - 1] = &comp;
+    _links[this_pin - 1] = target_pin;
+    try {
+      comp.SetLink(target_pin, *this, this_pin);
     }
+    catch(nts::ChipsetException const& err) {
+      throw err;
+    }
+  }
 }
 
 void Clock::Dump(void) const {
@@ -64,6 +70,9 @@ std::map<size_t, size_t> Clock::getLinks(void) const {
   return _links;
 }
 
-void Clock::setValue(nts::Tristate value) {
-  _val = value;
-}
+// void Clock::setValue(nts::Tristate value) {
+//   if (value == nts::UNDEFINED)
+//     throw nts::ClockException("Error Clock: value must be 0 or 1");
+//   else
+//     _val = value;
+// }
