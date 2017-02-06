@@ -9,8 +9,8 @@
 //
 
 #include <functional>
-#include "../lib/include/Parser.hpp"
-#include "../lib/include/Exception.hpp"
+#include "Parser.hpp"
+#include "Exception.hpp"
 
 // ---------------------------------TEST UTILS-----------------------------------
 

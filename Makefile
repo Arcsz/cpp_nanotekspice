@@ -49,7 +49,7 @@ $(TEST): $(TESTOBJ)
 		echo -e $(GREEN)"[BIN]"$(CYAN) $(TEST)$(DEFAULT) || \
 		echo -e $(RED)"[XX]"$(DEFAULT) $(TEST)
 
-test: $(TEST)
+test: $(LIB) $(TEST)
 	echo -e $(GREEN)"\nUNIT TESTS"$(DEFAULT)
 	./$(TEST)
 	rm -f $(TEST)
