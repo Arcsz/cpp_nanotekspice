@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Thu Feb  2 00:55:07 2017 David Zeng
-// Last update Thu Feb  2 00:55:07 2017 David Zeng
+// Last update Mon Feb  6 15:08:54 2017 Riamon Vincent
 //
 
 #include <fstream>
@@ -71,7 +71,6 @@ void nts::Parser::parseFile(std::string const& filename) {
 }
 
 void nts::Parser::dump(t_ast_node const *root) const {
-  // TODO DELETE
   if (root->type != ASTNodeType::NEWLINE) {
     std::cout << *root << std::endl;
   }

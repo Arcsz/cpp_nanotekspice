@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Fri Feb  3 14:40:26 2017 Riamon Vincent
+// Last update Mon Feb  6 17:42:07 2017 Riamon Vincent
 //
 
 #ifndef XOR4030_HPP_
@@ -13,23 +13,25 @@
 
 #include "IComponent.hpp"
 
-class XOR4030 : public nts::IComponent {
-public:
-  XOR4030(nts::Tristate val);
-  virtual ~XOR4030();
-  virtual nts::Tristate Compute(size_t this_pin = 1);
-  virtual void SetLink(size_t this_pin,
-		       nts::IComponent& comp,
-		       size_t target_pin);
-  virtual void Dump(void) const;
-  nts::Tristate calcInput(size_t pin);
-  nts::Tristate calcOutput(size_t pin);
-  nts::Tristate xor_gate(size_t first_pin, size_t second_pin) const;
+namespace nts {
+  class XOR4030 : public nts::IComponent {
+  public:
+    XOR4030(nts::Tristate val);
+    virtual ~XOR4030();
+    virtual nts::Tristate Compute(size_t this_pin = 1);
+    virtual void SetLink(size_t this_pin,
+			 nts::IComponent& comp,
+			 size_t target_pin);
+    virtual void Dump(void) const;
+    nts::Tristate calcInput(size_t pin);
+    nts::Tristate calcOutput(size_t pin);
+    nts::Tristate xor_gate(size_t first_pin, size_t second_pin) const;
 
-private:
-  nts::IComponent *_pins[14];
-  std::map<size_t, size_t> _links;
-  std::map<size_t, std::pair<size_t, size_t> > _outputs;
-};
+  private:
+    nts::IComponent *_pins[14];
+    std::map<size_t, size_t> _links;
+    std::map<size_t, std::pair<size_t, size_t> > _outputs;
+  };
+}
 
 #endif //XOR4030_HPP_
