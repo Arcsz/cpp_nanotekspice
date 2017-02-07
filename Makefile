@@ -5,7 +5,7 @@
 ## Login   <zeng_d@epitech.net>
 ##
 ## Started on  Mon Oct 12 13:31:18 2015 David Zeng
-## Last update Tue Jan 31 22:13:02 2017 Riamon Vincent
+## Last update Tue Feb  7 22:10:47 2017 Riamon Vincent
 ##
 
 NAME:=		nanotekspice
@@ -16,6 +16,7 @@ SRC:=		main.cpp \
 		Nts.cpp \
 		Parser.cpp \
 		Circuit.cpp \
+		Shell.cpp \
 
 LIB:=		libnanotekspice.a
 

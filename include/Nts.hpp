@@ -1,6 +1,7 @@
 #ifndef NTS_HPP_
 # define NTS_HPP_
 
+# include "Shell.hpp"
 # include "Parser.hpp"
 # include "Circuit.hpp"
 
@@ -15,9 +16,9 @@ namespace nts {
     void run(std::vector<std::string> args);
 
   private:
+    Shell _shell;
     Circuit _circuit;
     Parser _parser;
-    // TODO add shell
   };
 }
 

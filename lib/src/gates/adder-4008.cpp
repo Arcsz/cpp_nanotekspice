@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Mon Feb  6 11:50:42 2017 Riamon Vincent
+// Last update Tue Feb  7 22:03:55 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
@@ -86,7 +86,7 @@ nts::Tristate adder4008::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
   unsigned int i = 9;
-  nts::Tristate carry = nts::Tristate::UNDEFINED;;
+  nts::Tristate carry = nts::Tristate::UNDEFINED;
   nts::Tristate res = nts::Tristate::UNDEFINED;
 
   if (this_pin >= 16)
