@@ -1,9 +1,9 @@
 //
 // Input.cpp for Input in /home/riamon_v/rendu/CPP/cpp_nanotekspice/src/components
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
 // Last update Sun Feb  5 23:40:29 2017 Riamon Vincent
 //
@@ -65,7 +65,7 @@ std::map<size_t, size_t> Input::getLinks(void) const {
 }
 
 void Input::setValue(nts::Tristate value) {
-  if (value != nts::Tristate::FALSE || value != nts::Tristate::TRUE)
+  if (value == nts::Tristate::UNDEFINED)
     throw nts::InputException("Error Input: value must be 0 or 1");
   else
     _val = value;

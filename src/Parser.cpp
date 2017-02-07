@@ -11,8 +11,8 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
-#include "Parser.hpp"
 #include "Exception.hpp"
+#include "Parser.hpp"
 #include "StrUtils.hpp"
 
 nts::Parser::Parser() {

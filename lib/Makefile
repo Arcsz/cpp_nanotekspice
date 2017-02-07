@@ -35,7 +35,6 @@ SRC:=		components/Input.cpp \
 		gates/rand-4801.cpp \
 		gates/rdonly-2716.cpp \
 		Component.cpp \
-		Parser.cpp \
 		Exception.cpp \
 
 CXX:=		g++

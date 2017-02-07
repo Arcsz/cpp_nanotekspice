@@ -8,8 +8,8 @@
 // Last update Thu Feb  2 00:55:24 2017 David Zeng
 //
 
-#include "Exception.hpp"
 #include "Parser.hpp"
+#include "Exception.hpp"
 
 int main(int argc, char **argv) {
   if (argc < 2) {

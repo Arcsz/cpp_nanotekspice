@@ -10,9 +10,11 @@
 
 NAME:=		nanotekspice
 SRCDIR:=	src/
-INCLUDE:=	lib/include/
+INCLUDE:=	include/
 
-SRC:=		main.cpp
+SRC:=		main.cpp \
+		Circuit.cpp \
+		Parser.cpp \
 
 LIB:=		libnanotekspice.a
 
