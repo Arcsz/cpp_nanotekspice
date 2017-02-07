@@ -56,6 +56,14 @@ bool test7() {
   return testFileShouldThrow("test/normal.nts", false);
 }
 
+bool test8() {
+  return testFileShouldThrow("test/non_alphanum_comp.nts", true);
+}
+
+bool test9() {
+  return testFileShouldThrow("test/non_alphanum_link.nts", true);
+}
+
 // -------------------------------TEST ENGINE------------------------------------
 
 typedef std::function<bool()> TEST;
@@ -78,6 +86,8 @@ int main() {
     test(test5, "Missing link"),
     test(test6, "Double chipset"),
     test(test7, "Normal"),
+    test(test8, "Non alphanumeric component"),
+    test(test9, "Non alphanumeric link"),
   };
 
   int i = 1;

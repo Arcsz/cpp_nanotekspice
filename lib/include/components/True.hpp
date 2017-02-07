@@ -1,9 +1,9 @@
 //
 // True.hpp for True in /home/riamon_v/rendu/CPP/cpp_nanotekspice/include
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:33:49 2017 Riamon Vincent
 // Last update Mon Feb  6 17:36:56 2017 Riamon Vincent
 //
@@ -16,7 +16,7 @@
 namespace nts {
   class True : public nts::IComponent {
   public:
-    True();
+    True(Tristate val);
     virtual ~True();
     virtual nts::Tristate Compute(size_t this_pin = 1);
     virtual void SetLink(size_t this_pin,

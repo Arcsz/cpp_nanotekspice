@@ -1,9 +1,9 @@
 //
 // AND-4081.cpp for AND-4081 in /home/riamon_v/rendu/CPP/cpp_nanotekspice/lib/src/gates
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
 // Last update Mon Feb  6 11:21:47 2017 Riamon Vincent
 //
