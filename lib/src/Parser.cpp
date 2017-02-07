@@ -10,8 +10,10 @@
 
 #include <fstream>
 #include <sstream>
+#include <cctype>
 #include "Parser.hpp"
 #include "Exception.hpp"
+#include "StrUtils.hpp"
 
 nts::Parser::Parser() {
 }
@@ -23,16 +25,7 @@ void nts::Parser::feed(std::string const& input) {
   // delete comments
   std::string str = input.substr(0, input.find("#"));
 
-  // left trim and right trim
-  size_t startPos = str.find_first_not_of(" \t");
-  if (startPos != std::string::npos) {
-    str = str.substr(startPos);
-  }
-
-  size_t endPos = str.find_last_not_of(" \t");
-  if (endPos != std::string::npos) {
-    str = str.substr(0, endPos + 1);
-  }
+  str = StrUtils::trim(str);
 
   // check if it's not empty and doesn't only contain whitespace
   if (!str.empty() && str.find_first_not_of(" \t") != std::string::npos) {
@@ -92,8 +85,8 @@ void nts::Parser::dump(t_ast_node const *root) const {
 // -------------------------------PRIVATE---------------------------------------
 
 nts::t_ast_node *nts::Parser::createNode(std::string const& lexeme,
-				    ASTNodeType type,
-				    std::string const& value) {
+					 ASTNodeType type,
+					 std::string const& value) {
   t_ast_node *node = new t_ast_node(NULL);
 
   node->lexeme = lexeme;
@@ -112,6 +105,14 @@ void nts::Parser::pushNode(t_ast_node *node, t_ast_node *child) {
   }
 }
 
+void nts::Parser::throwRemain(std::stringstream& sstr) {
+  if (sstr.rdbuf()->in_avail() != 0) {
+    std::string remain;
+    getline(sstr, remain);
+    throw ParserException("Expected end of line but got: " + remain);
+  }
+}
+
 bool nts::Parser::parseChipset(t_ast_node *root) {
   if (_inputs.empty()) {
     return false;
@@ -125,12 +126,7 @@ bool nts::Parser::parseChipset(t_ast_node *root) {
 
   t_ast_node *chipsetNode = createNode(line, ASTNodeType::SECTION, "chipsets");
 
-  // check first component and push as many component as possible
-  if (_inputs.empty() || !parseComponent(chipsetNode)) {
-    throw ParserException("Expected at least 1 component"); // TODO CONFIRM THIS
-  } else {
-    while (!_inputs.empty() && parseComponent(chipsetNode));
-  }
+  while (!_inputs.empty() && parseComponent(chipsetNode));
 
   pushNode(root, chipsetNode);
   return true;
@@ -168,23 +164,20 @@ bool nts::Parser::parseComponent(t_ast_node *chipsets) {
   if (!(lineStream >> component) || !(lineStream >> name)) {
     return false;
   }
+  throwRemain(lineStream);
+  Option<std::string> value = getCompValue(line, name);
 
-  // throw exception if there is still smth in the stringstream
-  if (lineStream.rdbuf()->in_avail() != 0) {
-    std::string remain;
-    getline(lineStream, remain);
-    throw ParserException("Expected end of line but got: " + remain);
+  if (!StrUtils::isAlphaNum(name) || (value && !StrUtils::isAlphaNum(*value))) {
+    throw ParserException("Expected alphanumeric in line:\n" + line);
   }
-  Option<std::string> optValue = getCompValue(line, name);
 
   // create node and push them in chipsets
   t_ast_node *newLine = createNode(line, ASTNodeType::NEWLINE, "newline");
   pushNode(newLine, createNode(component, ASTNodeType::COMPONENT, "component"));
   pushNode(newLine, createNode(name, ASTNodeType::STRING, "name"));
-  if (optValue) {
-    pushNode(newLine, createNode(*optValue, ASTNodeType::STRING, "value"));
+  if (value) {
+    pushNode(newLine, createNode(*value, ASTNodeType::STRING, "value"));
   }
-
   // push this line into chipsets and pop this input
   pushNode(chipsets, newLine);
   _inputs.pop();
@@ -204,12 +197,7 @@ bool nts::Parser::parseLinks(t_ast_node *root) {
 
   t_ast_node *linksNode = createNode(line, ASTNodeType::SECTION, "links");
 
-  // check first link and push as many link as possible
-  if (_inputs.empty() || !parseLink(linksNode)) {
-    throw ParserException("Expected at least 1 link"); // TODO CONFIRM THIS
-  } else {
-    while (!_inputs.empty() && parseLink(linksNode));
-  }
+  while (!_inputs.empty() && parseLink(linksNode));
 
   pushNode(root, linksNode);
   return true;
@@ -221,6 +209,10 @@ nts::t_ast_node *nts::Parser::getLink(std::string const& str, ASTNodeType type) 
 
   if (name.empty() || pin.empty()) {
     throw ParserException("Syntax error while parsing link: " + str);
+  } else if (!StrUtils::isAlphaNum(name)) {
+    throw ParserException("Expected alphanumeric but got: " + name);
+  } else if (!StrUtils::isNumber(pin)) {
+    throw ParserException("Expected number but got: " + pin);
   }
 
   t_ast_node *link = createNode(str, type, "link");
@@ -241,12 +233,7 @@ bool nts::Parser::parseLink(t_ast_node *links) {
   if (!(lineStream >> link1) || !(lineStream >> link2)) {
     return false;
   }
-  // throw exception if there is still smth in the stringstream
-  if (lineStream.rdbuf()->in_avail() != 0) {
-    std::string remain;
-    getline(lineStream, remain);
-    throw ParserException("Expected end of line but got: " + remain);
-  }
+  throwRemain(lineStream);
 
   t_ast_node *newLine = createNode(line, ASTNodeType::NEWLINE, "newline");
   pushNode(newLine, getLink(link1, ASTNodeType::LINK));

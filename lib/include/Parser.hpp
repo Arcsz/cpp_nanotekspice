@@ -42,7 +42,7 @@ namespace nts {
   private:
     // create an ast_node
     t_ast_node *createNode(std::string const& lexeme, ASTNodeType type,
-				std::string const& value);
+			   std::string const& value);
 
     // push ast_node into another ast_node
     void pushNode(t_ast_node *node, t_ast_node *child);
@@ -61,11 +61,13 @@ namespace nts {
     Option<std::string> getCompValue(std::string const& line,
 				     std::string& name) const;
 
+    // check EOL
+    void throwRemain(std::stringstream& sstr);
+
   private:
     // list of input from feed()
     std::queue<std::string> _inputs;
-    // list of components and their name
-    std::map<IComponent*, std::string> _components;
+    // TODO add : circuit to execute
   };
 
 }

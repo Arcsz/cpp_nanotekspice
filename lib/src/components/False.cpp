@@ -1,16 +1,17 @@
 //
 // False.cpp for False in /home/riamon_v/rendu/CPP/cpp_nanotekspice/src/components
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
 // Last update Mon Feb  6 11:00:02 2017 Riamon Vincent
 //
 
 #include "components/False.hpp"
 
-False::False(){
+False::False(Tristate val) {
+  (void)val;
   _val = nts::Tristate::FALSE;
   _links[0] = 0;
   _pin[0] = NULL;

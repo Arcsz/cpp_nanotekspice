@@ -19,11 +19,9 @@ int main(int argc, char **argv) {
 
   try {
     nts::Parser parser;
-    // TODO: parse command line and give right arg to parser
     parser.parseFile(argv[1]);
     nts::t_ast_node *root = parser.createTree();
-    // TODO DELETE DUMP
-    parser.dump(root);
+    parser.dump(root); // TODO debug
   } catch (nts::Exception& e) {
     std::cerr << e.what() << std::endl;
   }

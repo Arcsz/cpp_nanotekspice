@@ -1,16 +1,17 @@
 //
 // True.cpp for True in /home/riamon_v/rendu/CPP/cpp_nanotekspice/src/components
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
 // Last update Mon Feb  6 11:00:41 2017 Riamon Vincent
 //
 
 #include "components/True.hpp"
 
-True::True(){
+True::True(Tristate val){
+  (void)val;
   _val = nts::Tristate::TRUE;
   _links[0] = 0;
   _pin[0] = NULL;

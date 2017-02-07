@@ -33,34 +33,31 @@
 # include "Jdecade-4017.hpp"
 
 namespace nts {
+
   class Component {
   public:
     Component();
     ~Component();
-    typedef nts::IComponent *(*CompFunction)(const std::string& value);
-    IComponent *createComponent(const std::string &type, const std::string &value);
+    IComponent *createComponent(std::string const& type,
+				std::string const& value) const;
+
+    typedef IComponent *(Component::*mkComp)(std::string const& value) const;
 
   private:
-    std::map<std::string, CompFunction> _functab;
-    static IComponent *createInput(const std::string& val);
-    static IComponent *createClock(const std::string& val);
-    static IComponent *createOutput(const std::string& val);
-    static IComponent *createTrue(const std::string& val);
-    static IComponent *createFalse(const std::string& val);
-    static IComponent *create4081(const std::string& val);
-    static IComponent *create4071(const std::string& val);
-    static IComponent *create4011(const std::string& val);
-    static IComponent *create4001(const std::string& val);
-    static IComponent *create4030(const std::string& val);
-    static IComponent *create4069(const std::string& val);
-    static IComponent *create4013(const std::string& val);
-    static IComponent *create4008(const std::string& val);
-    static IComponent *create4514(const std::string& val);
-    static IComponent *create4040(const std::string& val);
-    static IComponent *create4801(const std::string& val);
-    static IComponent *create2716(const std::string& val);
-    static IComponent *create4094(const std::string& val);
-    static IComponent *create4017(const std::string& val);
+    static const std::map<std::string, mkComp> _funcMap;
+
+    inline Tristate getTristate(std::string const& val) const {
+      if (val == "0")
+	return nts::Tristate::FALSE;
+      else if (val == "1")
+	return nts::Tristate::TRUE;
+      return nts::Tristate::UNDEFINED;
+    }
+
+    template<class T>
+    IComponent *newComp(std::string const& val) const {
+      return new T(getTristate(val));
+    }
   };
 }
 
