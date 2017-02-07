@@ -16,12 +16,13 @@
 # include "cpp_nanotekspice_parser.hpp"
 # include "IComponent.hpp"
 # include "Option.hpp"
+# include "Circuit.hpp"
 
 namespace nts {
 
   class Parser : public IParser {
   public:
-    Parser();
+    Parser(Circuit& circuit);
     ~Parser();
 
     // add input to inputstream
@@ -40,6 +41,8 @@ namespace nts {
     void dump(t_ast_node const *root) const;
 
   private:
+    // -------------------------------LEXER-------------------------------------
+
     // create an ast_node
     t_ast_node *createNode(std::string const& lexeme, ASTNodeType type,
 			   std::string const& value);
@@ -55,7 +58,7 @@ namespace nts {
     bool parseLinks(t_ast_node *root);
     bool parseLink(t_ast_node *line);
 
-    t_ast_node *getLink(std::string const& str, ASTNodeType type);
+    t_ast_node *getLinkNode(std::string const& str, ASTNodeType type);
 
     // parse value contained in parentheses
     Option<std::string> getCompValue(std::string const& line,
@@ -64,10 +67,21 @@ namespace nts {
     // check EOL
     void throwRemain(std::stringstream& sstr);
 
+    // -------------------------------PARSER------------------------------------
+
+    // get chipset
+    void getChipset(t_ast_node *chipset);
+    void getComponent(t_ast_node *component);
+
+    // get links
+    void getLinks(t_ast_node *chipset);
+    void getLink(t_ast_node *link);
+
   private:
     // list of input from feed()
     std::queue<std::string> _inputs;
-    // TODO add : circuit to execute
+    // circuit to execute
+    Circuit& _circuit;
   };
 
 }

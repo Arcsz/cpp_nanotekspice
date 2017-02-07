@@ -8,7 +8,7 @@
 // Last update Thu Feb  2 00:55:24 2017 David Zeng
 //
 
-#include "Parser.hpp"
+#include "Nts.hpp"
 #include "Exception.hpp"
 
 int main(int argc, char **argv) {
@@ -17,11 +17,9 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  nts::Nts nanotekspice;
   try {
-    nts::Parser parser;
-    parser.parseFile(argv[1]);
-    nts::t_ast_node *root = parser.createTree();
-    parser.dump(root); // TODO debug
+    nanotekspice.run({argv + 1, argv + argc});
   } catch (nts::Exception& e) {
     std::cerr << e.what() << std::endl;
   }

@@ -13,8 +13,9 @@ SRCDIR:=	src/
 INCLUDE:=	include/
 
 SRC:=		main.cpp \
-		Circuit.cpp \
+		Nts.cpp \
 		Parser.cpp \
+		Circuit.cpp \
 
 LIB:=		libnanotekspice.a
 

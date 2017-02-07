@@ -11,11 +11,11 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
-#include "Exception.hpp"
 #include "Parser.hpp"
+#include "Exception.hpp"
 #include "StrUtils.hpp"
 
-nts::Parser::Parser() {
+nts::Parser::Parser(Circuit& circuit) : _circuit(circuit) {
 }
 
 nts::Parser::~Parser() {
@@ -34,7 +34,8 @@ void nts::Parser::feed(std::string const& input) {
 }
 
 void nts::Parser::parseTree(t_ast_node& root) {
-
+  getChipset((*root.children)[0]);
+  getLinks((*root.children)[1]);
 }
 
 nts::t_ast_node *nts::Parser::createTree() {
@@ -203,7 +204,7 @@ bool nts::Parser::parseLinks(t_ast_node *root) {
   return true;
 }
 
-nts::t_ast_node *nts::Parser::getLink(std::string const& str, ASTNodeType type) {
+nts::t_ast_node *nts::Parser::getLinkNode(std::string const& str, ASTNodeType type) {
   std::string name = str.substr(0, str.find(':'));
   std::string pin = str.substr(str.find(':') + 1, str.size());
 
@@ -236,13 +237,40 @@ bool nts::Parser::parseLink(t_ast_node *links) {
   throwRemain(lineStream);
 
   t_ast_node *newLine = createNode(line, ASTNodeType::NEWLINE, "newline");
-  pushNode(newLine, getLink(link1, ASTNodeType::LINK));
-  pushNode(newLine, getLink(link2, ASTNodeType::LINK_END));
+  pushNode(newLine, getLinkNode(link1, ASTNodeType::LINK));
+  pushNode(newLine, getLinkNode(link2, ASTNodeType::LINK_END));
 
   pushNode(links, newLine);
   _inputs.pop();
   return true;
 }
+
+// --------------------------------PARSER---------------------------------------
+
+// get chipset
+void nts::Parser::getChipset(t_ast_node *chipset) {
+  if (!chipset->children) {
+    return;
+  }
+
+  for (t_ast_node *child : *chipset->children) {
+    getComponent(child);
+  }
+}
+
+void nts::Parser::getComponent(t_ast_node *component) {
+
+}
+
+// get links
+void nts::Parser::getLinks(t_ast_node *chipset) {
+
+}
+
+void nts::Parser::getLink(t_ast_node *link) {
+
+}
+
 
 std::ostream& operator<<(std::ostream& os, nts::t_ast_node node) {
   os << "lexeme: \"" << node.lexeme << "\" value: \"" << node.value << "\"";
