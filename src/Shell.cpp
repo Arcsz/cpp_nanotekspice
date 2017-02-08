@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Tue Feb  7 23:30:36 2017 Riamon Vincent
+// Last update Wed Feb  8 12:12:22 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -38,7 +38,8 @@ void nts::Shell::shell() {
   std::signal(SIGINT, ctrl_c_function);
   simulate();
   display();
-  while (getline(std::cin, line) && _run)
+  std::cout << "> ";
+  while (_run && getline(std::cin, line))
     {
       line = StrUtils::trim(line);
       if (!_cmdFunc.count(line))
@@ -47,19 +48,22 @@ void nts::Shell::shell() {
 	cmdFunc a = _cmdFunc.at(line);
         (this->*a)();
       }
-      std::cout << "> " << std::endl;
+      std::cout << "> ";
     }
 }
 
 void nts::Shell::exit() {
   _run = false;
+  std::cout << "exit run: " << _run << std::endl;
 }
 
 void nts::Shell::display() {
+  std::cout << "display" << std::endl;
   //TODO _circuit->outputDisplay()
 }
 
 void nts::Shell::simulate() {
+  std::cout << "simulate" << std::endl;
   //TODO _circuit->simulate()
 }
 
@@ -70,6 +74,7 @@ void nts::Shell::loop() {
 }
 
 void nts::Shell::dump() {
+  std::cout << "dump" << std::endl;
   //TODO _circuit->dump()
 }
 
