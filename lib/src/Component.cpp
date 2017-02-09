@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Fri Feb  3 14:29:39 2017 Riamon Vincent
-// Last update Thu Feb  9 01:15:26 2017 Riamon Vincent
+// Last update Thu Feb  9 15:47:04 2017 Riamon Vincent
 //
 
 #include "Component.hpp"
@@ -47,7 +47,7 @@ nts::Component::~Component() {
 nts::IComponent *nts::Component::createComponent(std::string const& type,
 						 std::string const& value) const {
   if (!_funcMap.count(type))
-    throw UnknowTypeException("Error Component: Unknow type name");
+    return NULL;
   mkComp func = _funcMap.at(type);
   return (this->*func)(value);
 }

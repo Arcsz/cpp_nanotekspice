@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Wed Feb  8 12:12:22 2017 Riamon Vincent
+// Last update Thu Feb  9 15:44:23 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -60,6 +60,7 @@ void nts::Shell::exit() {
 
 void nts::Shell::display() {
   std::cout << "display" << std::endl;
+  _circuit.outputDisplay();
   //TODO _circuit->outputDisplay()
 }
 

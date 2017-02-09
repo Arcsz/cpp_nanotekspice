@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Mon Jan 30 13:48:39 2017 Riamon Vincent
-// Last update Mon Feb  6 17:33:33 2017 Riamon Vincent
+// Last update Thu Feb  9 14:35:34 2017 Riamon Vincent
 //
 
 #ifndef ICOMPONENT_HPP_

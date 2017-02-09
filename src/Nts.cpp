@@ -13,7 +13,7 @@ void nts::Nts::run(std::vector<std::string> args) {
   args.erase(args.begin());
 
   nts::t_ast_node *root = _parser.createTree();
-  _parser.dump(root); // TODO debug
+  //  _parser.dump(root); // TODO debug
 
   _shell.shell();
   // for (std::string const& str : args) {

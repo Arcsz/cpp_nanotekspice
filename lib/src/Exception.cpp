@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb  4 21:09:08 2017 David Zeng
-// Last update Mon Feb  6 21:16:27 2017 Riamon Vincent
+// Last update Thu Feb  9 15:51:59 2017 Riamon Vincent
 //
 
 #include "Exception.hpp"
@@ -27,6 +27,9 @@ nts::OutputException::OutputException(std::string const& msg) : nts::Exception(m
 }
 
 nts::ChipsetException::ChipsetException(std::string const& msg) : nts::Exception(msg) {
+}
+
+nts::ComponentExistException::ComponentExistException(std::string const& msg) : nts::Exception(msg) {
 }
 
 nts::UnknowTypeException::UnknowTypeException(std::string const& msg) : nts::Exception(msg) {

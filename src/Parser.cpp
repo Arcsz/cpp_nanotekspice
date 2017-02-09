@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Thu Feb  2 00:55:07 2017 David Zeng
-// Last update Mon Feb  6 15:08:54 2017 Riamon Vincent
+// Last update Thu Feb  9 15:46:49 2017 Riamon Vincent
 //
 
 #include <fstream>
@@ -269,7 +269,9 @@ void nts::Parser::getComponent(t_ast_node *component) {
   }
 
   IComponent *comp = Component::getInstance().createComponent(type, val);
-  // TODO add comp to circuit
+  if (!comp)
+    throw UnknowTypeException("Error Component: Unknow type name");
+  _circuit.addComponent(type, name, comp);
 }
 
 // get links
