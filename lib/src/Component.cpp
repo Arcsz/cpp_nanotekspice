@@ -11,11 +11,11 @@
 #include "Component.hpp"
 
 const std::map<std::string, nts::Component::mkComp> nts::Component::_funcMap = {
-  {"Input",  &nts::Component::newComp<Input>},
-  {"Clock",  &nts::Component::newComp<Clock>},
-  {"Output", &nts::Component::newComp<Output>},
-  {"True",   &nts::Component::newComp<True>},
-  {"False",  &nts::Component::newComp<False>},
+  {"input",  &nts::Component::newComp<Input>},
+  {"clock",  &nts::Component::newComp<Clock>},
+  {"output", &nts::Component::newComp<Output>},
+  {"true",   &nts::Component::newComp<True>},
+  {"false",  &nts::Component::newComp<False>},
   {"4081",   &nts::Component::newComp<AND4081>},
   {"4071",   &nts::Component::newComp<OR4071>},
   {"4011",   &nts::Component::newComp<NAND4011>},

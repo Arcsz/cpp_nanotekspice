@@ -30,30 +30,34 @@ nts::Shell::~Shell() {
 
 void ctrl_c_function(int n) {
   (void)n;
-  if (nts::Shell::_loop == true)
+  if (nts::Shell::_loop == true) {
     nts::Shell::_loop = false;
-  else
-    std::cout << "> ";
+    std::cout << std::endl;
+  } else {
+    std::cout << "\n> " << std::flush;
+  }
 }
 
 void nts::Shell::shell() {
-  std::string line;
-
   std::signal(SIGINT, ctrl_c_function);
+
   simulate();
   display();
+
   std::cout << "> ";
-  while (_run && getline(std::cin, line))
-    {
-      line = StrUtils::trim(line);
-      if (!_cmdFunc.count(line))
-	std::cout << line << ": Command not found" << std::endl;
-      else {
-	cmdFunc a = _cmdFunc.at(line);
-        (this->*a)();
-      }
-      std::cout << "> ";
+  std::string line;
+  while (_run && getline(std::cin, line)) {
+    line = StrUtils::trim(line);
+
+    if (!_cmdFunc.count(line)) {
+      std::cout << line << ": Command not found" << std::endl;
+    } else {
+      cmdFunc a = _cmdFunc.at(line);
+      (this->*a)();
     }
+
+    std::cout << "> ";
+  }
 }
 
 void nts::Shell::exit() {
@@ -81,4 +85,4 @@ void nts::Shell::dump() {
 }
 
 void nts::Shell::setValue(std::string const& name, size_t val) const {
-};
+}

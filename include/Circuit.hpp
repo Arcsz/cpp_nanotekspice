@@ -24,6 +24,8 @@ namespace nts {
     void dump();
     void clockInverse();
 
+    void printComp() const;
+
   private:
     typedef std::unique_ptr<nts::IComponent> IComp;
     // map<name, comp>

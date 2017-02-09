@@ -1,9 +1,9 @@
 //
 // Circuit.cpp for Circuit in /home/riamon_v/rendu/CPP/cpp_nanotekspice
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Thu Feb  9 12:02:38 2017 Riamon Vincent
 // Last update Thu Feb  9 16:21:47 2017 Riamon Vincent
 //
@@ -62,5 +62,11 @@ void nts::Circuit::dump() {
   for (auto const& pair : _components) {
     std::cout << pair.second.first << ":" << std::endl;
     pair.second.second->Dump();
+  }
+}
+
+void nts::Circuit::printComp() const {
+  for (std::pair<std::string, std::pair<std::string, IComponent*>> pair : _components) {
+    std::cout << pair.first << ": " << pair.second.first << std::endl;
   }
 }

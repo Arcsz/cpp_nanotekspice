@@ -269,8 +269,10 @@ void nts::Parser::getComponent(t_ast_node *component) {
   }
 
   IComponent *comp = Component::getInstance().createComponent(type, val);
-  if (!comp)
-    throw UnknowTypeException("Error Component: Unknow type name");
+  if (!comp) {
+    throw UnknowTypeException("Error Component: Unknow type: "
+			      + type + ", name: " + name);
+  }
   _circuit.addComponent(type, name, comp);
 }
 
