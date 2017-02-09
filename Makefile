@@ -10,7 +10,10 @@
 
 NAME:=		nanotekspice
 SRCDIR:=	src/
-INCLUDE:=	include/
+INCLUDE:=	include/ \
+		lib/include \
+		lib/include/components \
+		lib/include/gates \
 
 SRC:=		main.cpp \
 		Nts.cpp \

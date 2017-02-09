@@ -4,6 +4,7 @@
 # include <memory>
 # include <map>
 # include <vector>
+# include <tuple>
 # include "IComponent.hpp"
 
 namespace nts {
@@ -12,12 +13,15 @@ namespace nts {
     Circuit();
     ~Circuit();
 
-    // take initial values
-    void takeInitValue(std::vector<std::string> const& vec);
+    std::tuple<std::string, std::string> getValue(std::string const& str);
+
+    // set value
+    void setValue(std::tuple<std::string, std::string> val);
 
   private:
-    // list of components and their name
-    std::map<std::string, std::unique_ptr<IComponent>> _components;
+    typedef std::unique_ptr<IComponent> IComp;
+    // map<name, comp>
+    std::map<std::string, std::pair<std::string, IComp>> _components;
   };
 }
 

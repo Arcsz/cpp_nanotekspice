@@ -1,9 +1,9 @@
 //
 // Shell.cpp for Shell in /home/riamon_v/rendu/CPP/cpp_nanotekspice/src
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
 // Last update Wed Feb  8 12:12:22 2017 Riamon Vincent
 //
@@ -21,7 +21,8 @@ const std::map<std::string, nts::Shell::cmdFunc> nts::Shell::_cmdFunc = {
   {"dump", &nts::Shell::dump},
 };
 
-nts::Shell::Shell() : _run(true), _circuit(*(new Circuit)) {
+nts::Shell::Shell(Circuit& circuit) : _run(true), _circuit(circuit) {
+  (void)_circuit; // TODO REMOVE
 }
 
 nts::Shell::~Shell() {
@@ -78,5 +79,5 @@ void nts::Shell::dump() {
   //TODO _circuit->dump()
 }
 
-void nts::Shell::setValue(std::string const& name, size_t const val) const {
+void nts::Shell::setValue(std::string const& name, size_t val) const {
 };

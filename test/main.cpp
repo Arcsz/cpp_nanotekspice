@@ -11,12 +11,14 @@
 #include <functional>
 #include "Parser.hpp"
 #include "Exception.hpp"
+#include "Circuit.hpp"
 
 // ---------------------------------TEST UTILS-----------------------------------
 
 bool testFileShouldThrow(std::string const& filename, bool should) {
   try {
-    nts::Parser parser;
+    Circuit circuit;
+    nts::Parser parser(circuit);
     parser.parseFile(filename);
     parser.createTree();
   } catch (nts::Exception const& e) {

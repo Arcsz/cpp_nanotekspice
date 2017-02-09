@@ -11,6 +11,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include "Component.hpp"
 #include "Parser.hpp"
 #include "Exception.hpp"
 #include "StrUtils.hpp"
@@ -28,7 +29,7 @@ void nts::Parser::feed(std::string const& input) {
   str = StrUtils::trim(str);
 
   // check if it's not empty and doesn't only contain whitespace
-  if (!str.empty() && str.find_first_not_of(" \t") != std::string::npos) {
+  if (!str.empty()) {
     _inputs.push(str);
   }
 }
@@ -259,16 +260,41 @@ void nts::Parser::getChipset(t_ast_node *chipset) {
 }
 
 void nts::Parser::getComponent(t_ast_node *component) {
+  std::string type = (*component->children)[0]->lexeme;
+  std::string name = (*component->children)[1]->lexeme; // TODO DON'T forget to use name
+  std::string val = "-1";
 
+  if ((*component->children).size() == 3) {
+    val = (*component->children)[2]->lexeme;
+  }
+
+  IComponent *comp = Component::getInstance().createComponent(type, val);
+  // TODO add comp to circuit
 }
 
 // get links
-void nts::Parser::getLinks(t_ast_node *chipset) {
+void nts::Parser::getLinks(t_ast_node *links) {
+  if (!links->children) {
+    return;
+  }
 
+  for (t_ast_node *child : *links->children) {
+    getLink(child);
+  }
 }
 
 void nts::Parser::getLink(t_ast_node *link) {
+  //link 1
+  t_ast_node *link1 = (*link->children)[0];
+  std::string comp1 = (*link1->children)[0]->lexeme;
+  std::string pin1 = (*link1->children)[1]->lexeme;
 
+  //link2
+  t_ast_node *link2 = (*link->children)[1];
+  std::string comp2 = (*link2->children)[0]->lexeme;
+  std::string pin2 = (*link2->children)[1]->lexeme;
+
+  // TODO link components to each other in circuit
 }
 
 

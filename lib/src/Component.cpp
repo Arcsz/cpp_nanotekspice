@@ -32,6 +32,11 @@ const std::map<std::string, nts::Component::mkComp> nts::Component::_funcMap = {
   {"4017",   &nts::Component::newComp<Jdecade4017>},
 };
 
+nts::Component nts::Component::_instance;
+
+Component nts::Component::getInstance() {
+  return _instance;
+}
 
 nts::Component::Component() {
 }

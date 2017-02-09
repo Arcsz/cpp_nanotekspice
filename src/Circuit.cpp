@@ -8,6 +8,10 @@ nts::Circuit::~Circuit() {
 
 }
 
-void nts::Circuit::takeInitValue(std::vector<std::string> const& vec) {
+std::tuple<std::string, std::string> nts::Circuit::getValue(std::string const& str) {
+
+}
+
+void nts::Circuit::setValue(std::tuple<std::string, std::string> val) {
 
 }

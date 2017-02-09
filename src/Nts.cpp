@@ -1,9 +1,8 @@
 #include "Nts.hpp"
 
-nts::Nts::Nts() : _parser(_circuit) {
+nts::Nts::Nts() : _shell(_circuit), _parser(_circuit) {
 
 }
-
 
 nts::Nts::~Nts() {
 

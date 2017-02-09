@@ -74,7 +74,7 @@ namespace nts {
     void getComponent(t_ast_node *component);
 
     // get links
-    void getLinks(t_ast_node *chipset);
+    void getLinks(t_ast_node *links);
     void getLink(t_ast_node *link);
 
   private:
