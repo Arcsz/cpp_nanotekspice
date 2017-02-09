@@ -17,7 +17,7 @@
 
 bool testFileShouldThrow(std::string const& filename, bool should) {
   try {
-    Circuit circuit;
+    nts::Circuit circuit;
     nts::Parser parser(circuit);
     parser.parseFile(filename);
     parser.createTree();

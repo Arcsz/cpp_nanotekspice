@@ -46,3 +46,6 @@ nts::FileException::FileException(std::string const& msg) : nts::Exception(msg) 
 
 nts::ParserException::ParserException(std::string const& msg) : nts::Exception(msg) {
 }
+
+nts::UnmodifiedException::UnmodifiedException(std::string const& msg) : nts::Exception(msg) {
+}

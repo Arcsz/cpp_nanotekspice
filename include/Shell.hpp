@@ -25,7 +25,6 @@ namespace nts {
     void simulate();
     void loop();
     void dump();
-    void setValue(std::string const& name, size_t const val) const;
     typedef void (Shell::*cmdFunc)();
 
   private:

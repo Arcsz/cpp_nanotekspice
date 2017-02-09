@@ -22,7 +22,6 @@ const std::map<std::string, nts::Shell::cmdFunc> nts::Shell::_cmdFunc = {
 };
 
 nts::Shell::Shell(Circuit& circuit) : _run(true), _circuit(circuit) {
-  (void)_circuit; // TODO REMOVE
 }
 
 nts::Shell::~Shell() {
@@ -50,7 +49,11 @@ void nts::Shell::shell() {
     line = StrUtils::trim(line);
 
     if (line.find('=') != std::string::npos) {
-      
+      try {
+	_circuit.setValue(line, true);
+      } catch (Exception const& e) {
+	std::cerr << e.what() << std::endl;
+      }
     }
     else if (!_cmdFunc.count(line)) {
       std::cout << line << ": Command not found" << std::endl;
@@ -82,7 +85,4 @@ void nts::Shell::loop() {
 
 void nts::Shell::dump() {
   _circuit.dump();
-}
-
-void nts::Shell::setValue(std::string const& name, size_t val) const {
 }

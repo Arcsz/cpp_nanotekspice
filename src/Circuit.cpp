@@ -9,8 +9,8 @@
 //
 
 #include "Circuit.hpp"
-#include "Output.hpp"
-#include "Clock.hpp"
+#include "StrUtils.hpp"
+#include "Component.hpp"
 
 nts::Circuit::Circuit() {
 
@@ -20,12 +20,28 @@ nts::Circuit::~Circuit() {
 
 }
 
-std::pair<std::string, std::string> nts::Circuit::getValue(std::string const& str) {
+void nts::Circuit::setValue(std::string const& str, bool isShell) {
+  std::string name = str.substr(0, str.find('='));
+  std::string value = str.substr(str.find('=') + 1, str.size());
 
-}
+  if (_components.count(name) == 0) {
+    throw ComponentNotFoundException("Component not found: " + name);
+  } else if ((isShell && _components[name].first != "input") ||
+	     (!isShell && _components[name].first != "input" &&
+	      _components[name].first != "clock")) {
+    throw UnmodifiedException("Component: " + name + " of type: " +
+			      _components[name].first + " can't be modified");
+  }
 
-void nts::Circuit::setValue(std::pair<std::string, std::string> val) {
-
+  IComponent *comp = _components[name].second;
+  if (_components[name].first == "input") {
+    Input *input = static_cast<Input*>(comp);
+    input->setValue(Component::getTristate(value));
+  } else {
+    Clock *clock = static_cast<Clock*>(comp);
+    clock->setValue(Component::getTristate(value));
+  }
+  // std::map<std::string, std::pair<std::string, IComponent*>> _components;
 }
 
 void nts::Circuit::addComponent(std::string const& type, std::string const& name,

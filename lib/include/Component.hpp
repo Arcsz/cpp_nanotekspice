@@ -43,19 +43,19 @@ namespace nts {
 
     static Component getInstance();
 
-  private:
-    Component();
-    static Component _instance;
-
-    static const std::map<std::string, mkComp> _funcMap;
-
-    inline Tristate getTristate(std::string const& val) const {
+    static inline Tristate getTristate(std::string const& val) {
       if (val == "0")
 	return nts::Tristate::FALSE;
       else if (val == "1")
 	return nts::Tristate::TRUE;
       return nts::Tristate::UNDEFINED;
     }
+
+  private:
+    Component();
+    static Component _instance;
+
+    static const std::map<std::string, mkComp> _funcMap;
 
     template<class T>
     IComponent *newComp(std::string const& val) const {

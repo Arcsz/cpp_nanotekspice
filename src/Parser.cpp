@@ -261,7 +261,7 @@ void nts::Parser::getChipset(t_ast_node *chipset) {
 
 void nts::Parser::getComponent(t_ast_node *component) {
   std::string type = (*component->children)[0]->lexeme;
-  std::string name = (*component->children)[1]->lexeme; // TODO DON'T forget to use name
+  std::string name = (*component->children)[1]->lexeme;
   std::string val = "-1";
 
   if ((*component->children).size() == 3) {
@@ -302,7 +302,6 @@ void nts::Parser::getLink(t_ast_node *link) {
   size_t pin2;
   pin2Stream >> pin2;
 
-  // TODO link components to each other in circuit
   _circuit.setLink(comp1, pin1, comp2, pin2);
 }
 

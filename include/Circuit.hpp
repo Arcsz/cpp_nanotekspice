@@ -13,10 +13,8 @@ namespace nts {
     Circuit();
     ~Circuit();
 
-    std::pair<std::string, std::string> getValue(std::string const& str);
-
     // set value
-    void setValue(std::pair<std::string, std::string> val);
+    void setValue(std::string const& str, bool isShell);
     void addComponent(std::string const&, std::string const&, IComponent *);
     void setLink(std::string const& name1, size_t pin1,
 		 std::string const& name2, size_t pin2);

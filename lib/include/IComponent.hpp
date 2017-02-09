@@ -34,7 +34,8 @@ namespace nts {
   };
 
   inline std::string pinError(std::string const& name, size_t pin) {
-    return std::string(name + ": Error Pin: Pin " + std::to_string(pin) + " doesn't exist");
+    return std::string(name + ": Error Pin: Pin " +
+		       std::to_string(pin) + " doesn't exist");
   }
 }
 

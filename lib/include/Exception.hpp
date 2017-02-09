@@ -62,6 +62,11 @@ namespace nts {
     PinException(std::string const& msg);
   };
 
+  class UnmodifiedException : public Exception {
+  public:
+    UnmodifiedException(std::string const& msg);
+  };
+
   /**
    * File not found / can't be opened
    */
