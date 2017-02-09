@@ -30,12 +30,22 @@ void nts::Circuit::setValue(std::pair<std::string, std::string> val) {
 
 void nts::Circuit::addComponent(std::string const& type, std::string const& name,
 				nts::IComponent *comp) {
-  if (_components.count(name) > 0)
-    throw ComponentExistException("Element already exist");
+  if (_components.count(name) > 0) {
+    throw ComponentExistException("Component already exist: " + name);
+  }
   _components[name] = std::make_pair(type, comp);
 }
 
-void nts::Circuit::setLink() {
+void nts::Circuit::setLink(std::string const& name1, size_t pin1,
+			   std::string const& name2, size_t pin2) {
+  if (_components.count(name1) == 0) {
+    throw ComponentNotFoundException("Component not found: " + name1);
+  } else if (_components.count(name2) == 0) {
+    throw ComponentNotFoundException("Component not found: " + name2);
+  }
+  IComponent *comp1 = _components[name1].second;
+  IComponent *comp2 = _components[name2].second;
+  comp1->SetLink(pin1, *comp2, pin2);
 }
 
 void nts::Circuit::outputDisplay() {
@@ -72,7 +82,7 @@ void nts::Circuit::dump() {
 }
 
 void nts::Circuit::printComp() const {
-  for (std::pair<std::string, std::pair<std::string, IComponent*>> pair : _components) {
+  for (auto const& pair : _components) {
     std::cout << pair.first << ": " << pair.second.first << std::endl;
   }
 }

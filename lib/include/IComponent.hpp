@@ -11,10 +11,10 @@
 #ifndef ICOMPONENT_HPP_
 # define ICOMPONENT_HPP_
 
-#include <sstream>
-#include <iostream>
-#include <map>
-#include "Exception.hpp"
+# include <sstream>
+# include <iostream>
+# include <map>
+# include "Exception.hpp"
 
 namespace nts {
   enum Tristate {
@@ -23,15 +23,19 @@ namespace nts {
     FALSE = false
   };
 
-    class IComponent {
-    public:
-      virtual nts::Tristate Compute(size_t pin_num_this = 1) = 0;
-      virtual void SetLink(size_t pin_num_this,
-			   nts::IComponent& component,
-			   size_t pin_num_target) = 0;
-      virtual void Dump(void) const = 0;
-      virtual ~IComponent(void) {}
-    };
+  class IComponent {
+  public:
+    virtual nts::Tristate Compute(size_t pin_num_this = 1) = 0;
+    virtual void SetLink(size_t pin_num_this,
+			 nts::IComponent& component,
+			 size_t pin_num_target) = 0;
+    virtual void Dump(void) const = 0;
+    virtual ~IComponent(void) {}
+  };
+
+  inline std::string pinError(std::string const& name, size_t pin) {
+    return std::string(name + ": Error Pin: Pin " + std::to_string(pin) + " doesn't exist");
+  }
 }
 
 using namespace nts;

@@ -270,7 +270,7 @@ void nts::Parser::getComponent(t_ast_node *component) {
 
   IComponent *comp = Component::getInstance().createComponent(type, val);
   if (!comp) {
-    throw UnknowTypeException("Error Component: Unknow type: "
+    throw UnknownTypeException("Error Component: Unknown type: "
 			      + type + ", name: " + name);
   }
   _circuit.addComponent(type, name, comp);
@@ -291,14 +291,19 @@ void nts::Parser::getLink(t_ast_node *link) {
   //link 1
   t_ast_node *link1 = (*link->children)[0];
   std::string comp1 = (*link1->children)[0]->lexeme;
-  std::string pin1 = (*link1->children)[1]->lexeme;
+  std::stringstream pin1Stream((*link1->children)[1]->lexeme);
+  size_t pin1;
+  pin1Stream >> pin1;
 
-  //link2
+  //link 2
   t_ast_node *link2 = (*link->children)[1];
   std::string comp2 = (*link2->children)[0]->lexeme;
-  std::string pin2 = (*link2->children)[1]->lexeme;
+  std::stringstream pin2Stream((*link2->children)[1]->lexeme);
+  size_t pin2;
+  pin2Stream >> pin2;
 
   // TODO link components to each other in circuit
+  _circuit.setLink(comp1, pin1, comp2, pin2);
 }
 
 

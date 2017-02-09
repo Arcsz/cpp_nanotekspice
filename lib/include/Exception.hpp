@@ -37,14 +37,19 @@ namespace nts {
     OutputException(std::string const& msg);
   };
 
-  class UnknowTypeException : public Exception {
+  class UnknownTypeException : public Exception {
   public:
-    UnknowTypeException(std::string const& msg);
+    UnknownTypeException(std::string const& msg);
   };
 
   class ComponentExistException : public Exception {
   public:
     ComponentExistException(std::string const& msg);
+  };
+
+  class ComponentNotFoundException : public Exception {
+  public:
+    ComponentNotFoundException(std::string const& msg);
   };
 
   class ChipsetException : public Exception {
