@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 20:04:28 2017 Riamon Vincent
+// Last update Thu Feb  9 21:35:36 2017 Riamon Vincent
 //
 
 #include "components/False.hpp"
@@ -59,9 +59,9 @@ std::map<size_t, size_t> False::getLinks(void) const {
   return _links;
 }
 
-void Input::setValue(nts::Tristate value) {
-  if (value == nts::Tristate::UNDEFINED)
-    throw nts::InputException("Error False: value must be 0 or 1");
-  else
-    _val = value;
-}
+// void Input::setValue(nts::Tristate value) {
+//   if (value == nts::Tristate::UNDEFINED)
+//     throw nts::InputException("Error False: value must be 0 or 1");
+//   else
+//     _val = value;
+// }

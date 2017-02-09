@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 20:03:33 2017 Riamon Vincent
+// Last update Thu Feb  9 21:35:24 2017 Riamon Vincent
 //
 
 #include "components/True.hpp"
@@ -59,9 +59,9 @@ std::map<size_t, size_t> True::getLinks(void) const {
   return _links;
 }
 
-void Input::setValue(nts::Tristate value) {
-  if (value == nts::Tristate::UNDEFINED)
-    throw nts::InputException("Error Input: value must be 0 or 1");
-  else
-    _val = value;
-}
+// void Input::setValue(nts::Tristate value) {
+//   if (value == nts::Tristate::UNDEFINED)
+//     throw nts::InputException("Error Input: value must be 0 or 1");
+//   else
+//     _val = value;
+// }
