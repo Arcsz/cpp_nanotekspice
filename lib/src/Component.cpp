@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Fri Feb  3 14:29:39 2017 Riamon Vincent
-// Last update Thu Feb  9 16:00:40 2017 Riamon Vincent
+// Last update Thu Feb  9 21:45:34 2017 Riamon Vincent
 //
 
 #include "Component.hpp"
@@ -34,7 +34,7 @@ const std::map<std::string, nts::Component::mkComp> nts::Component::_funcMap = {
 
 nts::Component nts::Component::_instance;
 
-Component nts::Component::getInstance() {
+nts::Component nts::Component::getInstance() {
   return _instance;
 }
 

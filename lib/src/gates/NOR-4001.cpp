@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 18:36:21 2017 Riamon Vincent
+// Last update Thu Feb  9 21:39:05 2017 Riamon Vincent
 //
 
 #include "NOR-4001.hpp"
 
-NOR4001::NOR4001(__attribute__((unused))nts::Tristate val) {
+nts::NOR4001::NOR4001(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i < 14; i++)
     _pins[i] = NULL;
   _outputs[3] = std::make_pair(1, 2);
@@ -19,7 +19,7 @@ NOR4001::NOR4001(__attribute__((unused))nts::Tristate val) {
   _outputs[11] = std::make_pair(12, 13);
 }
 
-NOR4001::~NOR4001() {
+nts::NOR4001::~NOR4001() {
 }
 
 static int isInput(size_t pin) {
@@ -31,7 +31,7 @@ static int isInput(size_t pin) {
   return (-1);
 }
 
-void NOR4001::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::NOR4001::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 14) {
     throw nts::PinException(nts::pinError("C4001", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
@@ -46,11 +46,11 @@ void NOR4001::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin)
   }
 }
 
-nts::Tristate NOR4001::nor_gate(size_t first_pin, size_t second_pin) const {
+nts::Tristate nts::NOR4001::nor_gate(size_t first_pin, size_t second_pin) const {
   return (static_cast<nts::Tristate>(!(first_pin || second_pin)));
 }
 
-nts::Tristate NOR4001::Compute(size_t this_pin) {
+nts::Tristate nts::NOR4001::Compute(size_t this_pin) {
   if (this_pin > 14) {
     throw nts::PinException(nts::pinError("C4001", this_pin));
   }
@@ -61,7 +61,7 @@ nts::Tristate NOR4001::Compute(size_t this_pin) {
   return (nts::Tristate::UNDEFINED);
 }
 
-nts::Tristate NOR4001::calcInput(size_t this_pin) {
+nts::Tristate nts::NOR4001::calcInput(size_t this_pin) {
   if (!_pins[this_pin - 1])
     return nts::Tristate::UNDEFINED;
   if (!isInput(this_pin))
@@ -69,7 +69,7 @@ nts::Tristate NOR4001::calcInput(size_t this_pin) {
   return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
 }
 
-nts::Tristate NOR4001::calcOutput(size_t this_pin) {
+nts::Tristate nts::NOR4001::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
 
@@ -83,7 +83,7 @@ nts::Tristate NOR4001::calcOutput(size_t this_pin) {
 		 _pins[second_pin - 1]->Compute(_links[second_pin - 1]));
 }
 
-void NOR4001::Dump(void) const {
+void nts::NOR4001::Dump(void) const {
   std::cout << "4081 - AND gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
       std::cout << "\tpin n°" << i + 1 << "= ";

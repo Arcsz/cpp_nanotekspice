@@ -5,15 +5,15 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 18:48:46 2017 Riamon Vincent
+// Last update Thu Feb  9 21:43:06 2017 Riamon Vincent
 //
 
 #include "register-4094.hpp"
 
-register4094::register4094(__attribute__((unused))nts::Tristate val) {
+nts::register4094::register4094(__attribute__((unused))nts::Tristate val) {
 }
 
-register4094::~register4094() {
+nts::register4094::~register4094() {
 }
 
 static int isInput(size_t pin) {
@@ -25,7 +25,7 @@ static int isInput(size_t pin) {
   return (-1);
 }
 
-void register4094::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::register4094::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 14) {
     throw nts::PinException(nts::pinError("C4094", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
@@ -40,18 +40,18 @@ void register4094::SetLink(size_t this_pin, nts::IComponent& comp, size_t target
   }
 }
 
-nts::Tristate register4094::nand_gate(size_t first_pin, size_t second_pin) const {
+nts::Tristate nts::register4094::nand_gate(size_t first_pin, size_t second_pin) const {
   return (static_cast<nts::Tristate>(!(first_pin && second_pin)));
 }
 
-nts::Tristate register4094::Compute(size_t this_pin) {
+nts::Tristate nts::register4094::Compute(size_t this_pin) {
   if (this_pin > 14) {
     throw nts::PinException(nts::pinError("C4094", this_pin));
   }
   return (nts::Tristate::UNDEFINED);
 }
 
-nts::Tristate register4094::calcInput(size_t this_pin) {
+nts::Tristate nts::register4094::calcInput(size_t this_pin) {
   if (!_pins[this_pin - 1])
     return nts::Tristate::UNDEFINED;
   if (!isInput(this_pin))
@@ -59,7 +59,7 @@ nts::Tristate register4094::calcInput(size_t this_pin) {
   return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
 }
 
-nts::Tristate register4094::calcOutput(size_t this_pin) {
+nts::Tristate nts::register4094::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
 
@@ -73,7 +73,7 @@ nts::Tristate register4094::calcOutput(size_t this_pin) {
 		   _pins[second_pin - 1]->Compute(_links[second_pin - 1]));
 }
 
-void register4094::Dump(void) const {
+void nts::register4094::Dump(void) const {
   std::cout << "4094 - register gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";

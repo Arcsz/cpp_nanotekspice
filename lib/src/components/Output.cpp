@@ -5,22 +5,22 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 18:01:50 2017 Riamon Vincent
+// Last update Thu Feb  9 21:25:46 2017 Riamon Vincent
 //
 
 #include "components/Output.hpp"
 
-Output::Output(Tristate val) {
+nts::Output::Output(Tristate val) {
   (void)val;
   _val = nts::Tristate::UNDEFINED;
   _links[0] = 0;
   _pin[0] = NULL;
 }
 
-Output::~Output() {
+nts::Output::~Output() {
 }
 
-nts::Tristate Output::Compute(size_t this_pin) {
+nts::Tristate nts::Output::Compute(size_t this_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("Output", this_pin));
   }
@@ -31,7 +31,7 @@ nts::Tristate Output::Compute(size_t this_pin) {
   throw nts::OutputException("Output not link");
 }
 
-void Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("Output", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
@@ -46,7 +46,7 @@ void Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) 
   }
 }
 
-void Output::Dump(void) const {
+void nts::Output::Dump(void) const {
   std::cout << "Output:" << std::endl;
   std::cout << "\tvalue= " << _val << std::endl;
   if (_pin[0] == NULL)
@@ -55,11 +55,11 @@ void Output::Dump(void) const {
     std::cout << "\tpin n°1= Linked" << std::endl;
 }
 
-nts::Tristate Output::getValue(void) const {
+nts::Tristate nts::Output::getValue(void) const {
   return _val;
 }
 
-std::map<size_t, size_t> Output::getLinks(void) const {
+std::map<size_t, size_t> nts::Output::getLinks(void) const {
   return _links;
 }
 
