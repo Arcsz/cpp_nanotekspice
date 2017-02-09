@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Fri Feb  3 14:29:39 2017 Riamon Vincent
-// Last update Tue Feb  7 14:53:04 2017 Riamon Vincent
+// Last update Thu Feb  9 01:15:26 2017 Riamon Vincent
 //
 
 #include "Component.hpp"
