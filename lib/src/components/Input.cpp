@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Sun Feb  5 23:40:29 2017 Riamon Vincent
+// Last update Thu Feb  9 17:48:57 2017 Riamon Vincent
 //
 
 #include "Input.hpp"
@@ -20,20 +20,20 @@ Input::~Input() {
 }
 
 nts::Tristate Input::Compute(size_t this_pin) {
-  if (this_pin >= 1) {
+  if (this_pin > 1) {
     std::stringstream ss;
 
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    ss << "Input: Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
     throw nts::PinException(ss.str());
   }
   return _val;
 }
 
 void Input::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 1) {
+  if (this_pin > 1) {
     std::stringstream ss;
 
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    ss << "Input: Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
     throw nts::PinException(ss.str());
   } else if (_pin[this_pin - 1] == NULL) {
     _pin[this_pin - 1] = &comp;

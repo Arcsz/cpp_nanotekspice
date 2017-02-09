@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Thu Feb  9 16:30:19 2017 Riamon Vincent
+// Last update Thu Feb  9 17:14:44 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -70,14 +70,14 @@ void nts::Shell::display() {
 }
 
 void nts::Shell::simulate() {
-  std::cout << "simulate" << std::endl;
-  //TODO _circuit->simulate()
+  //std::cout << "simulate" << std::endl;
+  _circuit.simulate();
 }
 
 void nts::Shell::loop() {
   nts::Shell::_loop = true;
-  while (nts::Shell::_loop);
-    //TODO simulate();
+  while (nts::Shell::_loop)
+    _circuit.simulate();
 }
 
 void nts::Shell::dump() {

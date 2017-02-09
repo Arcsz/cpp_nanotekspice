@@ -16,7 +16,7 @@ void nts::Nts::run(std::vector<std::string> args) {
   _parser.parseTree(*root);
   //  _parser.dump(root); // TODO debug
 
-  _circuit.printComp();
+  //  _circuit.printComp();
   _shell.shell();
   // for (std::string const& str : args) {
   //   std::cout << str << std::endl;

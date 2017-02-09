@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Thu Feb  9 12:02:38 2017 Riamon Vincent
-// Last update Thu Feb  9 16:21:47 2017 Riamon Vincent
+// Last update Thu Feb  9 17:57:32 2017 Riamon Vincent
 //
 
 #include "Circuit.hpp"
@@ -48,6 +48,12 @@ void nts::Circuit::outputDisplay() {
 }
 
 void nts::Circuit::simulate() {
+  for (auto const& pair : _components) {
+    if (pair.second.first == "output") {
+      (static_cast<Output *>(pair.second.second))->Compute();
+    }
+  }
+  clockInverse();
 }
 
 void nts::Circuit::clockInverse() {
