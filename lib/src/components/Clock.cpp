@@ -5,28 +5,28 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 20:04:12 2017 Riamon Vincent
+// Last update Thu Feb  9 21:44:54 2017 Riamon Vincent
 //
 
 #include "components/Clock.hpp"
 
-Clock::Clock(nts::Tristate val){
+nts::Clock::Clock(nts::Tristate val){
   _val = val;
   _pin[0] = NULL;
   _links[0] = 0;
 }
 
-Clock::~Clock() {
+nts::Clock::~Clock() {
 }
 
-nts::Tristate Clock::Compute(size_t this_pin) {
+nts::Tristate nts::Clock::Compute(size_t this_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("Clock", this_pin));
   }
   return _val;
 }
 
-void Clock::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::Clock::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 1) {
    throw nts::PinException(nts::pinError("Clock", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
@@ -41,7 +41,7 @@ void Clock::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   }
 }
 
-void Clock::Dump(void) const {
+void nts::Clock::Dump(void) const {
   std::cout << "Clock:" << std::endl;
   std::cout << "\tvalue= " << _val << std::endl;
   if (_pin[0] == NULL)
@@ -50,21 +50,21 @@ void Clock::Dump(void) const {
     std::cout << "\tpin n°1= Linked" << std::endl;
 }
 
-void Clock::inverted(void) {
+void nts::Clock::inverted(void) {
   if (_val == nts::Tristate::UNDEFINED)
     return ;
   _val = ((_val == nts::Tristate::TRUE) ? nts::Tristate::FALSE : nts::Tristate::TRUE);
 }
 
-nts::Tristate Clock::getValue(void) const {
+nts::Tristate nts::Clock::getValue(void) const {
   return _val;
 }
 
-std::map<size_t, size_t> Clock::getLinks(void) const {
+std::map<size_t, size_t> nts::Clock::getLinks(void) const {
   return _links;
 }
 
-void Clock::setValue(nts::Tristate value) {
+void nts::Clock::setValue(nts::Tristate value) {
   if (value == nts::UNDEFINED)
     throw nts::InputException("Error Clock: value must be 0 or 1");
   else

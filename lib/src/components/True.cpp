@@ -5,29 +5,29 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 21:35:24 2017 Riamon Vincent
+// Last update Thu Feb  9 21:47:46 2017 Riamon Vincent
 //
 
 #include "components/True.hpp"
 
-True::True(Tristate val){
+nts::True::True(Tristate val){
   (void)val;
   _val = nts::Tristate::TRUE;
   _links[0] = 0;
   _pin[0] = NULL;
 }
 
-True::~True() {
+nts::True::~True() {
 }
 
-nts::Tristate True::Compute(size_t this_pin) {
+nts::Tristate nts::True::Compute(size_t this_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("True", this_pin));
   }
   return _val;
 }
 
-void True::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::True::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("True", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
@@ -42,7 +42,7 @@ void True::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   }
 }
 
-void True::Dump(void) const {
+void nts::True::Dump(void) const {
   std::cout << "True:" << std::endl;
   std::cout << "\tvalue= " << _val << std::endl;
   if (_pin[0] == NULL)
@@ -51,11 +51,11 @@ void True::Dump(void) const {
     std::cout << "\tpin n°1= Linked" << std::endl;
 }
 
-nts::Tristate True::getValue(void) const {
+nts::Tristate nts::True::getValue(void) const {
   return _val;
 }
 
-std::map<size_t, size_t> True::getLinks(void) const {
+std::map<size_t, size_t> nts::True::getLinks(void) const {
   return _links;
 }
 

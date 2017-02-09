@@ -5,28 +5,28 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 17:59:45 2017 Riamon Vincent
+// Last update Thu Feb  9 21:44:05 2017 Riamon Vincent
 //
 
 #include "Input.hpp"
 
-Input::Input(nts::Tristate val){
+nts::Input::Input(nts::Tristate val){
   _val = val;
   _pin[0] = NULL;
   _links[0] = 0;
 }
 
-Input::~Input() {
+nts::Input::~Input() {
 }
 
-nts::Tristate Input::Compute(size_t this_pin) {
+nts::Tristate nts::Input::Compute(size_t this_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("Input", this_pin));
   }
   return _val;
 }
 
-void Input::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::Input::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 1) {
     throw nts::PinException(nts::pinError("Input", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
@@ -41,7 +41,7 @@ void Input::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   }
 }
 
-void Input::Dump(void) const {
+void nts::Input::Dump(void) const {
   std::cout << "Input:" << std::endl;
   std::cout << "\tvalue= " << _val << std::endl;
   if (_pin[0] == NULL)
@@ -50,15 +50,15 @@ void Input::Dump(void) const {
     std::cout << "\tpin n°1= Linked" << std::endl;
 }
 
-nts::Tristate Input::getValue(void) const {
+nts::Tristate nts::Input::getValue(void) const {
   return _val;
 }
 
-std::map<size_t, size_t> Input::getLinks(void) const {
+std::map<size_t, size_t> nts::Input::getLinks(void) const {
   return _links;
 }
 
-void Input::setValue(nts::Tristate value) {
+void nts::Input::setValue(nts::Tristate value) {
   if (value == nts::Tristate::UNDEFINED)
     throw nts::InputException("Error Input: value must be 0 or 1");
   else

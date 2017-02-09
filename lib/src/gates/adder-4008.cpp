@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 18:49:20 2017 Riamon Vincent
+// Last update Thu Feb  9 21:31:01 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
 
-adder4008::adder4008(__attribute__((unused))nts::Tristate val) {
+nts::adder4008::adder4008(__attribute__((unused))nts::Tristate val) {
   for (int i = 0; i <= 16; i++)
     _pins[i] = NULL;
   _outputs[10] = std::make_pair(6, 7);
@@ -19,7 +19,7 @@ adder4008::adder4008(__attribute__((unused))nts::Tristate val) {
   _outputs[13] = std::make_pair(1, 15);
 }
 
-adder4008::~adder4008() {
+nts::adder4008::~adder4008() {
 }
 
 static int isInput(size_t pin) {
@@ -33,7 +33,7 @@ static int isInput(size_t pin) {
   return (-1);
 }
 
-void adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
+void nts::adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
   if (this_pin > 16) {
     throw nts::PinException(nts::pinError("C4008", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
@@ -48,14 +48,14 @@ void adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pi
   }
 }
 
-nts::Tristate adder4008::add_gate(size_t first_pin, size_t second_pin,
+nts::Tristate nts::adder4008::add_gate(size_t first_pin, size_t second_pin,
 				  nts::Tristate& carry) const {
   char res = (char)first_pin + (char)second_pin + (char)carry;
   carry = static_cast<nts::Tristate>(res >> 1);
   return static_cast<nts::Tristate>(res & 1);
 }
 
-nts::Tristate adder4008::Compute(size_t this_pin) {
+nts::Tristate nts::adder4008::Compute(size_t this_pin) {
   if (this_pin > 16) {
     throw nts::PinException(nts::pinError("C4008", this_pin));
   }
@@ -68,7 +68,7 @@ nts::Tristate adder4008::Compute(size_t this_pin) {
   return (nts::Tristate::UNDEFINED);
 }
 
-nts::Tristate adder4008::calcInput(size_t this_pin) {
+nts::Tristate nts::adder4008::calcInput(size_t this_pin) {
   if (!_pins[this_pin - 1])
     return nts::Tristate::UNDEFINED;
   if (!isInput(this_pin))
@@ -76,7 +76,7 @@ nts::Tristate adder4008::calcInput(size_t this_pin) {
   return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
 }
 
-nts::Tristate adder4008::calcOutput(size_t this_pin) {
+nts::Tristate nts::adder4008::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
   unsigned int i = 9;
@@ -102,7 +102,7 @@ nts::Tristate adder4008::calcOutput(size_t this_pin) {
   return (res);
 }
 
-nts::Tristate adder4008::calcCarryOut(size_t this_pin) {
+nts::Tristate nts::adder4008::calcCarryOut(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
   unsigned int i = 9;
@@ -125,7 +125,7 @@ nts::Tristate adder4008::calcCarryOut(size_t this_pin) {
   return (carry);
 }
 
-void adder4008::Dump(void) const {
+void nts::adder4008::Dump(void) const {
   std::cout << "4008 - adder gate:" << std::endl;
   for (int i = 0;  i < 16; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
