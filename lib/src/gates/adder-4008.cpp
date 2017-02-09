@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Tue Feb  7 22:03:55 2017 Riamon Vincent
+// Last update Thu Feb  9 18:49:20 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
@@ -34,11 +34,8 @@ static int isInput(size_t pin) {
 }
 
 void adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 16) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 16) {
+    throw nts::PinException(nts::pinError("C4008", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
     _links[this_pin - 1] = target_pin;
@@ -59,11 +56,8 @@ nts::Tristate adder4008::add_gate(size_t first_pin, size_t second_pin,
 }
 
 nts::Tristate adder4008::Compute(size_t this_pin) {
-  if (this_pin >= 16) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 16) {
+    throw nts::PinException(nts::pinError("C4008", this_pin));
   }
   if (isInput(this_pin))
     return (this->calcInput(this_pin));
@@ -71,7 +65,7 @@ nts::Tristate adder4008::Compute(size_t this_pin) {
     return (this->calcOutput(this_pin));
   else if (isInput(this_pin) == 2)
     return (this->calcCarryOut(this_pin));
-  return (nts::Tristate::UNDEFINED); //TODO 14 et 7 considered UNDEFINED ?
+  return (nts::Tristate::UNDEFINED);
 }
 
 nts::Tristate adder4008::calcInput(size_t this_pin) {
@@ -95,7 +89,7 @@ nts::Tristate adder4008::calcOutput(size_t this_pin) {
     carry = _pins[8]->Compute(_links[8]);
   while (++i < this_pin)
     {
-      if (this_pin < 16)
+      if (this_pin <= 16)
 	{
 	  first_pin = _outputs[this_pin].first;
 	  second_pin = _outputs[this_pin].second;
@@ -118,7 +112,7 @@ nts::Tristate adder4008::calcCarryOut(size_t this_pin) {
     carry = _pins[8]->Compute(_links[8]);
   while (++i < this_pin)
     {
-      if (this_pin < 16)
+      if (this_pin <= 16)
 	{
 	  first_pin = _outputs[this_pin].first;
 	  second_pin = _outputs[this_pin].second;

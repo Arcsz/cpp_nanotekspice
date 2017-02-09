@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Mon Feb  6 11:00:41 2017 Riamon Vincent
+// Last update Thu Feb  9 18:03:44 2017 Riamon Vincent
 //
 
 #include "components/True.hpp"
@@ -21,21 +21,15 @@ True::~True() {
 }
 
 nts::Tristate True::Compute(size_t this_pin) {
-  if (this_pin >= 1) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 1) {
+    throw nts::PinException(nts::pinError("True", this_pin));
   }
   return _val;
 }
 
 void True::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 1) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 1) {
+    throw nts::PinException(nts::pinError("True", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
     _pin[this_pin - 1] = &comp;
     _links[this_pin - 1] = target_pin;

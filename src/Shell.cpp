@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Thu Feb  9 17:14:44 2017 Riamon Vincent
+// Last update Thu Feb  9 18:52:35 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -55,14 +55,12 @@ void nts::Shell::shell() {
       cmdFunc a = _cmdFunc.at(line);
       (this->*a)();
     }
-
     std::cout << "> ";
   }
 }
 
 void nts::Shell::exit() {
   _run = false;
-  std::cout << "exit run: " << _run << std::endl;
 }
 
 void nts::Shell::display() {
@@ -70,7 +68,6 @@ void nts::Shell::display() {
 }
 
 void nts::Shell::simulate() {
-  //std::cout << "simulate" << std::endl;
   _circuit.simulate();
 }
 

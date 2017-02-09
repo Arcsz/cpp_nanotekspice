@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Mon Feb  6 11:21:47 2017 Riamon Vincent
+// Last update Thu Feb  9 18:24:10 2017 Riamon Vincent
 //
 
 #include "AND-4081.hpp"
@@ -32,11 +32,8 @@ static int isInput(size_t pin) {
 }
 
 void AND4081::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 14) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 14) {
+    throw nts::PinException(nts::pinError("C4081", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
     _links[this_pin - 1] = target_pin;
@@ -54,17 +51,14 @@ nts::Tristate AND4081::and_gate(size_t first_pin, size_t second_pin) const {
 }
 
 nts::Tristate AND4081::Compute(size_t this_pin) {
-  if (this_pin >= 14) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 14) {
+    throw nts::PinException(nts::pinError("C4081", this_pin));
   }
   if (isInput(this_pin))
     return (this->calcInput(this_pin));
   else if (!isInput(this_pin))
     return (this->calcOutput(this_pin));
-  return (nts::Tristate::UNDEFINED); //TODO 14 et 7 considered UNDEFINED ?
+  return (nts::Tristate::UNDEFINED);
 }
 
 nts::Tristate AND4081::calcInput(size_t this_pin) {
@@ -79,7 +73,7 @@ nts::Tristate AND4081::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
 
-  if (this_pin >= 14)
+  if (this_pin > 14)
     return (nts::Tristate::UNDEFINED);
   first_pin = _outputs[this_pin].first;
   second_pin = _outputs[this_pin].second;

@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Mon Feb  6 11:35:25 2017 Riamon Vincent
+// Last update Thu Feb  9 18:32:12 2017 Riamon Vincent
 //
 
 #include "INVERSE-4069.hpp"
@@ -33,11 +33,8 @@ static int isInput(size_t pin) {
 }
 
 void INVERSE4069::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 14) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 14) {
+    throw nts::PinException(nts::pinError("C4069", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
     _links[this_pin - 1] = target_pin;
@@ -55,17 +52,14 @@ nts::Tristate INVERSE4069::not_gate(size_t first_pin) const {
 }
 
 nts::Tristate INVERSE4069::Compute(size_t this_pin) {
-  if (this_pin >= 14) {
-    std::stringstream ss;
-
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
-    throw nts::PinException(ss.str());
+  if (this_pin > 14) {
+    throw nts::PinException(nts::pinError("C4069", this_pin));
   }
   if (isInput(this_pin))
     return (this->calcInput(this_pin));
   else if (!isInput(this_pin))
     return (this->calcOutput(this_pin));
-  return (nts::Tristate::UNDEFINED); //TODO 14 et 7 considered UNDEFINED ?
+  return (nts::Tristate::UNDEFINED);
 }
 
 nts::Tristate INVERSE4069::calcInput(size_t this_pin) {
@@ -79,7 +73,7 @@ nts::Tristate INVERSE4069::calcInput(size_t this_pin) {
 nts::Tristate INVERSE4069::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
 
-  if (this_pin >= 14)
+  if (this_pin > 14)
     return (nts::Tristate::UNDEFINED);
   first_pin = _outputs[this_pin];
   if (!_pins[first_pin - 1])
