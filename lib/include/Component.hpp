@@ -36,14 +36,17 @@ namespace nts {
 
   class Component {
   public:
-    Component();
     ~Component();
     IComponent *createComponent(std::string const& type,
 				std::string const& value) const;
-
     typedef IComponent *(Component::*mkComp)(std::string const& value) const;
 
+    static Component getInstance();
+
   private:
+    Component();
+    static Component _instance;
+
     static const std::map<std::string, mkComp> _funcMap;
 
     inline Tristate getTristate(std::string const& val) const {

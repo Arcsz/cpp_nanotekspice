@@ -1,9 +1,9 @@
 //
 // IComponent.hpp for IComponent in /home/riamon_v/rendu/CPP/cpp_nanotekspice/include
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Mon Jan 30 13:48:39 2017 Riamon Vincent
 // Last update Mon Feb  6 17:33:33 2017 Riamon Vincent
 //

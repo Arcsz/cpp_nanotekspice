@@ -1,9 +1,9 @@
 //
 // Shell.hpp for Shell in /home/riamon_v/rendu/CPP/cpp_nanotekspice/include
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Feb  7 15:13:26 2017 Riamon Vincent
 // Last update Tue Feb  7 23:30:02 2017 Riamon Vincent
 //
@@ -17,7 +17,7 @@ namespace nts {
   public:
     static bool _loop;
   public:
-    Shell();
+    Shell(Circuit& circuit);
     ~Shell();
     void shell();
     void exit();

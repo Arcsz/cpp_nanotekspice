@@ -16,8 +16,8 @@ namespace nts {
     void run(std::vector<std::string> args);
 
   private:
-    Shell _shell;
     Circuit _circuit;
+    Shell _shell;
     Parser _parser;
   };
 }

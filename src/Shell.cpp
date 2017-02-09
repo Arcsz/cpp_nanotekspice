@@ -21,7 +21,8 @@ const std::map<std::string, nts::Shell::cmdFunc> nts::Shell::_cmdFunc = {
   {"dump", &nts::Shell::dump},
 };
 
-nts::Shell::Shell() : _run(true), _circuit(*(new Circuit)) {
+nts::Shell::Shell(Circuit& circuit) : _run(true), _circuit(circuit) {
+  (void)_circuit; // TODO REMOVE
 }
 
 nts::Shell::~Shell() {
