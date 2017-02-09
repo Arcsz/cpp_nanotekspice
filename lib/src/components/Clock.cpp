@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 18:01:03 2017 Riamon Vincent
+// Last update Thu Feb  9 20:04:12 2017 Riamon Vincent
 //
 
 #include "components/Clock.hpp"
@@ -64,9 +64,9 @@ std::map<size_t, size_t> Clock::getLinks(void) const {
   return _links;
 }
 
-// void Clock::setValue(nts::Tristate value) {
-//   if (value == nts::UNDEFINED)
-//     throw nts::ClockException("Error Clock: value must be 0 or 1");
-//   else
-//     _val = value;
-// }
+void Clock::setValue(nts::Tristate value) {
+  if (value == nts::UNDEFINED)
+    throw nts::InputException("Error Clock: value must be 0 or 1");
+  else
+    _val = value;
+}
