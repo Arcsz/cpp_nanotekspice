@@ -28,7 +28,7 @@ void nts::Parser::feed(std::string const& input) {
   str = StrUtils::trim(str);
 
   // check if it's not empty and doesn't only contain whitespace
-  if (!str.empty() && str.find_first_not_of(" \t") != std::string::npos) {
+  if (!str.empty()) {
     _inputs.push(str);
   }
 }

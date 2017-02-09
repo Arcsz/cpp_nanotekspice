@@ -4,7 +4,6 @@ nts::Nts::Nts() : _parser(_circuit) {
 
 }
 
-
 nts::Nts::~Nts() {
 
 }

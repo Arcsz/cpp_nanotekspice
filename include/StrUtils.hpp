@@ -36,6 +36,9 @@ namespace StrUtils {
       str = str.substr(0, endPos + 1);
     }
 
+    if (str.find_first_not_of(" \t") == std::string::npos) {
+      str = "";
+    }
     return str;
   }
 
