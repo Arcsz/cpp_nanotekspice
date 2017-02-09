@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Thu Feb  9 15:44:23 2017 Riamon Vincent
+// Last update Thu Feb  9 16:30:19 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -30,7 +30,10 @@ nts::Shell::~Shell() {
 
 void ctrl_c_function(int n) {
   (void)n;
-  nts::Shell::_loop = false;
+  if (nts::Shell::_loop == true)
+    nts::Shell::_loop = false;
+  else
+    std::cout << "> ";
 }
 
 void nts::Shell::shell() {
@@ -59,9 +62,7 @@ void nts::Shell::exit() {
 }
 
 void nts::Shell::display() {
-  std::cout << "display" << std::endl;
   _circuit.outputDisplay();
-  //TODO _circuit->outputDisplay()
 }
 
 void nts::Shell::simulate() {
@@ -76,8 +77,7 @@ void nts::Shell::loop() {
 }
 
 void nts::Shell::dump() {
-  std::cout << "dump" << std::endl;
-  //TODO _circuit->dump()
+  _circuit.dump();
 }
 
 void nts::Shell::setValue(std::string const& name, size_t val) const {

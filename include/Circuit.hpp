@@ -13,14 +13,16 @@ namespace nts {
     Circuit();
     ~Circuit();
 
-    std::tuple<std::string, std::string> getValue(std::string const& str);
+    std::pair<std::string, std::string> getValue(std::string const& str);
 
     // set value
-    void setValue(std::tuple<std::string, std::string> val);
+    void setValue(std::pair<std::string, std::string> val);
     void addComponent(std::string const&, std::string const&, IComponent *);
     void setLink();
     void outputDisplay();
     void simulate();
+    void dump();
+    void clockInverse();
 
   private:
     typedef std::unique_ptr<nts::IComponent> IComp;
