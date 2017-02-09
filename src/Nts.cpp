@@ -15,7 +15,8 @@ void nts::Nts::run(std::vector<std::string> args) {
   nts::t_ast_node *root = _parser.createTree();
   _parser.dump(root); // TODO debug
 
-  for (std::string const& str : args) {
-    std::cout << str << std::endl;
-  }
+  _shell.shell();
+  // for (std::string const& str : args) {
+  //   std::cout << str << std::endl;
+  // }
 }
