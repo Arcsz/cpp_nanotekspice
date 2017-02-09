@@ -32,7 +32,10 @@ nts::ChipsetException::ChipsetException(std::string const& msg) : nts::Exception
 nts::ComponentExistException::ComponentExistException(std::string const& msg) : nts::Exception(msg) {
 }
 
-nts::UnknowTypeException::UnknowTypeException(std::string const& msg) : nts::Exception(msg) {
+nts::ComponentNotFoundException::ComponentNotFoundException(std::string const& msg) : nts::Exception(msg) {
+}
+
+nts::UnknownTypeException::UnknownTypeException(std::string const& msg) : nts::Exception(msg) {
 }
 
 nts::PinException::PinException(std::string const& msg) : nts::Exception(msg) {

@@ -20,20 +20,20 @@ Input::~Input() {
 }
 
 nts::Tristate Input::Compute(size_t this_pin) {
-  if (this_pin >= 1) {
+  if (this_pin > 1) {
     std::stringstream ss;
 
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    ss << "Input: Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
     throw nts::PinException(ss.str());
   }
   return _val;
 }
 
 void Input::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin >= 1) {
+  if (this_pin > 1) {
     std::stringstream ss;
 
-    ss << "Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
+    ss << "Input: Error Pin: Pin " << this_pin << " doesn't exist" << std::endl;
     throw nts::PinException(ss.str());
   } else if (_pin[this_pin - 1] == NULL) {
     _pin[this_pin - 1] = &comp;
