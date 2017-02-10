@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Thu Feb  9 12:02:38 2017 Riamon Vincent
-// Last update Fri Feb 10 11:44:00 2017 Riamon Vincent
+// Last update Fri Feb 10 11:58:02 2017 Riamon Vincent
 //
 
 #include "Circuit.hpp"
@@ -95,6 +95,10 @@ void nts::Circuit::dump() {
     std::cout << pair.second.first << ": " << pair.first << std::endl;
     pair.second.second->Dump();
   }
+}
+
+std::map<std::string, std::pair<std::string, nts::IComponent*> > nts::Circuit::getComp() const {
+  return _components;
 }
 
 void nts::Circuit::printComp() const {

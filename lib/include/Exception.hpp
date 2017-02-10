@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb  4 21:09:10 2017 David Zeng
-// Last update Thu Feb  9 15:51:34 2017 Riamon Vincent
+// Last update Fri Feb 10 12:08:02 2017 Riamon Vincent
 //
 
 #ifndef EXCEPTION_HPP_
@@ -40,6 +40,11 @@ namespace nts {
   class UnknownTypeException : public Exception {
   public:
     UnknownTypeException(std::string const& msg);
+  };
+
+  class UninitializeCompException : public Exception {
+  public:
+    UninitializeCompException(std::string const& msg);
   };
 
   class ComponentExistException : public Exception {

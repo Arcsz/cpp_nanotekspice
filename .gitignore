@@ -33,6 +33,7 @@ nanotekspice
 *.exe
 *.out
 *.app
+nanotest
 
 # Temporary files
 .#*
