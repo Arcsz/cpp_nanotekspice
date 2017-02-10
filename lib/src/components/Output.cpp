@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Thu Feb  9 21:25:46 2017 Riamon Vincent
+// Last update Fri Feb 10 11:44:47 2017 Riamon Vincent
 //
 
 #include "components/Output.hpp"
@@ -47,7 +47,6 @@ void nts::Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_
 }
 
 void nts::Output::Dump(void) const {
-  std::cout << "Output:" << std::endl;
   std::cout << "\tvalue= " << _val << std::endl;
   if (_pin[0] == NULL)
     std::cout << "\tpin n°1= NULL" << std::endl;

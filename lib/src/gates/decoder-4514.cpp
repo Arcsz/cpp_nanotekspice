@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:41:20 2017 Riamon Vincent
+// Last update Fri Feb 10 11:46:52 2017 Riamon Vincent
 //
 
 #include "decoder-4514.hpp"
@@ -74,7 +74,6 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
 }
 
 void nts::decoder4514::Dump(void) const {
-  std::cout << "4514 - decoder gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

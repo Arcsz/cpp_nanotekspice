@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:42:03 2017 Riamon Vincent
+// Last update Fri Feb 10 11:46:59 2017 Riamon Vincent
 //
 
 #include "rand-4801.hpp"
@@ -74,7 +74,6 @@ nts::Tristate nts::rand4801::calcOutput(size_t this_pin) {
 }
 
 void nts::rand4801::Dump(void) const {
-  std::cout << "4801 - rand gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

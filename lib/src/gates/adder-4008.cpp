@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:31:01 2017 Riamon Vincent
+// Last update Fri Feb 10 11:45:28 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
@@ -126,7 +126,6 @@ nts::Tristate nts::adder4008::calcCarryOut(size_t this_pin) {
 }
 
 void nts::adder4008::Dump(void) const {
-  std::cout << "4008 - adder gate:" << std::endl;
   for (int i = 0;  i < 16; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

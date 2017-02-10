@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:33:43 2017 Riamon Vincent
+// Last update Fri Feb 10 11:45:52 2017 Riamon Vincent
 //
 
 #include "INVERSE-4069.hpp"
@@ -82,7 +82,6 @@ nts::Tristate nts::INVERSE4069::calcOutput(size_t this_pin) {
 }
 
 void nts::INVERSE4069::Dump(void) const {
-  std::cout << "4069 - INVERSE gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

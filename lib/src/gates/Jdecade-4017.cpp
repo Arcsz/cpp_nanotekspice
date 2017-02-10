@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:37:57 2017 Riamon Vincent
+// Last update Fri Feb 10 11:46:02 2017 Riamon Vincent
 //
 
 #include "Jdecade-4017.hpp"
@@ -74,7 +74,6 @@ nts::Tristate nts::Jdecade4017::calcOutput(size_t this_pin) {
 }
 
 void nts::Jdecade4017::Dump(void) const {
-  std::cout << "4017 - Jdecade gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

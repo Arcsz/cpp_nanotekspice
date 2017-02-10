@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:31:57 2017 Riamon Vincent
+// Last update Fri Feb 10 11:45:37 2017 Riamon Vincent
 //
 
 #include "AND-4081.hpp"
@@ -84,7 +84,6 @@ nts::Tristate nts::AND4081::calcOutput(size_t this_pin) {
 }
 
 void nts::AND4081::Dump(void) const {
-  std::cout << "4081 - AND gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
       std::cout << "\tpin n°" << i + 1 << "= ";
       if (!_pins[i])

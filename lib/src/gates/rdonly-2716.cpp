@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:42:37 2017 Riamon Vincent
+// Last update Fri Feb 10 11:47:06 2017 Riamon Vincent
 //
 
 #include "rdonly-2716.hpp"
@@ -74,7 +74,6 @@ nts::Tristate nts::rdonly2716::calcOutput(size_t this_pin) {
 }
 
 void nts::rdonly2716::Dump(void) const {
-  std::cout << "2716 - rdonly gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
     std::cout << "\tpin n°" << i + 1 << "= ";
     if (!_pins[i])

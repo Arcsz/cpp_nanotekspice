@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Feb  9 21:40:53 2017 Riamon Vincent
+// Last update Fri Feb 10 11:46:44 2017 Riamon Vincent
 //
 
 #include "counter-4040.hpp"
@@ -74,7 +74,6 @@ nts::Tristate nts::counter4040::calcOutput(size_t this_pin) {
 }
 
 void nts::counter4040::Dump(void) const {
-  std::cout << "4040 - counter gate:" << std::endl;
   for (int i = 0;  i < 14; i++) {
       std::cout << "\tpin n°" << i + 1 << "= ";
       if (!_pins[i])

@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Thu Feb  9 12:02:38 2017 Riamon Vincent
-// Last update Thu Feb  9 17:57:32 2017 Riamon Vincent
+// Last update Fri Feb 10 11:44:00 2017 Riamon Vincent
 //
 
 #include "Circuit.hpp"
@@ -21,8 +21,8 @@ nts::Circuit::~Circuit() {
 }
 
 void nts::Circuit::setValue(std::string const& str, bool isShell) {
-  std::string name = str.substr(0, str.find('='));
-  std::string value = str.substr(str.find('=') + 1, str.size());
+  std::string name = StrUtils::trim(str.substr(0, str.find('=')));
+  std::string value = StrUtils::trim(str.substr(str.find('=') + 1, str.size()));
 
   if (_components.count(name) == 0) {
     throw ComponentNotFoundException("Component not found: " + name);
@@ -92,7 +92,7 @@ void nts::Circuit::clockInverse() {
 
 void nts::Circuit::dump() {
   for (auto const& pair : _components) {
-    std::cout << pair.second.first << ":" << std::endl;
+    std::cout << pair.second.first << ": " << pair.first << std::endl;
     pair.second.second->Dump();
   }
 }
