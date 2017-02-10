@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Thu Feb  9 12:02:38 2017 Riamon Vincent
-// Last update Fri Feb 10 11:58:02 2017 Riamon Vincent
+// Last update Fri Feb 10 12:44:04 2017 Riamon Vincent
 //
 
 #include "Circuit.hpp"
@@ -68,7 +68,7 @@ void nts::Circuit::outputDisplay() {
   for (auto const& pair : _components) {
     if (pair.second.first == "output") {
       Output *output = static_cast<Output*>(pair.second.second);
-      std::cout << pair.second.first << "=" << output->getValue() << std::endl;
+      std::cout << pair.first << "=" << output->getValue() << std::endl;
     }
   }
 }
