@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Sat Feb 11 15:32:11 2017 Riamon Vincent
+// Last update Sat Feb 11 23:29:36 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -64,7 +64,8 @@ void nts::Shell::shell() {
 	  (this->*a)();
 	}
       }
-    std::cout << "> ";
+    if (line != "exit")
+      std::cout << "> ";
   }
 }
 

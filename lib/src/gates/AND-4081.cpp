@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:15:59 2017 Riamon Vincent
+// Last update Sat Feb 11 23:21:20 2017 Riamon Vincent
 //
 
 #include "gates/AND-4081.hpp"
+#include "Output.hpp"
 
 nts::AND4081::AND4081(Tristate val) : AComponent("4081", val, 14) {
   _outputs[3] = {1, 2};
@@ -39,9 +40,9 @@ nts::Tristate nts::AND4081::Compute(size_t this_pin) {
     throw PinException(pinError("C4081", this_pin));
   }
 
-  if (isInput(this_pin)) {
+  if (isInput(this_pin) == 1) {
     return this->calcInput(this_pin);
-  } else if (!isInput(this_pin)) {
+  } else if (isInput(this_pin) == 0) {
     return this->calcOutput(this_pin);
   }
 
@@ -53,9 +54,9 @@ nts::Tristate nts::AND4081::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (isInput(this_pin) == 0) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }

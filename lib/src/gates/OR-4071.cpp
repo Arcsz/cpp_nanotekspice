@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:15:04 2017 Riamon Vincent
+// Last update Sat Feb 11 23:31:59 2017 Riamon Vincent
 //
 
 #include "gates/OR-4071.hpp"
+#include "Output.hpp"
 
 nts::OR4071::OR4071(Tristate val) : AComponent("4071", val, 14) {
   _outputs[3] = {1, 2};
@@ -53,9 +54,9 @@ nts::Tristate nts::OR4071::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (!isInput(this_pin)) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }
