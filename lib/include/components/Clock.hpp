@@ -1,9 +1,9 @@
 //
 // Clock.hpp for Clock in /home/riamon_v/rendu/CPP/cpp_nanotekspice/include
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:33:49 2017 Riamon Vincent
 // Last update Mon Feb  6 17:33:04 2017 Riamon Vincent
 //
@@ -14,23 +14,23 @@
 #include "IComponent.hpp"
 
 namespace nts {
-  class Clock : public nts::IComponent {
+  class Clock : public IComponent {
   public:
-    Clock(nts::Tristate val);
+    Clock(Tristate val);
     virtual ~Clock();
-    virtual nts::Tristate Compute(size_t this_pin = 1);
+    virtual Tristate Compute(size_t this_pin = 1);
     virtual void SetLink(size_t this_pin,
-			 nts::IComponent& comp,
+			 IComponent& comp,
 			 size_t target_pin);
     virtual void Dump(void) const;
     void inverted(void);
-    nts::Tristate getValue(void) const;
+    Tristate getValue(void) const;
     std::map<size_t, size_t> getLinks(void) const;
-    void setValue(nts::Tristate const val);
+    void setValue(Tristate const val);
 
   private:
-    nts::Tristate _val;
-    nts::IComponent *_pin[1];
+    Tristate _val;
+    IComponent *_pin[1];
     std::map<size_t, size_t> _links;
   };
 }
