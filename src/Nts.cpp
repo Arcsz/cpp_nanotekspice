@@ -19,15 +19,13 @@ void nts::Nts::run(std::vector<std::string> args) {
   for (std::string const& str : args) {
     _circuit.setValue(str, false);
   }
-
   auto comps = _circuit.getComp();
   for (auto const& pair : comps) {
     if (pair.second.first == "input") {
       if ((static_cast<Input *>(pair.second.second))->getValue() == nts::Tristate::UNDEFINED) {
 	throw UninitializeCompException("Component Error: input '" + pair.first + "' not initialize");
       }
-    }
-    else if (pair.second.first == "clock") {
+    } else if (pair.second.first == "clock") {
       if ((static_cast<Clock *>(pair.second.second))->getValue() == nts::Tristate::UNDEFINED) {
 	throw UninitializeCompException("Component Error: clock '" + pair.first + "' not initialize");
       }
