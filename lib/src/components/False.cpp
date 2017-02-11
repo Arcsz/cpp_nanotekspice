@@ -19,8 +19,9 @@ nts::False::~False() {
 
 nts::Tristate nts::False::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("False", this_pin));
+    throw PinException(pinError("False", this_pin));
   }
+
   return _val;
 }
 

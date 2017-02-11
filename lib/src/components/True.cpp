@@ -11,7 +11,7 @@
 #include "components/True.hpp"
 
 nts::True::True(Tristate val) : AComponent("True", val, 1) {
-  _val = nts::Tristate::TRUE;
+  _val = Tristate::TRUE;
 }
 
 nts::True::~True() {
@@ -19,8 +19,9 @@ nts::True::~True() {
 
 nts::Tristate nts::True::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("True", this_pin));
+    throw PinException(pinError("True", this_pin));
   }
+
   return _val;
 }
 

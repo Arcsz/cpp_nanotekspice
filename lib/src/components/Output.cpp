@@ -19,11 +19,11 @@ nts::Output::~Output() {
 
 nts::Tristate nts::Output::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin == 0) {
-    throw nts::PinException(nts::pinError("Output", this_pin));
+    throw PinException(pinError("Output", this_pin));
   }
 
   if (!_pins[this_pin]) {
-    throw nts::OutputException("Output is not linked");
+    throw OutputException("Output is not linked");
   }
 
   _val = _pins[this_pin].compute();
