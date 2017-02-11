@@ -10,11 +10,11 @@
 
 #include "gates/AND-4081.hpp"
 
-nts::AND4081::AND4081(Tristate val) : AComponent("4081", val, 14){
-  _outputs[3] = std::make_pair(1, 2);
-  _outputs[4] = std::make_pair(5, 6);
-  _outputs[10] = std::make_pair(8, 9);
-  _outputs[11] = std::make_pair(12, 13);
+nts::AND4081::AND4081(Tristate val) : AComponent("4081", val, 14) {
+  _outputs[3] = {1, 2};
+  _outputs[4] = {5, 6};
+  _outputs[10] = {8, 9};
+  _outputs[11] = {12, 13};
 }
 
 nts::AND4081::~AND4081() {
