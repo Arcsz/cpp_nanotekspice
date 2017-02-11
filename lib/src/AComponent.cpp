@@ -61,10 +61,10 @@ void nts::AComponent::Dump(void) const {
   for (size_t i = 1;  i <= _maxPin; ++i) {
     // if it's a component, not a gate
     if (_maxPin == 1) {
-      std::cout << "\tvalue= " << _val << std::endl;
+      std::cout << "\tvalue = " << _val << std::endl;
     }
 
-    std::cout << "\tpin n°" << i << "= ";
+    std::cout << "\tpin n°" << i << " = ";
 
     if (_pins.at(i)) {
       if (_maxPin == 1) {

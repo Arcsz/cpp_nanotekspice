@@ -44,7 +44,7 @@ nts::Tristate nts::adder4008::Compute(size_t this_pin) {
     throw PinException(pinError("C4008", this_pin));
   }
 
-  if (isInput(this_pin)) {
+  if (isInput(this_pin) == 1) {
     return this->calcInput(this_pin);
   } else if (!isInput(this_pin)) {
     return this->calcOutput(this_pin);
