@@ -41,7 +41,6 @@ void nts::Circuit::setValue(std::string const& str, bool isShell) {
     Clock *clock = static_cast<Clock*>(comp);
     clock->setValue(ComponentFactory::getTristate(value));
   }
-  // std::map<std::string, std::pair<std::string, IComponent*>> _components;
 }
 
 void nts::Circuit::addComponent(std::string const& type, std::string const& name,
@@ -59,8 +58,10 @@ void nts::Circuit::setLink(std::string const& name1, size_t pin1,
   } else if (_components.count(name2) == 0) {
     throw ComponentNotFoundException("Component not found: " + name2);
   }
+
   IComponent *comp1 = _components[name1].second;
   IComponent *comp2 = _components[name2].second;
+
   comp1->SetLink(pin1, *comp2, pin2);
 }
 

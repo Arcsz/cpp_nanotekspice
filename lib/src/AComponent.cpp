@@ -25,7 +25,7 @@ nts::Tristate nts::Link::compute() const {
 nts::AComponent::AComponent(std::string const& type, Tristate val, size_t maxPin)
   : _type(type), _val(val), _maxPin(maxPin) {
   for (size_t i = 1; i <= maxPin; ++i) {
-    // initialize link
+    // initialize pin
     _pins[i];
   }
 }
@@ -47,10 +47,10 @@ void nts::AComponent::SetLink(size_t this_pin, IComponent& comp, size_t target_p
   // check if links already exist
   if (_pins[this_pin]) {
     throw LinkExistException(_type + ": Pin " + std::to_string(this_pin) +
-			     " is already linked to " + std::to_string(target_pin));
+			     " is already linked");
   } else if (other._pins[target_pin]) {
     throw LinkExistException(other._type + ": Pin " + std::to_string(target_pin) +
-			     " is already linked to " + std::to_string(this_pin));
+			     " is already linked");
   }
 
   _pins[this_pin] = {&other, target_pin};
