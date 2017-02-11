@@ -5,13 +5,13 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Fri Feb 10 11:45:28 2017 Riamon Vincent
+// Last update Sat Feb 11 14:57:01 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
 
 nts::adder4008::adder4008(__attribute__((unused))nts::Tristate val) {
-  for (int i = 0; i <= 16; i++)
+  for (int i = 0; i < 16; i++)
     _pins[i] = NULL;
   _outputs[10] = std::make_pair(6, 7);
   _outputs[11] = std::make_pair(4, 5);
@@ -50,7 +50,7 @@ void nts::adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t targ
 
 nts::Tristate nts::adder4008::add_gate(size_t first_pin, size_t second_pin,
 				  nts::Tristate& carry) const {
-  char res = (char)first_pin + (char)second_pin + (char)carry;
+  char res = ((char)first_pin) + ((char)second_pin) + ((char)carry);
   carry = static_cast<nts::Tristate>(res >> 1);
   return static_cast<nts::Tristate>(res & 1);
 }
@@ -80,19 +80,19 @@ nts::Tristate nts::adder4008::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
   unsigned int i = 9;
-  nts::Tristate carry = nts::Tristate::UNDEFINED;
+  nts::Tristate carry = nts::Tristate::FALSE;
   nts::Tristate res = nts::Tristate::UNDEFINED;
 
   if (this_pin >= 16)
     return (res);
   if (_pins[8])
     carry = _pins[8]->Compute(_links[8]);
-  while (++i < this_pin)
+  while (++i <= this_pin)
     {
-      if (this_pin <= 16)
+      if (this_pin < 16)
 	{
-	  first_pin = _outputs[this_pin].first;
-	  second_pin = _outputs[this_pin].second;
+	  first_pin = _outputs[i].first;
+	  second_pin = _outputs[i].second;
 	  if (_pins[first_pin - 1] && _pins[second_pin - 1])
 	    res = add_gate(_pins[first_pin - 1]->Compute(_links[first_pin - 1]),
 			   _pins[second_pin - 1]->Compute(_links[second_pin - 1]),
@@ -112,10 +112,10 @@ nts::Tristate nts::adder4008::calcCarryOut(size_t this_pin) {
     carry = _pins[8]->Compute(_links[8]);
   while (++i < this_pin)
     {
-      if (this_pin <= 16)
+      if (this_pin < 16)
 	{
-	  first_pin = _outputs[this_pin].first;
-	  second_pin = _outputs[this_pin].second;
+	  first_pin = _outputs[i].first;
+	  second_pin = _outputs[i].second;
 	  if (_pins[first_pin - 1] && _pins[second_pin - 1])
 	    add_gate(_pins[first_pin - 1]->Compute(_links[first_pin - 1]),
 		     _pins[second_pin - 1]->Compute(_links[second_pin - 1]),
