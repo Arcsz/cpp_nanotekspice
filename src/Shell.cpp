@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Thu Feb  9 21:05:47 2017 Riamon Vincent
+// Last update Sat Feb 11 15:32:11 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -55,12 +55,15 @@ void nts::Shell::shell() {
 	std::cerr << e.what() << std::endl;
       }
     }
-    else if (!_cmdFunc.count(line)) {
-      std::cout << line << ": Command not found" << std::endl;
-    } else {
-      cmdFunc a = _cmdFunc.at(line);
-      (this->*a)();
-    }
+    else if (line != "")
+      {
+	if (!_cmdFunc.count(line)) {
+	  std::cout << line << ": Command not found" << std::endl;
+	} else {
+	  cmdFunc a = _cmdFunc.at(line);
+	  (this->*a)();
+	}
+      }
     std::cout << "> ";
   }
 }
