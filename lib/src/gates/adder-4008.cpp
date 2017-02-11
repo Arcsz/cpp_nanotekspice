@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:11:54 2017 Riamon Vincent
+// Last update Sat Feb 11 22:49:19 2017 Riamon Vincent
 //
 
 #include "gates/adder-4008.hpp"
@@ -44,9 +44,9 @@ nts::Tristate nts::adder4008::Compute(size_t this_pin) {
     throw PinException(pinError("C4008", this_pin));
   }
 
-  if (isInput(this_pin)) {
+  if (isInput(this_pin) == 1) {
     return this->calcInput(this_pin);
-  } else if (!isInput(this_pin)) {
+  } else if (isInput(this_pin) == 0) {
     return this->calcOutput(this_pin);
   } else if (isInput(this_pin) == 2) {
     return this->calcCarryOut(this_pin);
