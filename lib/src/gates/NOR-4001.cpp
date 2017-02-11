@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:15:17 2017 Riamon Vincent
+// Last update Sat Feb 11 23:31:53 2017 Riamon Vincent
 //
 
 #include "gates/NOR-4001.hpp"
+#include "Output.hpp"
 
 nts::NOR4001::NOR4001(Tristate val) : AComponent("4001", val, 14) {
   _outputs[3] = {1, 2};
@@ -53,9 +54,9 @@ nts::Tristate nts::NOR4001::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (!isInput(this_pin)) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }

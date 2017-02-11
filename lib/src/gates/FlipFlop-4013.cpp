@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:15:50 2017 Riamon Vincent
+// Last update Sat Feb 11 23:35:23 2017 Riamon Vincent
 //
 
 #include "gates/FlipFlop-4013.hpp"
+#include "Output.hpp"
 
 nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent("4013", val, 14) {
 }
@@ -34,6 +35,8 @@ nts::Tristate nts::FLIPFLOP4013::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
     throw PinException(pinError("C4014", this_pin));
   }
+  if (isInput(this_pin))
+    return Tristate::UNDEFINED;
   return Tristate::UNDEFINED;
 }
 
@@ -42,9 +45,9 @@ nts::Tristate nts::FLIPFLOP4013::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (!isInput(this_pin)) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }

@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:14:04 2017 Riamon Vincent
+// Last update Sat Feb 11 23:34:48 2017 Riamon Vincent
 //
 
 #include "gates/register-4094.hpp"
+#include "Output.hpp"
 
 nts::register4094::register4094(Tristate val) : AComponent("4094", val, 14) {
 }
@@ -35,6 +36,8 @@ nts::Tristate nts::register4094::Compute(size_t this_pin) {
     throw PinException(pinError("C4094", this_pin));
   }
 
+  if (isInput(this_pin))
+    return Tristate::UNDEFINED;
   return Tristate::UNDEFINED;
 }
 
@@ -43,9 +46,9 @@ nts::Tristate nts::register4094::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (!isInput(this_pin)) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }

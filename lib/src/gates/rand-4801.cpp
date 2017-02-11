@@ -5,10 +5,11 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 15:14:20 2017 Riamon Vincent
+// Last update Sat Feb 11 23:35:17 2017 Riamon Vincent
 //
 
 #include "gates/rand-4801.hpp"
+#include "Output.hpp"
 
 nts::rand4801::rand4801(Tristate val) : AComponent("4801", val, 14) {
 }
@@ -34,7 +35,8 @@ nts::Tristate nts::rand4801::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
     throw PinException(pinError("C4801", this_pin));
   }
-
+  if (isInput(this_pin))
+    return Tristate::UNDEFINED;
   return Tristate::UNDEFINED;
 }
 
@@ -43,9 +45,9 @@ nts::Tristate nts::rand4801::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (!isInput(this_pin)) {
+  Output *out = new Output(nts::Tristate::UNDEFINED);
+  if (out)
     throw OutputException("Can't use output as an input");
-  }
 
   return _pins[this_pin].compute();
 }
