@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Fri Feb 10 11:44:47 2017 Riamon Vincent
+// Last update Sat Feb 11 15:08:50 2017 Riamon Vincent
 //
 
 #include "components/Output.hpp"
@@ -21,7 +21,7 @@ nts::Output::~Output() {
 }
 
 nts::Tristate nts::Output::Compute(size_t this_pin) {
-  if (this_pin > 1) {
+  if (this_pin > 1 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("Output", this_pin));
   }
   if (_pin[this_pin - 1] != NULL) {
@@ -32,7 +32,7 @@ nts::Tristate nts::Output::Compute(size_t this_pin) {
 }
 
 void nts::Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 1) {
+  if (this_pin > 1 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("Output", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
     _pin[this_pin - 1] = &comp;

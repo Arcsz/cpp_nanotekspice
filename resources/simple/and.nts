@@ -8,6 +8,6 @@ output		s
 4081		gate
 
 .links:
-a:1		gate:1
+a:0		gate:1
 b:1		gate:2
 s:1		gate:3

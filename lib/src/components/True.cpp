@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Fri Feb 10 11:44:56 2017 Riamon Vincent
+// Last update Sat Feb 11 15:08:38 2017 Riamon Vincent
 //
 
 #include "components/True.hpp"
@@ -21,14 +21,14 @@ nts::True::~True() {
 }
 
 nts::Tristate nts::True::Compute(size_t this_pin) {
-  if (this_pin > 1) {
+  if (this_pin > 1 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("True", this_pin));
   }
   return _val;
 }
 
 void nts::True::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 1) {
+  if (this_pin > 1 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("True", this_pin));
   } else if (_pin[this_pin - 1] == NULL) {
     _pin[this_pin - 1] = &comp;

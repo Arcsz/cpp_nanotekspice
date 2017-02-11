@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Fri Feb 10 11:46:59 2017 Riamon Vincent
+// Last update Sat Feb 11 15:14:20 2017 Riamon Vincent
 //
 
 #include "rand-4801.hpp"
@@ -26,7 +26,7 @@ static int isInput(size_t pin) {
 }
 
 void nts::rand4801::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 14) {
+  if (this_pin > 14 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4801", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
@@ -45,7 +45,7 @@ nts::Tristate nts::rand4801::nand_gate(size_t first_pin, size_t second_pin) cons
 }
 
 nts::Tristate nts::rand4801::Compute(size_t this_pin) {
-  if (this_pin > 14) {
+  if (this_pin > 14 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4801", this_pin));
   }
   return (nts::Tristate::UNDEFINED);
@@ -63,7 +63,7 @@ nts::Tristate nts::rand4801::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
 
-  if (this_pin > 14)
+  if (this_pin > 14 || this_pin <= 0)
     return (nts::Tristate::UNDEFINED);
   first_pin = _outputs[this_pin].first;
   second_pin = _outputs[this_pin].second;

@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 // 
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 14:57:01 2017 Riamon Vincent
+// Last update Sat Feb 11 15:11:54 2017 Riamon Vincent
 //
 
 #include "adder-4008.hpp"
@@ -34,7 +34,7 @@ static int isInput(size_t pin) {
 }
 
 void nts::adder4008::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 16) {
+  if (this_pin > 16 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4008", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
@@ -56,7 +56,7 @@ nts::Tristate nts::adder4008::add_gate(size_t first_pin, size_t second_pin,
 }
 
 nts::Tristate nts::adder4008::Compute(size_t this_pin) {
-  if (this_pin > 16) {
+  if (this_pin > 16 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4008", this_pin));
   }
   if (isInput(this_pin))

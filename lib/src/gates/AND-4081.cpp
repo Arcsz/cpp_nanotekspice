@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Fri Feb 10 11:45:37 2017 Riamon Vincent
+// Last update Sat Feb 11 15:15:59 2017 Riamon Vincent
 //
 
 #include "AND-4081.hpp"
@@ -32,7 +32,7 @@ static int isInput(size_t pin) {
 }
 
 void nts::AND4081::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 14) {
+  if (this_pin > 14 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4081", this_pin));
   } else if (_pins[this_pin - 1] == NULL) {
     _pins[this_pin - 1] = &comp;
@@ -51,7 +51,7 @@ nts::Tristate nts::AND4081::and_gate(size_t first_pin, size_t second_pin) const 
 }
 
 nts::Tristate nts::AND4081::Compute(size_t this_pin) {
-  if (this_pin > 14) {
+  if (this_pin > 14 || this_pin <= 0) {
     throw nts::PinException(nts::pinError("C4081", this_pin));
   }
   if (isInput(this_pin))
@@ -73,7 +73,7 @@ nts::Tristate nts::AND4081::calcOutput(size_t this_pin) {
   size_t first_pin = 0;
   size_t second_pin = 0;
 
-  if (this_pin > 14)
+  if (this_pin > 14 || this_pin <= 0)
     return (nts::Tristate::UNDEFINED);
   first_pin = _outputs[this_pin].first;
   second_pin = _outputs[this_pin].second;
