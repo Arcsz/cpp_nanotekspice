@@ -11,7 +11,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
-#include "Component.hpp"
+#include "ComponentFactory.hpp"
 #include "Parser.hpp"
 #include "Exception.hpp"
 #include "StrUtils.hpp"
@@ -268,7 +268,7 @@ void nts::Parser::getComponent(t_ast_node *component) {
     val = (*component->children)[2]->lexeme;
   }
 
-  IComponent *comp = Component::getInstance().createComponent(type, val);
+  IComponent *comp = ComponentFactory::getInstance().createComponent(type, val);
   if (!comp) {
     throw UnknownTypeException("Error Component: Unknown type: "
 			      + type + ", name: " + name);

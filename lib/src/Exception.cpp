@@ -44,6 +44,9 @@ nts::UnknownTypeException::UnknownTypeException(std::string const& msg) : nts::E
 nts::PinException::PinException(std::string const& msg) : nts::Exception(msg) {
 }
 
+nts::LinkExistException::LinkExistException(std::string const& msg) : nts::Exception(msg) {
+}
+
 nts::FileException::FileException(std::string const& msg) : nts::Exception(msg) {
 }
 

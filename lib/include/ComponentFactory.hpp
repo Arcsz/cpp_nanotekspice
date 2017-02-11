@@ -8,8 +8,8 @@
 // Last update Thu Feb  9 01:16:53 2017 Riamon Vincent
 //
 
-#ifndef COMPONENT_HPP_
-# define COMPONENT_HPP_
+#ifndef COMPONENT_FACTORY_HPP_
+# define COMPONENT_FACTORY_HPP_
 
 # include "IComponent.hpp"
 # include "Input.hpp"
@@ -34,26 +34,30 @@
 
 namespace nts {
 
-  class Component {
+  class ComponentFactory {
   public:
-    ~Component();
+    ~ComponentFactory();
     IComponent *createComponent(std::string const& type,
 				std::string const& value) const;
-    typedef IComponent *(Component::*mkComp)(std::string const& value) const;
 
-    static Component getInstance();
+    static ComponentFactory getInstance();
 
     static inline Tristate getTristate(std::string const& val) {
-      if (val == "0")
-	return nts::Tristate::FALSE;
-      else if (val == "1")
-	return nts::Tristate::TRUE;
-      return nts::Tristate::UNDEFINED;
+      if (val == "0") {
+	return Tristate::FALSE;
+      } else if (val == "1") {
+	return Tristate::TRUE;
+      }
+
+      return Tristate::UNDEFINED;
     }
 
   private:
-    Component();
-    static Component _instance;
+    ComponentFactory();
+
+    static ComponentFactory _instance;
+
+    typedef IComponent *(ComponentFactory::*mkComp)(std::string const& value) const;
 
     static const std::map<std::string, mkComp> _funcMap;
 
@@ -64,4 +68,4 @@ namespace nts {
   };
 }
 
-#endif //!COMPONENT_HPP_
+#endif //!COMPONENT_FACTORY_HPP_

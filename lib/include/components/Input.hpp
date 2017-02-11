@@ -1,9 +1,9 @@
 //
 // Input.hpp for Input in /home/riamon_v/rendu/CPP/cpp_nanotekspice/include
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Tue Jan 31 12:33:49 2017 Riamon Vincent
 // Last update Thu Feb  9 01:04:35 2017 Riamon Vincent
 //
@@ -11,26 +11,16 @@
 #ifndef INPUT_HPP_
 # define INPUT_HPP_
 
-#include "IComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts {
-  class Input : public nts::IComponent {
+  class Input : public AComponent {
   public:
-    Input(nts::Tristate val);
-    virtual ~Input();
-    virtual nts::Tristate Compute(size_t this_pin = 1);
-    virtual void SetLink(size_t this_pin,
-			 nts::IComponent& comp,
-			 size_t target_pin);
-    virtual void Dump(void) const;
-    nts::Tristate getValue(void) const;
-    std::map<size_t, size_t> getLinks(void) const;
-    void setValue(nts::Tristate const val);
-
-  private:
-    nts::Tristate _val;
-    nts::IComponent *_pin[1];
-    std::map<size_t, size_t> _links;
+    Input(Tristate val);
+    ~Input();
+    Tristate Compute(size_t this_pin = 1) override;
+    Tristate getValue(void) const;
+    void setValue(Tristate const val);
   };
 }
 

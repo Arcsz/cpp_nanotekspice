@@ -10,7 +10,7 @@
 
 #include "Circuit.hpp"
 #include "StrUtils.hpp"
-#include "Component.hpp"
+#include "ComponentFactory.hpp"
 
 nts::Circuit::Circuit() {
 
@@ -36,10 +36,10 @@ void nts::Circuit::setValue(std::string const& str, bool isShell) {
   IComponent *comp = _components[name].second;
   if (_components[name].first == "input") {
     Input *input = static_cast<Input*>(comp);
-    input->setValue(Component::getTristate(value));
+    input->setValue(ComponentFactory::getTristate(value));
   } else {
     Clock *clock = static_cast<Clock*>(comp);
-    clock->setValue(Component::getTristate(value));
+    clock->setValue(ComponentFactory::getTristate(value));
   }
   // std::map<std::string, std::pair<std::string, IComponent*>> _components;
 }

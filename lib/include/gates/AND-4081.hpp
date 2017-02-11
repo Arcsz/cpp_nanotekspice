@@ -11,25 +11,19 @@
 #ifndef AND4081_HPP_
 # define AND4081_HPP_
 
-#include "IComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts {
-  class AND4081 : public nts::IComponent {
+  class AND4081 : public AComponent {
   public:
-    AND4081(nts::Tristate val);
-    virtual ~AND4081();
-    virtual nts::Tristate Compute(size_t this_pin = 1);
-    virtual void SetLink(size_t this_pin,
-			 nts::IComponent& comp,
-			 size_t target_pin);
-    virtual void Dump(void) const;
-    nts::Tristate calcInput(size_t pin);
-    nts::Tristate calcOutput(size_t pin);
-    nts::Tristate and_gate(size_t first_pin, size_t second_pin) const;
+    AND4081(Tristate val);
+    ~AND4081();
+    Tristate Compute(size_t this_pin = 1) override;
+    Tristate calcInput(size_t pin);
+    Tristate calcOutput(size_t pin);
+    Tristate and_gate(size_t first_pin, size_t second_pin) const;
 
   private:
-    nts::IComponent *_pins[14];
-    std::map<size_t, size_t> _links;
     std::map<size_t, std::pair<size_t, size_t> > _outputs;
   };
 }

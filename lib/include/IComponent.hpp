@@ -32,11 +32,6 @@ namespace nts {
     virtual void Dump(void) const = 0;
     virtual ~IComponent(void) {}
   };
-
-  inline std::string pinError(std::string const& name, size_t pin) {
-    return std::string(name + ": Error Pin: Pin " +
-		       std::to_string(pin) + " doesn't exist");
-  }
 }
 
 //using namespace nts;

@@ -67,6 +67,11 @@ namespace nts {
     PinException(std::string const& msg);
   };
 
+  class LinkExistException : public Exception {
+  public:
+    LinkExistException(std::string const& msg);
+  };
+
   class UnmodifiedException : public Exception {
   public:
     UnmodifiedException(std::string const& msg);

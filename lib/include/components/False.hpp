@@ -11,26 +11,16 @@
 #ifndef FALSE_HPP_
 # define FALSE_HPP_
 
-#include "IComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts {
-  class False : public nts::IComponent {
+  class False : public AComponent {
   public:
     False(Tristate val);
-    virtual ~False();
-    virtual nts::Tristate Compute(size_t this_pin = 1);
-    virtual void SetLink(size_t this_pin,
-			 nts::IComponent& comp,
-			 size_t target_pin);
-    virtual void Dump(void) const;
-    nts::Tristate getValue(void) const;
-    std::map<size_t, size_t> getLinks(void) const;
-    void setValue(nts::Tristate const val);
-
-  private:
-    nts::Tristate _val;
-    nts::IComponent *_pin[1];
-    std::map<size_t, size_t> _links;
+    ~False();
+    Tristate Compute(size_t this_pin = 1) override;
+    Tristate getValue(void) const;
+    void setValue(Tristate const val);
   };
 }
 

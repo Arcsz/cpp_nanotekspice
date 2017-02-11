@@ -11,27 +11,17 @@
 #ifndef CLOCK_HPP_
 # define CLOCK_HPP_
 
-#include "IComponent.hpp"
+#include "AComponent.hpp"
 
 namespace nts {
-  class Clock : public IComponent {
+  class Clock : public AComponent {
   public:
     Clock(Tristate val);
-    virtual ~Clock();
-    virtual Tristate Compute(size_t this_pin = 1);
-    virtual void SetLink(size_t this_pin,
-			 IComponent& comp,
-			 size_t target_pin);
-    virtual void Dump(void) const;
+    ~Clock();
+    Tristate Compute(size_t this_pin = 1) override;
     void inverted(void);
     Tristate getValue(void) const;
-    std::map<size_t, size_t> getLinks(void) const;
     void setValue(Tristate const val);
-
-  private:
-    Tristate _val;
-    IComponent *_pin[1];
-    std::map<size_t, size_t> _links;
   };
 }
 #endif // !CLOCK_HPP_

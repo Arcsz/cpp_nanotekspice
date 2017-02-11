@@ -1,18 +1,16 @@
 //
 // INVERSE-4069.cpp for INVERSE-4069 in /home/riamon_v/rendu/CPP/cpp_nanotekspice/lib/src/gates
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
 // Last update Sat Feb 11 15:15:42 2017 Riamon Vincent
 //
 
-#include "INVERSE-4069.hpp"
+#include "gates/INVERSE-4069.hpp"
 
-nts::INVERSE4069::INVERSE4069(__attribute__((unused))nts::Tristate val) {
-  for (int i = 0; i < 14; i++)
-    _pins[i] = NULL;
+nts::INVERSE4069::INVERSE4069(Tristate val) : AComponent("4069", val, 14) {
   _outputs[2] = 1;
   _outputs[4] = 3;
   _outputs[6] = 5;
@@ -25,68 +23,54 @@ nts::INVERSE4069::~INVERSE4069() {
 }
 
 static int isInput(size_t pin) {
-  if (pin == 1 || pin == 3 || pin == 5 || pin == 9 || pin == 11 || pin == 13)
-    return (1);
-  else if (pin == 2 || pin == 4 || pin == 6 || pin == 8 || pin == 10 || pin == 12)
-    return (0);
-  return (-1);
-}
-
-void nts::INVERSE4069::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 14 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("C4069", this_pin));
-  } else if (_pins[this_pin - 1] == NULL) {
-    _pins[this_pin - 1] = &comp;
-    _links[this_pin - 1] = target_pin;
-    try {
-      comp.SetLink(target_pin, *this, this_pin);
-    }
-    catch (nts::ChipsetException const& err) {
-      throw err;
-    }
+  if (pin == 1 || pin == 3 || pin == 5 || pin == 9 || pin == 11 || pin == 13) {
+    return 1;
+  } else if (pin == 2 || pin == 4 || pin == 6 || pin == 8 || pin == 10 || pin == 12) {
+    return 0;
   }
+  return -1;
 }
 
 nts::Tristate nts::INVERSE4069::not_gate(size_t first_pin) const {
-  return (static_cast<nts::Tristate>(!first_pin));
+  return static_cast<Tristate>(!first_pin);
 }
 
 nts::Tristate nts::INVERSE4069::Compute(size_t this_pin) {
-  if (this_pin > 14 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("C4069", this_pin));
+  if (this_pin > 14 || this_pin == 0) {
+    throw PinException(pinError("C4069", this_pin));
   }
-  if (isInput(this_pin))
-    return (this->calcInput(this_pin));
-  else if (!isInput(this_pin))
-    return (this->calcOutput(this_pin));
-  return (nts::Tristate::UNDEFINED);
+
+  if (isInput(this_pin)) {
+    return this->calcInput(this_pin);
+  } else if (!isInput(this_pin)) {
+    return this->calcOutput(this_pin);
+  }
+
+  return Tristate::UNDEFINED;
 }
 
 nts::Tristate nts::INVERSE4069::calcInput(size_t this_pin) {
-  if (!_pins[this_pin - 1])
-    return nts::Tristate::UNDEFINED;
-  if (!isInput(this_pin))
-    throw nts::OutputException("Can't use output as an input");
-  return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
+  if (!_pins[this_pin - 1]) {
+    return Tristate::UNDEFINED;
+  }
+
+  if (!isInput(this_pin)) {
+    throw OutputException("Can't use output as an input");
+  }
+
+  return _pins[this_pin].compute();
 }
 
 nts::Tristate nts::INVERSE4069::calcOutput(size_t this_pin) {
-  size_t first_pin = 0;
-
-  if (this_pin > 14 || this_pin <= 0)
-    return (nts::Tristate::UNDEFINED);
-  first_pin = _outputs[this_pin];
-  if (!_pins[first_pin - 1])
-    return (nts::Tristate::UNDEFINED);
-  return not_gate(_pins[first_pin - 1]->Compute(_links[first_pin - 1]));
-}
-
-void nts::INVERSE4069::Dump(void) const {
-  for (int i = 0;  i < 14; i++) {
-    std::cout << "\tpin n°" << i + 1 << "= ";
-    if (!_pins[i])
-      std::cout << "NULL" << std::endl;
-    else
-      std::cout << _pins[i]->Compute(_links.at(i)) << std::endl;
+  if (this_pin > 14 || this_pin == 0) {
+    return Tristate::UNDEFINED;
   }
+
+  size_t firstPin = _outputs[this_pin];
+
+  if (!_pins[firstPin]) {
+    return Tristate::UNDEFINED;
+  }
+
+  return not_gate(_pins[firstPin].compute());
 }

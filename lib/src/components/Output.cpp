@@ -10,58 +10,30 @@
 
 #include "components/Output.hpp"
 
-nts::Output::Output(Tristate val) {
-  (void)val;
+nts::Output::Output(Tristate val) : AComponent("Output", val, 1){
   _val = nts::Tristate::UNDEFINED;
-  _links[0] = 0;
-  _pin[0] = NULL;
 }
 
 nts::Output::~Output() {
 }
 
 nts::Tristate nts::Output::Compute(size_t this_pin) {
-  if (this_pin > 1 || this_pin <= 0) {
+  if (this_pin > 1 || this_pin == 0) {
     throw nts::PinException(nts::pinError("Output", this_pin));
   }
-  if (_pin[this_pin - 1] != NULL) {
-    _val = _pin[this_pin - 1]->Compute(_links[this_pin - 1]);
-    return _val;
-  }
-  throw nts::OutputException("Output not link");
-}
 
-void nts::Output::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 1 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("Output", this_pin));
-  } else if (_pin[this_pin - 1] == NULL) {
-    _pin[this_pin - 1] = &comp;
-    _links[this_pin - 1] = target_pin;
-    try {
-      comp.SetLink(target_pin, *this, this_pin);
-    }
-    catch(nts::ChipsetException const& err) {
-      throw err;
-    }
+  if (!_pins[this_pin]) {
+    throw nts::OutputException("Output is not linked");
   }
-}
 
-void nts::Output::Dump(void) const {
-  std::cout << "\tvalue= " << _val << std::endl;
-  if (_pin[0] == NULL)
-    std::cout << "\tpin n°1= NULL" << std::endl;
-  else
-    std::cout << "\tpin n°1= Linked" << std::endl;
+  _val = _pins[this_pin].compute();
+  return _val;
 }
 
 nts::Tristate nts::Output::getValue(void) const {
   return _val;
 }
 
-std::map<size_t, size_t> nts::Output::getLinks(void) const {
-  return _links;
+void nts::Output::setValue(nts::Tristate value) {
+  _val = value;
 }
-
-// void Output::setValue(nts::Tristate value) {
-//   _val = value;
-// }

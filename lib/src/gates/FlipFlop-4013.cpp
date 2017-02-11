@@ -1,16 +1,16 @@
 //
 // FLIPFLOP-4013.cpp for FLIPFLOP-4013 in /home/riamon_v/rendu/CPP/cpp_nanotekspice/lib/src/gates
-// 
+//
 // Made by Riamon Vincent
 // Login   <riamon_v@epitech.net>
-// 
+//
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
 // Last update Sat Feb 11 15:15:50 2017 Riamon Vincent
 //
 
-#include "FlipFlop-4013.hpp"
+#include "gates/FlipFlop-4013.hpp"
 
-nts::FLIPFLOP4013::FLIPFLOP4013(__attribute__((unused))nts::Tristate val) {
+nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent("4013", val, 14) {
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
@@ -18,67 +18,48 @@ nts::FLIPFLOP4013::~FLIPFLOP4013() {
 
 static int isInput(size_t pin) {
   if (pin == 1 || pin == 2 || pin == 5 || pin == 6 ||
-      pin == 8 || pin == 9 || pin == 12 || pin == 13)
-    return (1);
-  else if (pin == 3 || pin == 4 || pin == 10 || pin == 11)
-    return (0);
-  return (-1);
-}
-
-void nts::FLIPFLOP4013::SetLink(size_t this_pin, nts::IComponent& comp, size_t target_pin) {
-  if (this_pin > 14 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("C4013", this_pin));
-  } else if (_pins[this_pin - 1] == NULL) {
-    _pins[this_pin - 1] = &comp;
-    _links[this_pin - 1] = target_pin;
-    try {
-      comp.SetLink(target_pin, *this, this_pin);
-    }
-    catch (nts::ChipsetException const& err) {
-      throw err;
-    }
+      pin == 8 || pin == 9 || pin == 12 || pin == 13) {
+    return 1;
+  } else if (pin == 3 || pin == 4 || pin == 10 || pin == 11) {
+    return 0;
   }
+  return -1;
 }
 
 nts::Tristate nts::FLIPFLOP4013::nand_gate(size_t first_pin, size_t second_pin) const {
-  return (static_cast<nts::Tristate>(!(first_pin && second_pin)));
+  return static_cast<Tristate>(!(first_pin && second_pin));
 }
 
 nts::Tristate nts::FLIPFLOP4013::Compute(size_t this_pin) {
-  if (this_pin > 14 || this_pin <= 0) {
-    throw nts::PinException(nts::pinError("C4014", this_pin));
+  if (this_pin > 14 || this_pin == 0) {
+    throw PinException(pinError("C4014", this_pin));
   }
-  return (nts::Tristate::UNDEFINED);
+  return Tristate::UNDEFINED;
 }
 
 nts::Tristate nts::FLIPFLOP4013::calcInput(size_t this_pin) {
-  if (!_pins[this_pin - 1])
-    return nts::Tristate::UNDEFINED;
-  if (!isInput(this_pin))
-    throw nts::OutputException("Can't use output as an input");
-  return _pins[this_pin - 1]->Compute(_links[this_pin - 1]);
+  if (!_pins[this_pin - 1]) {
+    return Tristate::UNDEFINED;
+  }
+
+  if (!isInput(this_pin)) {
+    throw OutputException("Can't use output as an input");
+  }
+
+  return _pins[this_pin].compute();
 }
 
 nts::Tristate nts::FLIPFLOP4013::calcOutput(size_t this_pin) {
-  size_t first_pin = 0;
-  size_t second_pin = 0;
-
-  if (this_pin > 14 || this_pin <= 0)
-    return (nts::Tristate::UNDEFINED);
-  first_pin = _outputs[this_pin].first;
-  second_pin = _outputs[this_pin].second;
-  if (!_pins[first_pin - 1] || !_pins[second_pin - 1])
-    return (nts::Tristate::UNDEFINED);
-  return nand_gate(_pins[first_pin - 1]->Compute(_links[first_pin - 1]),
-		   _pins[second_pin - 1]->Compute(_links[second_pin - 1]));
-}
-
-void nts::FLIPFLOP4013::Dump(void) const {
-  for (int i = 0;  i < 14; i++) {
-    std::cout << "\tpin n°" << i + 1 << "= ";
-    if (!_pins[i])
-      std::cout << "NULL" << std::endl;
-    else
-      std::cout << _pins[i]->Compute(_links.at(i)) << std::endl;
+  if (this_pin > 14 || this_pin == 0) {
+    return Tristate::UNDEFINED;
   }
+
+  size_t firstPin = _outputs[this_pin].first;
+  size_t secondPin = _outputs[this_pin].second;
+
+  if (!_pins[firstPin] || !_pins[secondPin]) {
+    return Tristate::UNDEFINED;
+  }
+
+  return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
 }
