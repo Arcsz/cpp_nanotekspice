@@ -17,7 +17,9 @@ nts::Circuit::Circuit() {
 }
 
 nts::Circuit::~Circuit() {
-
+  for (auto& comp : _components) {
+    delete comp.second.second;
+  }
 }
 
 void nts::Circuit::setValue(std::string const& str, bool isShell) {
@@ -48,6 +50,7 @@ void nts::Circuit::addComponent(std::string const& type, std::string const& name
   if (_components.count(name) > 0) {
     throw ComponentExistException("Component already exist: " + name);
   }
+
   _components[name] = std::make_pair(type, comp);
 }
 
@@ -98,12 +101,29 @@ void nts::Circuit::dump() {
   }
 }
 
-std::map<std::string, std::pair<std::string, nts::IComponent*> > nts::Circuit::getComp() const {
-  return _components;
-}
-
 void nts::Circuit::printComp() const {
   for (auto const& pair : _components) {
     std::cout << pair.first << ": " << pair.second.first << std::endl;
+  }
+}
+
+void nts::Circuit::checkLinks() const {
+  for (auto const& pair : _components) {
+
+    if (pair.second.first == "input") {
+      Input *input = static_cast<Input *>(pair.second.second);
+
+      if (input->getValue() == Tristate::UNDEFINED) {
+  	throw UninitializeCompException("Component Error: input '" +
+					pair.first + "' not initialize");
+      }
+    } else if (pair.second.first == "clock") {
+      Clock *clock = static_cast<Clock *>(pair.second.second);
+
+      if (clock->getValue() == Tristate::UNDEFINED) {
+  	throw UninitializeCompException("Component Error: clock '" +
+					pair.first + "' not initialize");
+      }
+    }
   }
 }

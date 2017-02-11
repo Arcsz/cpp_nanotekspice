@@ -37,8 +37,7 @@ namespace nts {
     // try to parse file, THROW FILE EXCEPTION
     void parseFile(std::string const& filename);
 
-    // dump every node
-    void dump(t_ast_node const *root) const;
+    void freeTree(t_ast_node *root) const;
 
   private:
     // -------------------------------LEXER-------------------------------------

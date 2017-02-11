@@ -14,11 +14,11 @@
 bool nts::Shell::_loop = false;
 
 const std::map<std::string, nts::Shell::cmdFunc> nts::Shell::_cmdFunc = {
-  {"exit", &nts::Shell::exit},
-  {"display", &nts::Shell::display},
-  {"loop", &nts::Shell::loop},
-  {"simulate", &nts::Shell::simulate},
-  {"dump", &nts::Shell::dump},
+  {"exit", &Shell::exit},
+  {"display", &Shell::display},
+  {"loop", &Shell::loop},
+  {"simulate", &Shell::simulate},
+  {"dump", &Shell::dump},
 };
 
 nts::Shell::Shell(Circuit& circuit) : _run(true), _circuit(circuit) {
@@ -81,9 +81,10 @@ void nts::Shell::simulate() {
 }
 
 void nts::Shell::loop() {
-  nts::Shell::_loop = true;
-  while (nts::Shell::_loop)
+  Shell::_loop = true;
+  while (Shell::_loop) {
     _circuit.simulate();
+  }
 }
 
 void nts::Shell::dump() {

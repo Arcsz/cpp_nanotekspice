@@ -65,23 +65,16 @@ void nts::Parser::parseFile(std::string const& filename) {
   }
 }
 
-void nts::Parser::dump(t_ast_node const *root) const {
-  if (root->type != ASTNodeType::NEWLINE) {
-    std::cout << *root << std::endl;
+void nts::Parser::freeTree(t_ast_node *root) const {
+  if (root && root->children) {
+    for (t_ast_node *node : *root->children) {
+      freeTree(node);
+    }
+
+    delete root->children;
   }
 
-  if (root->children) {
-    if (root->type != ASTNodeType::NEWLINE) {
-      std::cout << "children:" << std::endl;
-    }
-    for (t_ast_node const *node : *root->children) {
-      dump(node);
-    }
-  }
-
-  if (root->type == ASTNodeType::NEWLINE) {
-    std::cout << std::endl;
-  }
+  delete root;
 }
 
 // -------------------------------PRIVATE---------------------------------------

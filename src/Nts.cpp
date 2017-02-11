@@ -1,3 +1,13 @@
+//
+// Nts.cpp for  in /home/zeng_d/rendu/C++/cpp_nanotekspice
+//
+// Made by David Zeng
+// Login   <zeng_d@epitech.net>
+//
+// Started on  Sun Feb 12 00:07:52 2017 David Zeng
+// Last update Sun Feb 12 00:07:52 2017 David Zeng
+//
+
 #include "Nts.hpp"
 #include "Input.hpp"
 #include "Clock.hpp"
@@ -16,20 +26,14 @@ void nts::Nts::run(std::vector<std::string> args) {
 
   nts::t_ast_node *root = _parser.createTree();
   _parser.parseTree(*root);
+  _parser.freeTree(root);
+
   for (std::string const& str : args) {
     _circuit.setValue(str, false);
   }
-  auto comps = _circuit.getComp();
-  for (auto const& pair : comps) {
-    if (pair.second.first == "input") {
-      if ((static_cast<Input *>(pair.second.second))->getValue() == nts::Tristate::UNDEFINED) {
-	throw UninitializeCompException("Component Error: input '" + pair.first + "' not initialize");
-      }
-    } else if (pair.second.first == "clock") {
-      if ((static_cast<Clock *>(pair.second.second))->getValue() == nts::Tristate::UNDEFINED) {
-	throw UninitializeCompException("Component Error: clock '" + pair.first + "' not initialize");
-      }
-    }
-  }
+
+  _circuit.checkLinks();
+
   _shell.shell();
+
 }

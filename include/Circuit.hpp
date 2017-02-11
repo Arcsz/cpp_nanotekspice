@@ -23,11 +23,10 @@ namespace nts {
     void dump();
     void clockInverse();
 
+    void checkLinks() const;
     void printComp() const;
-    std::map<std::string, std::pair<std::string, IComponent *>> getComp() const;
 
   private:
-    typedef std::unique_ptr<nts::IComponent> IComp;
     // map<name, comp>
     std::map<std::string, std::pair<std::string, IComponent*>> _components;
   };
