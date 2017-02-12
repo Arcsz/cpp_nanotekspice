@@ -5,7 +5,7 @@
 // Login   <zeng_d@epitech.net>
 //
 // Started on  Sat Feb 11 18:32:28 2017 David Zeng
-// Last update Sat Feb 11 18:32:28 2017 David Zeng
+// Last update Sun Feb 12 13:56:07 2017 Riamon Vincent
 //
 
 #include "AComponent.hpp"
@@ -76,4 +76,8 @@ void nts::AComponent::Dump(void) const {
       std::cout << "NULL" << std::endl;
     }
   }
+}
+
+std::string nts::AComponent::getType() const {
+  return _type;
 }

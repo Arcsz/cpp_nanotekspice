@@ -28,6 +28,7 @@ namespace nts {
     void Dump(void) const override;
 
     void SetLink(size_t this_pin, IComponent& comp, size_t target_pin) override;
+    std::string getType() const;
 
   protected:
     std::string _type;
