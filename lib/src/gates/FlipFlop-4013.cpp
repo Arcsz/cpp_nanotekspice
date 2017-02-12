@@ -11,31 +11,49 @@
 #include "gates/FlipFlop-4013.hpp"
 
 nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14) {
+  _outputs[1] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
+		 false, Tristate::UNDEFINED};
+  _outputs[2] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
+		 true, Tristate::UNDEFINED};
+
+  _outputs[13] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
+		  true, Tristate::UNDEFINED};
+  _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
+		  false, Tristate::UNDEFINED};
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
 }
 
 static int isInput(size_t pin) {
-  if (pin == 1 || pin == 2 || pin == 5 || pin == 6 ||
-      pin == 8 || pin == 9 || pin == 12 || pin == 13) {
-    return 1;
-  } else if (pin == 3 || pin == 4 || pin == 10 || pin == 11) {
-    return 0;
-  }
-  return -1;
-}
+  switch (pin) {
+  // UNDEFINED
+  case 7:
+  case 14:
+    return -1;
 
-nts::Tristate nts::FLIPFLOP4013::nand_gate(size_t first_pin, size_t second_pin) const {
-  return static_cast<Tristate>(!(first_pin && second_pin));
+  // OUTPUT
+  case 1 ... 2:
+  case 12 ... 13:
+    return 0;
+
+  // INPUT
+  default:
+    return 1;
+  }
 }
 
 nts::Tristate nts::FLIPFLOP4013::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
     throw PinException(pinError(_type, this_pin));
   }
-  if (isInput(this_pin))
-    return Tristate::UNDEFINED;
+
+  if (isInput(this_pin) == 1) {
+    return this->calcInput(this_pin);
+  } else if (isInput(this_pin) == 0) {
+    return this->calcOutput(this_pin);
+  }
+
   return Tristate::UNDEFINED;
 }
 
@@ -51,17 +69,63 @@ nts::Tristate nts::FLIPFLOP4013::calcInput(size_t this_pin) {
   return _pins[this_pin].compute();
 }
 
+nts::Tristate nts::FLIPFLOP4013::computeBarre(FlipFlop& output, Tristate state) {
+  if (output.barre && state == Tristate::TRUE) {
+    state = Tristate::FALSE;
+  } else if (output.barre && state == Tristate::FALSE) {
+    state = Tristate::TRUE;
+  }
+
+  output.oldValue = state;
+  return state;
+}
+
 nts::Tristate nts::FLIPFLOP4013::calcOutput(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
     return Tristate::UNDEFINED;
   }
 
-  size_t firstPin = _outputs[this_pin].first;
-  size_t secondPin = _outputs[this_pin].second;
-
-  if (!_pins[firstPin] || !_pins[secondPin]) {
+  size_t reset = _outputs[this_pin].reset;
+  size_t set = _outputs[this_pin].set;
+  if (!_pins[reset] || !_pins[set]) {
     return Tristate::UNDEFINED;
   }
 
-  return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
+  size_t resetVal = _pins[reset].compute();
+  size_t setVal = _pins[set].compute();
+  if (resetVal == Tristate::TRUE && setVal == Tristate::TRUE) {
+    _outputs[this_pin].oldValue = Tristate::TRUE;
+    return Tristate::TRUE;
+  }
+  if (resetVal == Tristate::FALSE && setVal == Tristate::TRUE) {
+    return computeBarre(_outputs[this_pin], Tristate::TRUE);
+  }
+  if (resetVal == Tristate::TRUE && setVal == Tristate::FALSE) {
+    return computeBarre(_outputs[this_pin], Tristate::FALSE);
+  }
+
+  size_t clock = _outputs[this_pin].clock;
+  if (!_pins[clock]) {
+    return Tristate::UNDEFINED;
+  }
+
+  size_t clockVal = _pins[clock].compute();
+  if (clockVal == Tristate::FALSE) {
+    return _outputs[this_pin].oldValue;
+  }
+
+  size_t data = _outputs[this_pin].data;
+  if (!_pins[data]) {
+    return Tristate::UNDEFINED;
+  }
+
+  size_t dataVal = _pins[data].compute();
+  if (dataVal == Tristate::TRUE) {
+    return computeBarre(_outputs[this_pin], Tristate::TRUE);
+  }
+  if (dataVal == Tristate::FALSE) {
+    return computeBarre(_outputs[this_pin], Tristate::FALSE);
+  }
+
+  return Tristate::UNDEFINED;
 }

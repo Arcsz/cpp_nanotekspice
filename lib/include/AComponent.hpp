@@ -25,6 +25,7 @@ namespace nts {
     size_t pin;
 
     operator bool() const;
+    bool operator!() const;
     Tristate compute() const;
   };
 

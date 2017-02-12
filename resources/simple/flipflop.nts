@@ -1,0 +1,23 @@
+# flipflop
+
+.chipsets:
+4013	flipflop
+
+input	reset
+input	data
+input	set
+
+clock	clock
+
+output	q1
+output	q2
+
+.links:
+q1:1	flipflop:1
+q2:1	flipflop:2
+
+clock:1	flipflop:3
+
+reset:1	flipflop:4
+data:1	flipflop:5
+set:1	flipflop:6

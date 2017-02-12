@@ -18,14 +18,18 @@ nts::Link::operator bool() const {
   return comp;
 }
 
+bool nts::Link::operator!() const {
+  return !comp;
+}
+
 nts::Tristate nts::Link::compute() const {
   return comp->Compute(pin);
 }
 
 nts::AComponent::AComponent(std::string const& type, Tristate val, size_t maxPin)
   : _type(type), _val(val), _maxPin(maxPin) {
+  // initialize pins
   for (size_t i = 1; i <= maxPin; ++i) {
-    // initialize pin
     _pins[i];
   }
 }

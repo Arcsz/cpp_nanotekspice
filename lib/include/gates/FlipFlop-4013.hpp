@@ -15,16 +15,26 @@
 
 namespace nts {
   class FLIPFLOP4013 : public AComponent {
+  private:
+    typedef struct FlipFlop {
+      size_t clock;
+      size_t reset;
+      size_t data;
+      size_t set;
+      bool barre;
+      Tristate oldValue;
+    } FlipFlop;
+
   public:
     FLIPFLOP4013(Tristate val);
     ~FLIPFLOP4013();
     Tristate Compute(size_t this_pin = 1) override;
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
-    Tristate nand_gate(size_t first_pin, size_t second_pin) const;
+    Tristate computeBarre(FlipFlop& output, Tristate state);
 
   private:
-    std::map<size_t, std::pair<size_t, size_t> > _outputs;
+    std::map<size_t, FlipFlop> _outputs;
   };
 }
 
