@@ -81,7 +81,7 @@ void nts::Parser::freeTree(t_ast_node *root) const {
 
 nts::t_ast_node *nts::Parser::createNode(std::string const& lexeme,
 					 ASTNodeType type,
-					 std::string const& value) {
+					 std::string const& value) const {
   t_ast_node *node = new t_ast_node(NULL);
 
   node->lexeme = lexeme;
@@ -90,7 +90,7 @@ nts::t_ast_node *nts::Parser::createNode(std::string const& lexeme,
   return node;
 }
 
-void nts::Parser::pushNode(t_ast_node *node, t_ast_node *child) {
+void nts::Parser::pushNode(t_ast_node *node, t_ast_node *child) const {
   // check if it already has children
   if (node->children) {
     node->children->push_back(child);
@@ -100,7 +100,7 @@ void nts::Parser::pushNode(t_ast_node *node, t_ast_node *child) {
   }
 }
 
-void nts::Parser::throwRemain(std::stringstream& sstr) {
+void nts::Parser::throwRemain(std::stringstream& sstr) const {
   if (sstr.rdbuf()->in_avail() != 0) {
     std::string remain;
     getline(sstr, remain);
@@ -198,7 +198,7 @@ bool nts::Parser::parseLinks(t_ast_node *root) {
   return true;
 }
 
-nts::t_ast_node *nts::Parser::getLinkNode(std::string const& str, ASTNodeType type) {
+nts::t_ast_node *nts::Parser::getLinkNode(std::string const& str, ASTNodeType type) const {
   std::string name = str.substr(0, str.find(':'));
   std::string pin = str.substr(str.find(':') + 1, str.size());
 
@@ -297,10 +297,4 @@ void nts::Parser::getLink(t_ast_node *link) {
   pin2Stream >> pin2;
 
   _circuit.setLink(comp1, pin1, comp2, pin2);
-}
-
-
-std::ostream& operator<<(std::ostream& os, nts::t_ast_node node) {
-  os << "lexeme: \"" << node.lexeme << "\" value: \"" << node.value << "\"";
-  return os;
 }

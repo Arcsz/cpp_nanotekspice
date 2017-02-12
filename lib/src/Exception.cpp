@@ -26,7 +26,7 @@ nts::InputException::InputException(std::string const& msg) : nts::Exception(msg
 nts::OutputException::OutputException(std::string const& msg) : nts::Exception(msg) {
 }
 
-nts::UninitializeCompException::UninitializeCompException(std::string const& msg) : nts::Exception(msg) {
+nts::UninitializedCompException::UninitializedCompException(std::string const& msg) : nts::Exception(msg) {
 }
 
 nts::ChipsetException::ChipsetException(std::string const& msg) : nts::Exception(msg) {

@@ -44,10 +44,10 @@ namespace nts {
 
     // create an ast_node
     t_ast_node *createNode(std::string const& lexeme, ASTNodeType type,
-			   std::string const& value);
+			   std::string const& value) const;
 
     // push ast_node into another ast_node
-    void pushNode(t_ast_node *node, t_ast_node *child);
+    void pushNode(t_ast_node *node, t_ast_node *child) const;
 
     // parse chipset
     bool parseChipset(t_ast_node *root);
@@ -57,14 +57,14 @@ namespace nts {
     bool parseLinks(t_ast_node *root);
     bool parseLink(t_ast_node *line);
 
-    t_ast_node *getLinkNode(std::string const& str, ASTNodeType type);
+    t_ast_node *getLinkNode(std::string const& str, ASTNodeType type) const;
 
     // parse value contained in parentheses
     Option<std::string> getCompValue(std::string const& line,
 				     std::string& name) const;
 
     // check EOL
-    void throwRemain(std::stringstream& sstr);
+    void throwRemain(std::stringstream& sstr) const;
 
     // -------------------------------PARSER------------------------------------
 
@@ -84,7 +84,5 @@ namespace nts {
   };
 
 }
-
-std::ostream& operator<<(std::ostream& os, nts::t_ast_node node);
 
 #endif /* !PARSER_HPP_ */

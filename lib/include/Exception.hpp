@@ -42,9 +42,9 @@ namespace nts {
     UnknownTypeException(std::string const& msg);
   };
 
-  class UninitializeCompException : public Exception {
+  class UninitializedCompException : public Exception {
   public:
-    UninitializeCompException(std::string const& msg);
+    UninitializedCompException(std::string const& msg);
   };
 
   class ComponentExistException : public Exception {

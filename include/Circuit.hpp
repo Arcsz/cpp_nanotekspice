@@ -18,7 +18,7 @@ namespace nts {
     void addComponent(std::string const& name, AComponent *comp);
     void setLink(std::string const& name1, size_t pin1,
 		 std::string const& name2, size_t pin2);
-    void outputDisplay();
+    void outputDisplay() const;
     void simulate();
     void dump();
     void clockInverse();
