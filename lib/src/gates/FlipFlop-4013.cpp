@@ -17,9 +17,9 @@ nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14
 		 true, Tristate::UNDEFINED};
 
   _outputs[13] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
-		  true, Tristate::UNDEFINED};
-  _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
 		  false, Tristate::UNDEFINED};
+  _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
+		  true, Tristate::UNDEFINED};
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
@@ -80,6 +80,33 @@ nts::Tristate nts::FLIPFLOP4013::computeBarre(FlipFlop& output, Tristate state) 
   return state;
 }
 
+nts::Tristate nts::FLIPFLOP4013::computeDataInput(FlipFlop& output) {
+  size_t clock = output.clock;
+  if (!_pins[clock]) {
+    return Tristate::UNDEFINED;
+  }
+
+  size_t clockVal = _pins[clock].compute();
+  if (clockVal == Tristate::FALSE) {
+    return output.oldValue;
+  }
+
+  size_t data = output.data;
+  if (!_pins[data]) {
+    return Tristate::UNDEFINED;
+  }
+
+  size_t dataVal = _pins[data].compute();
+  if (dataVal == Tristate::TRUE) {
+    return computeBarre(output, Tristate::TRUE);
+  }
+  if (dataVal == Tristate::FALSE) {
+    return computeBarre(output, Tristate::FALSE);
+  }
+
+  return Tristate::UNDEFINED;
+}
+
 nts::Tristate nts::FLIPFLOP4013::calcOutput(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
     return Tristate::UNDEFINED;
@@ -104,28 +131,5 @@ nts::Tristate nts::FLIPFLOP4013::calcOutput(size_t this_pin) {
     return computeBarre(_outputs[this_pin], Tristate::FALSE);
   }
 
-  size_t clock = _outputs[this_pin].clock;
-  if (!_pins[clock]) {
-    return Tristate::UNDEFINED;
-  }
-
-  size_t clockVal = _pins[clock].compute();
-  if (clockVal == Tristate::FALSE) {
-    return _outputs[this_pin].oldValue;
-  }
-
-  size_t data = _outputs[this_pin].data;
-  if (!_pins[data]) {
-    return Tristate::UNDEFINED;
-  }
-
-  size_t dataVal = _pins[data].compute();
-  if (dataVal == Tristate::TRUE) {
-    return computeBarre(_outputs[this_pin], Tristate::TRUE);
-  }
-  if (dataVal == Tristate::FALSE) {
-    return computeBarre(_outputs[this_pin], Tristate::FALSE);
-  }
-
-  return Tristate::UNDEFINED;
+  return computeDataInput(_outputs[this_pin]);
 }

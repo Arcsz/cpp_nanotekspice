@@ -32,6 +32,7 @@ namespace nts {
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
     Tristate computeBarre(FlipFlop& output, Tristate state);
+    Tristate computeDataInput(FlipFlop& output);
 
   private:
     std::map<size_t, FlipFlop> _outputs;
