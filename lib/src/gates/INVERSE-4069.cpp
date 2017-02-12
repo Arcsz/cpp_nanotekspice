@@ -55,9 +55,10 @@ nts::Tristate nts::INVERSE4069::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(nts::Tristate::UNDEFINED);
-  if (out)
+  Output *out = new Output(Tristate::UNDEFINED);
+  if (out) {
     throw OutputException("Can't use output as an input");
+  }
 
   return _pins[this_pin].compute();
 }
