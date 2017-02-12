@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Sun Feb 12 22:52:18 2017 Riamon Vincent
+// Last update Sun Feb 12 23:32:37 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -47,8 +47,7 @@ void nts::Shell::shell() {
   std::cout << "> ";
   while (_run && getline(std::cin, line)) {
     std::istringstream ss(line);
-    while (getline(ss, cmd, ';'))
-      {
+    while (getline(ss, cmd, ';')) {
 	cmd = StrUtils::trim(cmd);
 	if (cmd.find('=') != std::string::npos) {
 	  try {
@@ -56,9 +55,7 @@ void nts::Shell::shell() {
 	  } catch (Exception const& e) {
 	    std::cerr << e.what() << std::endl;
 	  }
-	}
-	else if (cmd != "")
-	  {
+	} else if (cmd != "") {
 	    if (!_cmdFunc.count(cmd)) {
 	      std::cout << cmd << ": Command not found" << std::endl;
             } else {
