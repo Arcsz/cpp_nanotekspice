@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Jan 31 12:59:50 2017 Riamon Vincent
-// Last update Sat Feb 11 15:08:50 2017 Riamon Vincent
+// Last update Sun Feb 12 16:58:53 2017 Riamon Vincent
 //
 
 #include "components/Output.hpp"
@@ -23,7 +23,7 @@ nts::Tristate nts::Output::Compute(size_t this_pin) {
   }
 
   if (!_pins[this_pin]) {
-    throw OutputException("Output is not linked");
+    throw OutputException("Output is not linked to anything");
   }
 
   _val = _pins[this_pin].compute();
