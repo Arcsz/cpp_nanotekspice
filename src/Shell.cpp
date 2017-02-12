@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Tue Feb  7 21:13:05 2017 Riamon Vincent
-// Last update Sat Feb 11 23:29:36 2017 Riamon Vincent
+// Last update Sun Feb 12 22:52:18 2017 Riamon Vincent
 //
 
 #include "StrUtils.hpp"
@@ -38,33 +38,36 @@ void ctrl_c_function(int n) {
 }
 
 void nts::Shell::shell() {
-  std::signal(SIGINT, ctrl_c_function);
+  std::string line;
+  std::string cmd;
 
   simulate();
   display();
-
+  std::signal(SIGINT, ctrl_c_function);
   std::cout << "> ";
-  std::string line;
   while (_run && getline(std::cin, line)) {
-    line = StrUtils::trim(line);
-
-    if (line.find('=') != std::string::npos) {
-      try {
-	_circuit.setValue(line, true);
-      } catch (Exception const& e) {
-	std::cerr << e.what() << std::endl;
-      }
-    }
-    else if (line != "")
+    std::istringstream ss(line);
+    while (getline(ss, cmd, ';'))
       {
-	if (!_cmdFunc.count(line)) {
-	  std::cout << line << ": Command not found" << std::endl;
-	} else {
-	  cmdFunc a = _cmdFunc.at(line);
-	  (this->*a)();
+	cmd = StrUtils::trim(cmd);
+	if (cmd.find('=') != std::string::npos) {
+	  try {
+	    _circuit.setValue(cmd, true);
+	  } catch (Exception const& e) {
+	    std::cerr << e.what() << std::endl;
+	  }
 	}
+	else if (cmd != "")
+	  {
+	    if (!_cmdFunc.count(cmd)) {
+	      std::cout << cmd << ": Command not found" << std::endl;
+            } else {
+	      cmdFunc a = _cmdFunc.at(cmd);
+	      (this->*a)();
+	    }
+	  }
       }
-    if (line != "exit")
+    if (cmd != "exit")
       std::cout << "> ";
   }
 }
