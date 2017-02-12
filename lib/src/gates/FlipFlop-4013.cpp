@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sun Feb 12 14:04:10 2017 Riamon Vincent
+// Last update Sun Feb 12 16:47:54 2017 Riamon Vincent
 //
 
 #include "gates/FlipFlop-4013.hpp"
@@ -40,7 +40,7 @@ nts::Tristate nts::FLIPFLOP4013::Compute(size_t this_pin) {
 }
 
 nts::Tristate nts::FLIPFLOP4013::calcInput(size_t this_pin) {
-  if (!_pins[this_pin - 1]) {
+  if (!_pins[this_pin]) {
     return Tristate::UNDEFINED;
   }
 
