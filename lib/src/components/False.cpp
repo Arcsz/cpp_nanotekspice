@@ -10,8 +10,8 @@
 
 #include "components/False.hpp"
 
-nts::False::False(Tristate val) : AComponent("False", val, 1) {
-  _val = nts::Tristate::FALSE;
+nts::False::False(Tristate val) : AComponent(CONST::FALSE, val, 1) {
+  _val = Tristate::FALSE;
 }
 
 nts::False::~False() {
@@ -19,7 +19,7 @@ nts::False::~False() {
 
 nts::Tristate nts::False::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin <= 0) {
-    throw PinException(pinError("False", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   return _val;

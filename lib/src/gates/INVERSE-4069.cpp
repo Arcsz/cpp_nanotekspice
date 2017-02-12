@@ -10,7 +10,7 @@
 
 #include "gates/INVERSE-4069.hpp"
 
-nts::INVERSE4069::INVERSE4069(Tristate val) : AComponent("4069", val, 14) {
+nts::INVERSE4069::INVERSE4069(Tristate val) : AComponent(CONST::C4069, val, 14) {
   _outputs[2] = 1;
   _outputs[4] = 3;
   _outputs[6] = 5;
@@ -37,7 +37,7 @@ nts::Tristate nts::INVERSE4069::not_gate(size_t first_pin) const {
 
 nts::Tristate nts::INVERSE4069::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4069", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (isInput(this_pin)) {
@@ -54,7 +54,7 @@ nts::Tristate nts::INVERSE4069::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

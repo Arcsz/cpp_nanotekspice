@@ -10,11 +10,11 @@
 
 #include "gates/NAND-4011.hpp"
 
-nts::NAND4011::NAND4011(Tristate val) : AComponent("4011", val, 14) {
-  _outputs[3] = {1, 2};
-  _outputs[4] = {5, 6};
-  _outputs[10] = {8, 9};
-  _outputs[11] = {12, 13};
+nts::NAND4011::NAND4011(Tristate val) : AComponent(CONST::C4011, val, 14) {
+  _outputs[3] = std::make_pair(1, 2);
+  _outputs[4] = std::make_pair(5, 6);
+  _outputs[10] = std::make_pair(8, 9);
+  _outputs[11] = std::make_pair(12, 13);
 }
 
 nts::NAND4011::~NAND4011() {
@@ -36,7 +36,7 @@ nts::Tristate nts::NAND4011::nand_gate(size_t first_pin, size_t second_pin) cons
 
 nts::Tristate nts::NAND4011::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4011", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (isInput(this_pin)) {
@@ -53,7 +53,7 @@ nts::Tristate nts::NAND4011::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

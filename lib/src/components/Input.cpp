@@ -10,7 +10,7 @@
 
 #include "components/Input.hpp"
 
-nts::Input::Input(Tristate val) : AComponent("Input", val, 1) {
+nts::Input::Input(Tristate val) : AComponent(CONST::INPUT, val, 1) {
 }
 
 nts::Input::~Input() {
@@ -18,7 +18,7 @@ nts::Input::~Input() {
 
 nts::Tristate nts::Input::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin <= 0) {
-    throw PinException(pinError("Input", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   return _val;

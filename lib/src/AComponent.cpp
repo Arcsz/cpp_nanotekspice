@@ -64,7 +64,7 @@ void nts::AComponent::Dump(void) const {
       std::cout << "\tvalue = " << _val << std::endl;
     }
 
-    std::cout << "\tpin n°" << i << " = ";
+    std::cout << "\tpin " << i << " = ";
 
     if (_pins.at(i)) {
       if (_maxPin == 1) {
@@ -78,6 +78,6 @@ void nts::AComponent::Dump(void) const {
   }
 }
 
-std::string nts::AComponent::getType() const {
+std::string const& nts::AComponent::getType() const {
   return _type;
 }

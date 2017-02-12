@@ -10,7 +10,7 @@
 
 #include "gates/register-4094.hpp"
 
-nts::register4094::register4094(Tristate val) : AComponent("4094", val, 14) {
+nts::register4094::register4094(Tristate val) : AComponent(CONST::C4094, val, 14) {
 }
 
 nts::register4094::~register4094() {
@@ -32,7 +32,7 @@ nts::Tristate nts::register4094::nand_gate(size_t first_pin, size_t second_pin) 
 
 nts::Tristate nts::register4094::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4094", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (isInput(this_pin))
@@ -45,7 +45,7 @@ nts::Tristate nts::register4094::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

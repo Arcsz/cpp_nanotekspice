@@ -5,7 +5,7 @@
 # include <map>
 # include <vector>
 # include <tuple>
-# include "IComponent.hpp"
+# include "AComponent.hpp"
 
 namespace nts {
   class Circuit {
@@ -15,7 +15,7 @@ namespace nts {
 
     // set value
     void setValue(std::string const& str, bool isShell);
-    void addComponent(std::string const&, std::string const&, IComponent *);
+    void addComponent(std::string const& name, AComponent *comp);
     void setLink(std::string const& name1, size_t pin1,
 		 std::string const& name2, size_t pin2);
     void outputDisplay();
@@ -27,8 +27,7 @@ namespace nts {
     void printComp() const;
 
   private:
-    // map<name, comp>
-    std::map<std::string, std::pair<std::string, IComponent*>> _components;
+    std::map<std::string, AComponent*> _components;
   };
 }
 

@@ -18,7 +18,7 @@ nts::Circuit::Circuit() {
 
 nts::Circuit::~Circuit() {
   for (auto& comp : _components) {
-    delete comp.second.second;
+    delete comp.second;
   }
 }
 
@@ -28,15 +28,15 @@ void nts::Circuit::setValue(std::string const& str, bool isShell) {
 
   if (_components.count(name) == 0) {
     throw ComponentNotFoundException("Component not found: " + name);
-  } else if ((isShell && _components[name].first != "input") ||
-	     (!isShell && _components[name].first != "input" &&
-	      _components[name].first != "clock")) {
+  } else if ((isShell && _components[name]->getType() != CONST::INPUT) ||
+	     (!isShell && _components[name]->getType() != CONST::INPUT &&
+	      _components[name]->getType() != CONST::CLOCK)) {
     throw UnmodifiedException("Component: " + name + " of type: " +
-			      _components[name].first + " can't be modified");
+			      _components[name]->getType() + " can't be modified");
   }
 
-  IComponent *comp = _components[name].second;
-  if (_components[name].first == "input") {
+  AComponent *comp = _components[name];
+  if (_components[name]->getType() == CONST::INPUT) {
     Input *input = static_cast<Input*>(comp);
     input->setValue(ComponentFactory::getTristate(value));
   } else {
@@ -45,13 +45,12 @@ void nts::Circuit::setValue(std::string const& str, bool isShell) {
   }
 }
 
-void nts::Circuit::addComponent(std::string const& type, std::string const& name,
-				nts::IComponent *comp) {
+void nts::Circuit::addComponent(std::string const& name, AComponent *comp) {
   if (_components.count(name) > 0) {
     throw ComponentExistException("Component already exist: " + name);
   }
 
-  _components[name] = std::make_pair(type, comp);
+  _components[name] = comp;
 }
 
 void nts::Circuit::setLink(std::string const& name1, size_t pin1,
@@ -62,16 +61,16 @@ void nts::Circuit::setLink(std::string const& name1, size_t pin1,
     throw ComponentNotFoundException("Component not found: " + name2);
   }
 
-  IComponent *comp1 = _components[name1].second;
-  IComponent *comp2 = _components[name2].second;
+  IComponent *comp1 = _components[name1];
+  IComponent *comp2 = _components[name2];
 
   comp1->SetLink(pin1, *comp2, pin2);
 }
 
 void nts::Circuit::outputDisplay() {
   for (auto const& pair : _components) {
-    if (pair.second.first == "output") {
-      Output *output = static_cast<Output*>(pair.second.second);
+    if (pair.second->getType() == CONST::OUTPUT) {
+      Output *output = static_cast<Output*>(pair.second);
       std::cout << pair.first << "=" << output->getValue() << std::endl;
     }
   }
@@ -79,8 +78,8 @@ void nts::Circuit::outputDisplay() {
 
 void nts::Circuit::simulate() {
   for (auto const& pair : _components) {
-    if (pair.second.first == "output") {
-      (static_cast<Output *>(pair.second.second))->Compute();
+    if (pair.second->getType() == CONST::OUTPUT) {
+      (static_cast<Output *>(pair.second))->Compute();
     }
   }
   clockInverse();
@@ -88,41 +87,41 @@ void nts::Circuit::simulate() {
 
 void nts::Circuit::clockInverse() {
   for (auto const& pair : _components) {
-    if (pair.second.first == "clock") {
-      (static_cast<Clock*>(pair.second.second))->inverted();
+    if (pair.second->getType() == CONST::CLOCK) {
+      (static_cast<Clock*>(pair.second))->inverted();
     }
   }
 }
 
 void nts::Circuit::dump() {
   for (auto const& pair : _components) {
-    std::cout << pair.second.first << ": " << pair.first << std::endl;
-    pair.second.second->Dump();
+    std::cout << pair.second->getType() << ": " << pair.first << std::endl;
+    pair.second->Dump();
   }
 }
 
 void nts::Circuit::printComp() const {
   for (auto const& pair : _components) {
-    std::cout << pair.first << ": " << pair.second.first << std::endl;
+    std::cout << pair.first << ": " << pair.second->getType() << std::endl;
   }
 }
 
 void nts::Circuit::checkLinks() const {
   for (auto const& pair : _components) {
 
-    if (pair.second.first == "input") {
-      Input *input = static_cast<Input *>(pair.second.second);
+    if (pair.second->getType() == CONST::INPUT) {
+      Input *input = static_cast<Input *>(pair.second);
 
       if (input->getValue() == Tristate::UNDEFINED) {
   	throw UninitializeCompException("Component Error: input '" +
-					pair.first + "' not initialize");
+					pair.first + "' not initialized");
       }
-    } else if (pair.second.first == "clock") {
-      Clock *clock = static_cast<Clock *>(pair.second.second);
+    } else if (pair.second->getType() == CONST::CLOCK) {
+      Clock *clock = static_cast<Clock *>(pair.second);
 
       if (clock->getValue() == Tristate::UNDEFINED) {
   	throw UninitializeCompException("Component Error: clock '" +
-					pair.first + "' not initialize");
+					pair.first + "' not initialized");
       }
     }
   }

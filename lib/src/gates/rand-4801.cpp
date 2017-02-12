@@ -10,7 +10,7 @@
 
 #include "gates/rand-4801.hpp"
 
-nts::rand4801::rand4801(Tristate val) : AComponent("4801", val, 14) {
+nts::rand4801::rand4801(Tristate val) : AComponent(CONST::C4801, val, 14) {
 }
 
 nts::rand4801::~rand4801() {
@@ -32,7 +32,7 @@ nts::Tristate nts::rand4801::nand_gate(size_t first_pin, size_t second_pin) cons
 
 nts::Tristate nts::rand4801::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4801", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::rand4801::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

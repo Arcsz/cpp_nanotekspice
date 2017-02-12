@@ -10,11 +10,11 @@
 
 #include "gates/NOR-4001.hpp"
 
-nts::NOR4001::NOR4001(Tristate val) : AComponent("4001", val, 14) {
-  _outputs[3] = {1, 2};
-  _outputs[4] = {5, 6};
-  _outputs[10] = {8, 9};
-  _outputs[11] = {12, 13};
+nts::NOR4001::NOR4001(Tristate val) : AComponent(CONST::C4001, val, 14) {
+  _outputs[3] = std::make_pair(1, 2);
+  _outputs[4] = std::make_pair(5, 6);
+  _outputs[10] = std::make_pair(8, 9);
+  _outputs[11] = std::make_pair(12, 13);
 }
 
 nts::NOR4001::~NOR4001() {
@@ -36,7 +36,7 @@ nts::Tristate nts::NOR4001::nor_gate(size_t first_pin, size_t second_pin) const 
 
 nts::Tristate nts::NOR4001::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4001", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (isInput(this_pin)) {
@@ -53,7 +53,7 @@ nts::Tristate nts::NOR4001::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

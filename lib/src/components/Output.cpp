@@ -10,8 +10,8 @@
 
 #include "components/Output.hpp"
 
-nts::Output::Output(Tristate val) : AComponent("Output", val, 1){
-  _val = nts::Tristate::UNDEFINED;
+nts::Output::Output(Tristate val) : AComponent(CONST::OUTPUT, val, 1){
+  _val = Tristate::UNDEFINED;
 }
 
 nts::Output::~Output() {
@@ -19,7 +19,7 @@ nts::Output::~Output() {
 
 nts::Tristate nts::Output::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin == 0) {
-    throw PinException(pinError("Output", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (!_pins[this_pin]) {

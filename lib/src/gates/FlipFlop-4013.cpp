@@ -10,7 +10,7 @@
 
 #include "gates/FlipFlop-4013.hpp"
 
-nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent("4013", val, 14) {
+nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14) {
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
@@ -32,7 +32,7 @@ nts::Tristate nts::FLIPFLOP4013::nand_gate(size_t first_pin, size_t second_pin) 
 
 nts::Tristate nts::FLIPFLOP4013::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4014", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::FLIPFLOP4013::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

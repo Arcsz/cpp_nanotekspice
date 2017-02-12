@@ -15,7 +15,7 @@ INCLUDE:=	include/ \
 		include/components \
 		include/gates \
 
-SRC:=		components/Input.cpp \
+SRC:= 		components/Input.cpp \
 		components/Output.cpp \
 		components/True.cpp \
 		components/False.cpp \
@@ -34,6 +34,7 @@ SRC:=		components/Input.cpp \
 		gates/Jdecade-4017.cpp \
 		gates/rand-4801.cpp \
 		gates/rdonly-2716.cpp \
+		Constant.cpp \
 		ComponentFactory.cpp \
 		AComponent.cpp \
 		Exception.cpp \

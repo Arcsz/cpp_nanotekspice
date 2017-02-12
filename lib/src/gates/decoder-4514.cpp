@@ -10,7 +10,7 @@
 
 #include "gates/decoder-4514.hpp"
 
-nts::decoder4514::decoder4514(Tristate val) : AComponent("4514", val, 14) {
+nts::decoder4514::decoder4514(Tristate val) : AComponent(CONST::C4514, val, 14) {
 }
 
 nts::decoder4514::~decoder4514() {
@@ -32,7 +32,7 @@ nts::Tristate nts::decoder4514::nand_gate(size_t first_pin, size_t second_pin) c
 
 nts::Tristate nts::decoder4514::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4514", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::decoder4514::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 
