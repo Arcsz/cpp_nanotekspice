@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:35:32 2017 Riamon Vincent
+// Last update Sun Feb 12 14:03:57 2017 Riamon Vincent
 //
 
 #include "gates/Jdecade-4017.hpp"
-#include "Output.hpp"
 
 nts::Jdecade4017::Jdecade4017(Tristate val) : AComponent("4017", val, 14) {
 }
@@ -45,8 +44,7 @@ nts::Tristate nts::Jdecade4017::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

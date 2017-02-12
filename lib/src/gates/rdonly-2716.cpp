@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:35:10 2017 Riamon Vincent
+// Last update Sun Feb 12 14:02:52 2017 Riamon Vincent
 //
 
 #include "gates/rdonly-2716.hpp"
-#include "Output.hpp"
 
 nts::rdonly2716::rdonly2716(Tristate val) : AComponent("2716", val, 14) {
 }
@@ -45,8 +44,7 @@ nts::Tristate nts::rdonly2716::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

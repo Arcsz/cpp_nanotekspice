@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:21:20 2017 Riamon Vincent
+// Last update Sun Feb 12 14:04:18 2017 Riamon Vincent
 //
 
 #include "gates/AND-4081.hpp"
-#include "Output.hpp"
 
 nts::AND4081::AND4081(Tristate val) : AComponent("4081", val, 14) {
   _outputs[3] = {1, 2};
@@ -54,8 +53,7 @@ nts::Tristate nts::AND4081::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED); // TODO WHY ? memory leak
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

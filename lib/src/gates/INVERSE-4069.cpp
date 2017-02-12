@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:31:27 2017 Riamon Vincent
+// Last update Sun Feb 12 14:04:03 2017 Riamon Vincent
 //
 
 #include "gates/INVERSE-4069.hpp"
-#include "Output.hpp"
 
 nts::INVERSE4069::INVERSE4069(Tristate val) : AComponent("4069", val, 14) {
   _outputs[2] = 1;
@@ -55,8 +54,7 @@ nts::Tristate nts::INVERSE4069::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

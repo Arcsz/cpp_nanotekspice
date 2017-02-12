@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:31:38 2017 Riamon Vincent
+// Last update Sun Feb 12 14:03:50 2017 Riamon Vincent
 //
 
 #include "gates/NAND-4011.hpp"
-#include "Output.hpp"
 
 nts::NAND4011::NAND4011(Tristate val) : AComponent("4011", val, 14) {
   _outputs[3] = {1, 2};
@@ -54,8 +53,7 @@ nts::Tristate nts::NAND4011::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

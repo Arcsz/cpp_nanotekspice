@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:31:03 2017 Riamon Vincent
+// Last update Sun Feb 12 14:03:14 2017 Riamon Vincent
 //
 
 #include "gates/adder-4008.hpp"
-#include "Output.hpp"
 
 nts::adder4008::adder4008(Tristate val) : AComponent("4008", val, 16) {
   _outputs[10] = {6, 7};
@@ -61,8 +60,7 @@ nts::Tristate nts::adder4008::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 

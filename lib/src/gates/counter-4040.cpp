@@ -5,11 +5,10 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sat Feb 11 23:35:48 2017 Riamon Vincent
+// Last update Sun Feb 12 14:03:08 2017 Riamon Vincent
 //
 
 #include "gates/counter-4040.hpp"
-#include "Output.hpp"
 
 nts::counter4040::counter4040(Tristate val) : AComponent("4040", val, 14) {
 }
@@ -45,8 +44,7 @@ nts::Tristate nts::counter4040::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  Output *out = new Output(Tristate::UNDEFINED);
-  if (out) {
+  if (_pins[this_pin].comp->getType() == "Output") {
     throw OutputException("Can't use output as an input");
   }
 
