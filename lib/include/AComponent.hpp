@@ -1,8 +1,19 @@
+//
+// AComponent.hpp for  in /home/zeng_d
+//
+// Made by David Zeng
+// Login   <zeng_d@epitech.net>
+//
+// Started on  Sun Feb 12 15:29:11 2017 David Zeng
+// Last update Sun Feb 12 15:29:11 2017 David Zeng
+//
+
 #ifndef ACOMPONENT_HPP_
 # define ACOMPONENT_HPP_
 
 # include <map>
 # include "IComponent.hpp"
+# include "Constant.hpp"
 
 namespace nts {
 
@@ -13,9 +24,7 @@ namespace nts {
     AComponent *comp;
     size_t pin;
 
-    // contains comp ?
     operator bool() const;
-
     Tristate compute() const;
   };
 
@@ -26,15 +35,13 @@ namespace nts {
 
     virtual Tristate Compute(size_t pin_num_this = 1) override = 0;
     void Dump(void) const override;
-
     void SetLink(size_t this_pin, IComponent& comp, size_t target_pin) override;
-    std::string getType() const;
+    std::string const& getType() const;
 
   protected:
     std::string _type;
     Tristate _val;
     size_t _maxPin;
-    // map<Pin, Link<Component, Pin>>
     std::map<size_t, Link> _pins;
   };
 

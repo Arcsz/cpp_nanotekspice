@@ -10,11 +10,11 @@
 
 #include "gates/adder-4008.hpp"
 
-nts::adder4008::adder4008(Tristate val) : AComponent("4008", val, 16) {
-  _outputs[10] = {6, 7};
-  _outputs[11] = {4, 5};
-  _outputs[12] = {2, 3};
-  _outputs[13] = {1, 15};
+nts::adder4008::adder4008(Tristate val) : AComponent(CONST::C4008, val, 16) {
+  _outputs[10] = std::make_pair(6, 7);
+  _outputs[11] = std::make_pair(4, 5);
+  _outputs[12] = std::make_pair(2, 3);
+  _outputs[13] = std::make_pair(1, 15);
 }
 
 nts::adder4008::~adder4008() {
@@ -41,7 +41,7 @@ nts::Tristate nts::adder4008::add_gate(size_t first_pin, size_t second_pin,
 
 nts::Tristate nts::adder4008::Compute(size_t this_pin) {
   if (this_pin > 16 || this_pin == 0) {
-    throw PinException(pinError("C4008", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   if (isInput(this_pin) == 1) {
@@ -60,7 +60,7 @@ nts::Tristate nts::adder4008::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

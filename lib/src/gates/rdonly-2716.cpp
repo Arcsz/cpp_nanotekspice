@@ -10,7 +10,7 @@
 
 #include "gates/rdonly-2716.hpp"
 
-nts::rdonly2716::rdonly2716(Tristate val) : AComponent("2716", val, 14) {
+nts::rdonly2716::rdonly2716(Tristate val) : AComponent(CONST::C2716, val, 14) {
 }
 
 nts::rdonly2716::~rdonly2716() {
@@ -32,7 +32,7 @@ nts::Tristate nts::rdonly2716::nand_gate(size_t first_pin, size_t second_pin) co
 
 nts::Tristate nts::rdonly2716::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C2716", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::rdonly2716::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

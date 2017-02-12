@@ -10,7 +10,7 @@
 
 #include "components/Clock.hpp"
 
-nts::Clock::Clock(Tristate val) : AComponent("Clock", val, 1) {
+nts::Clock::Clock(Tristate val) : AComponent(CONST::CLOCK, val, 1) {
 }
 
 nts::Clock::~Clock() {
@@ -18,7 +18,7 @@ nts::Clock::~Clock() {
 
 nts::Tristate nts::Clock::Compute(size_t this_pin) {
   if (this_pin > 1 || this_pin == 0) {
-    throw PinException(pinError("Clock", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
 
   return _val;

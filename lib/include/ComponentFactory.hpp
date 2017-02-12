@@ -11,7 +11,7 @@
 #ifndef COMPONENT_FACTORY_HPP_
 # define COMPONENT_FACTORY_HPP_
 
-# include "IComponent.hpp"
+# include "AComponent.hpp"
 # include "Input.hpp"
 # include "Clock.hpp"
 # include "Output.hpp"
@@ -37,7 +37,7 @@ namespace nts {
   class ComponentFactory {
   public:
     ~ComponentFactory();
-    IComponent *createComponent(std::string const& type,
+    AComponent *createComponent(std::string const& type,
 				std::string const& value) const;
 
     static ComponentFactory getInstance();
@@ -57,12 +57,12 @@ namespace nts {
 
     static ComponentFactory _instance;
 
-    typedef IComponent *(ComponentFactory::*mkComp)(std::string const& value) const;
+    typedef AComponent *(ComponentFactory::*mkComp)(std::string const& value) const;
 
     static const std::map<std::string, mkComp> _funcMap;
 
     template<class T>
-    IComponent *newComp(std::string const& val) const {
+    AComponent *newComp(std::string const& val) const {
       return new T(getTristate(val));
     }
   };

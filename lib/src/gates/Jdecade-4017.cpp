@@ -10,7 +10,7 @@
 
 #include "gates/Jdecade-4017.hpp"
 
-nts::Jdecade4017::Jdecade4017(Tristate val) : AComponent("4017", val, 14) {
+nts::Jdecade4017::Jdecade4017(Tristate val) : AComponent(CONST::C4017, val, 14) {
 }
 
 nts::Jdecade4017::~Jdecade4017() {
@@ -32,7 +32,7 @@ nts::Tristate nts::Jdecade4017::nand_gate(size_t first_pin, size_t second_pin) c
 
 nts::Tristate nts::Jdecade4017::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4017", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::Jdecade4017::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

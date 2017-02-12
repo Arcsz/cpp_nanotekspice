@@ -10,7 +10,7 @@
 
 #include "gates/counter-4040.hpp"
 
-nts::counter4040::counter4040(Tristate val) : AComponent("4040", val, 14) {
+nts::counter4040::counter4040(Tristate val) : AComponent(CONST::C4040, val, 14) {
 }
 
 nts::counter4040::~counter4040() {
@@ -32,7 +32,7 @@ nts::Tristate nts::counter4040::nand_gate(size_t first_pin, size_t second_pin) c
 
 nts::Tristate nts::counter4040::Compute(size_t this_pin) {
   if (this_pin > 14 || this_pin == 0) {
-    throw PinException(pinError("C4040", this_pin));
+    throw PinException(pinError(_type, this_pin));
   }
   if (isInput(this_pin))
     return Tristate::UNDEFINED;
@@ -44,7 +44,7 @@ nts::Tristate nts::counter4040::calcInput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  if (_pins[this_pin].comp->getType() == "Output") {
+  if (_pins[this_pin].comp->getType() == CONST::OUTPUT) {
     throw OutputException("Can't use output as an input");
   }
 

@@ -261,12 +261,13 @@ void nts::Parser::getComponent(t_ast_node *component) {
     val = (*component->children)[2]->lexeme;
   }
 
-  IComponent *comp = ComponentFactory::getInstance().createComponent(type, val);
+  AComponent *comp = ComponentFactory::getInstance().createComponent(type, val);
   if (!comp) {
     throw UnknownTypeException("Error Component: Unknown type: "
 			      + type + ", name: " + name);
   }
-  _circuit.addComponent(type, name, comp);
+
+  _circuit.addComponent(name, comp);
 }
 
 // get links
