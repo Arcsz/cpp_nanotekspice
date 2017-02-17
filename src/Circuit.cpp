@@ -71,7 +71,11 @@ void nts::Circuit::outputDisplay() const {
   for (std::pair<std::string, AComponent*> const& pair : _components) {
     if (pair.second->getType() == CONST::OUTPUT) {
       Output *output = static_cast<Output*>(pair.second);
-      std::cout << pair.first << "=" << output->getValue() << std::endl;
+      if (output->getValue() == Tristate::UNDEFINED) {
+	std::cout << pair.first << "=U" << std::endl;
+      } else {
+	std::cout << pair.first << "=" << output->getValue() << std::endl;
+      }
     }
   }
 }
