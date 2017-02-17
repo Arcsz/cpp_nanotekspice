@@ -5,21 +5,21 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sun Feb 12 16:47:54 2017 Riamon Vincent
+// Last update Fri Feb 17 14:28:46 2017 Riamon Vincent
 //
 
 #include "gates/FlipFlop-4013.hpp"
 
 nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14) {
   _outputs[1] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
-		 false, Tristate::UNDEFINED};
+		 false, Tristate::FALSE};
   _outputs[2] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
-		 true, Tristate::UNDEFINED};
+		 true, Tristate::FALSE};
 
   _outputs[13] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
-		  false, Tristate::UNDEFINED};
+		  false, Tristate::FALSE};
   _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
-		  true, Tristate::UNDEFINED};
+		  true, Tristate::FALSE};
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
