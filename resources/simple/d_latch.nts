@@ -9,6 +9,7 @@ input		reset
 
 output		out
 output		nout
+output		oclock
 
 4013		dlatch
 
@@ -20,4 +21,4 @@ reset:1		dlatch:4
 
 out:1		dlatch:1
 nout:1		dlatch:2
-
+clock:1		oclock:1

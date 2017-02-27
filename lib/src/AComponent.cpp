@@ -49,10 +49,10 @@ void nts::AComponent::SetLink(size_t this_pin, IComponent& comp, size_t target_p
   }
 
   // check if links already exist
-  if (_pins[this_pin]) {
+  if (_type != CONST::CLOCK && _pins[this_pin]) {
     throw LinkExistException(_type + ": Pin " + std::to_string(this_pin) +
 			     " is already linked");
-  } else if (other._pins[target_pin]) {
+  } else if (other._type != CONST::CLOCK && other._pins[target_pin]) {
     throw LinkExistException(other._type + ": Pin " + std::to_string(target_pin) +
 			     " is already linked");
   }

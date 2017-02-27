@@ -48,22 +48,22 @@ void nts::Shell::shell() {
   while (_run && getline(std::cin, line)) {
     std::istringstream ss(line);
     while (getline(ss, cmd, ';')) {
-	cmd = StrUtils::trim(cmd);
-	if (cmd.find('=') != std::string::npos) {
-	  try {
-	    _circuit.setValue(cmd, true);
-	  } catch (Exception const& e) {
-	    std::cerr << e.what() << std::endl;
-	  }
-	} else if (cmd != "") {
-	    if (!_cmdFunc.count(cmd)) {
-	      std::cout << cmd << ": Command not found" << std::endl;
-            } else {
-	      cmdFunc a = _cmdFunc.at(cmd);
-	      (this->*a)();
-	    }
-	  }
+      cmd = StrUtils::trim(cmd);
+      if (cmd.find('=') != std::string::npos) {
+	try {
+	  _circuit.setValue(cmd, true);
+	} catch (Exception const& e) {
+	  std::cerr << e.what() << std::endl;
+	}
+      } else if (cmd != "") {
+	if (!_cmdFunc.count(cmd)) {
+	  std::cout << cmd << ": Command not found" << std::endl;
+	} else {
+	  cmdFunc a = _cmdFunc.at(cmd);
+	  (this->*a)();
+	}
       }
+    }
     if (cmd != "exit")
       std::cout << "> ";
   }

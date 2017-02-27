@@ -12,14 +12,14 @@
 
 nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14) {
   _outputs[1] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
-		 false, Tristate::FALSE};
+		 false, Tristate::UNDEFINED};
   _outputs[2] = {.clock = 3, .reset = 4, .data = 5, .set = 6,
-		 true, Tristate::FALSE};
+		 true, Tristate::UNDEFINED};
 
   _outputs[13] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
-		  false, Tristate::FALSE};
+		  false, Tristate::UNDEFINED};
   _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
-		  true, Tristate::FALSE};
+		  true, Tristate::UNDEFINED};
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
