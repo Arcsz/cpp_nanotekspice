@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Mon Feb  6 17:39:09 2017 Riamon Vincent
+// Last update Fri Feb 17 16:14:15 2017 Riamon Vincent
 //
 
 #ifndef Jdecade4017_HPP_
@@ -15,6 +15,13 @@
 
 namespace nts {
   class Jdecade4017 : public AComponent {
+  private:
+    typedef struct Jdecade {
+      size_t clock;
+      size_t master_reset;
+      Tristate value;
+    } Jdecade;
+
   public:
     Jdecade4017(Tristate val);
     ~Jdecade4017();
@@ -24,7 +31,7 @@ namespace nts {
     Tristate nand_gate(size_t first_pin, size_t second_pin) const;
 
   private:
-    std::map<size_t, std::pair<size_t, size_t> > _outputs;
+    std::map<size_t, Jdecade> _outputs;
   };
 }
 

@@ -5,12 +5,22 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Sun Feb 12 14:03:57 2017 Riamon Vincent
+// Last update Fri Feb 17 16:50:28 2017 Riamon Vincent
 //
 
 #include "gates/Jdecade-4017.hpp"
 
 nts::Jdecade4017::Jdecade4017(Tristate val) : AComponent(CONST::C4017, val, 14) {
+  _outputs[3] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[2] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[4] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[7] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[10] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[1] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[5] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[6] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[9] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+  _outputs[11] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
 }
 
 nts::Jdecade4017::~Jdecade4017() {
