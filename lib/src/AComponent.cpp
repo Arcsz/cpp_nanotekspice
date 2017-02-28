@@ -23,7 +23,11 @@ bool nts::Link::operator!() const {
 }
 
 nts::Tristate nts::Link::compute() const {
-  return comp->Compute(pin);
+  if (comp) {
+    return comp->Compute(pin);
+  }
+
+  return Tristate::UNDEFINED;
 }
 
 nts::AComponent::AComponent(std::string const& type, Tristate val, size_t maxPin)
