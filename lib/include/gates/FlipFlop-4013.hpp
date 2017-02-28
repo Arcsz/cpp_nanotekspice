@@ -17,7 +17,7 @@ namespace nts {
   class FLIPFLOP4013 : public AComponent {
   private:
     typedef struct FlipFlop {
-      size_t clock;
+      size_t clock; // pin of clock
       size_t reset;
       size_t data;
       size_t set;
@@ -31,10 +31,10 @@ namespace nts {
     Tristate Compute(size_t this_pin = 1) override;
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
-    Tristate computeBarre(FlipFlop& output, Tristate state);
-    Tristate computeDataInput(FlipFlop& output);
 
   private:
+    Tristate computeBarre(FlipFlop& output, Tristate state);
+    Tristate computeDataInput(FlipFlop& output);
     std::map<size_t, FlipFlop> _outputs;
   };
 }

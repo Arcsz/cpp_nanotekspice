@@ -11,20 +11,46 @@
 #ifndef counter4040_HPP_
 # define counter4040_HPP_
 
-#include "AComponent.hpp"
+# include "AComponent.hpp"
 
 namespace nts {
   class counter4040 : public AComponent {
+  public:
+    struct Counter {
+      Tristate q1; // pin 9
+      Tristate q2; // pin 7
+      Tristate q3; // pin 6
+      Tristate q4; // pin 5
+      Tristate q5; // pin 3
+      Tristate q6; // pin 2
+      Tristate q7; // pin 4
+      Tristate q8; // pin 13
+      Tristate q9; // pin 12
+      Tristate q10; // pin 14
+      Tristate q11; // pin 15
+      Tristate q12; // pin 1
+    };
   public:
     counter4040(Tristate val);
     ~counter4040();
     Tristate Compute(size_t this_pin = 1) override;
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
-    Tristate nand_gate(size_t first_pin, size_t second_pin) const;
 
   private:
-    std::map<size_t, std::pair<size_t, size_t> > _outputs;
+    void resetCounter();
+    void updateCounter();
+
+  private:
+    size_t _clock;
+    size_t _reset;
+    Counter _counter;
+    // binary counter
+    bool _def;
+    unsigned int _count;
+    Tristate _oldClock;
+    // map < Pin, TristateOutput >
+    std::map<size_t, Tristate&> _outputs;
   };
 }
 

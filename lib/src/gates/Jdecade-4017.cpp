@@ -66,12 +66,13 @@ nts::Tristate nts::Jdecade4017::calcOutput(size_t this_pin) {
     return Tristate::UNDEFINED;
   }
 
-  size_t firstPin = _outputs[this_pin].first;
-  size_t secondPin = _outputs[this_pin].second;
+  // size_t firstPin = _outputs[this_pin].first;
+  // size_t secondPin = _outputs[this_pin].second;
 
-  if (!_pins[firstPin] || !_pins[secondPin]) {
-    return Tristate::UNDEFINED;
-  }
+  // if (!_pins[firstPin] || !_pins[secondPin]) {
+  //   return Tristate::UNDEFINED;
+  // }
 
-  return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
+  // return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
+  return Tristate::UNDEFINED;
 }

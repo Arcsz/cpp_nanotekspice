@@ -20,9 +20,12 @@ output		o11
 
 4040		counter
 
+output		oclock
+
 .links:
 clock:1		counter:10
 reset:1		counter:11
+clock:1		oclock:1
 
 o0:1		counter:9
 o1:1		counter:7
