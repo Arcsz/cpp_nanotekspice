@@ -7,7 +7,7 @@ namespace StrUtils {
 
   inline bool isAlphaNum(std::string const& str) {
     for (char c : str) {
-      if (!isalnum(c)) {
+      if (!isalnum(c) && c != '_') {
 	return false;
       }
     }

@@ -10,42 +10,71 @@
 
 #include "gates/Jdecade-4017.hpp"
 
-nts::Jdecade4017::Jdecade4017(Tristate val) : AComponent(CONST::C4017, val, 14) {
-  _outputs[3] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[2] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[4] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[7] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[10] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[1] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[5] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[6] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[9] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
-  _outputs[11] = {.clock = 14, .master_reset = 15, Tristate::UNDEFINED};
+nts::Jdecade4017::Jdecade4017(Tristate val)
+  : AComponent(CONST::C4017, val, 16), _newCycle(true), _cp0(14),
+    _cp1(13), _reset(15), _current(Q0), _def(false) {
+  _outputs = std::map<size_t, Tristate&>{
+    {1,  _states[Q5]},
+    {2,  _states[Q1]},
+    {3,  _states[Q0]},
+    {4,  _states[Q2]},
+    {5,  _states[Q6]},
+    {6,  _states[Q7]},
+    {7,  _states[Q3]},
+    {9,  _states[Q8]},
+    {10, _states[Q4]},
+    {11, _states[Q9]},
+    {12, _states[QN]},
+  };
+
+  resetStates();
 }
 
 nts::Jdecade4017::~Jdecade4017() {
 }
 
-static int isInput(size_t pin) {
-  if (pin == 1 || pin == 2 || pin == 5 || pin == 6 ||
-      pin == 8 || pin == 9 || pin == 12 || pin == 13) {
-    return 1;
-  } else if (pin == 3 || pin == 4 || pin == 10 || pin == 11) {
-    return 0;
-  }
-  return -1;
+void nts::Jdecade4017::resetStates() {
+  _states[Q0] = Tristate::TRUE;
+  _states[Q1] = Tristate::FALSE;
+  _states[Q2] = Tristate::FALSE;
+  _states[Q3] = Tristate::FALSE;
+  _states[Q4] = Tristate::FALSE;
+  _states[Q5] = Tristate::FALSE;
+  _states[Q6] = Tristate::FALSE;
+  _states[Q7] = Tristate::FALSE;
+  _states[Q8] = Tristate::FALSE;
+  _states[Q9] = Tristate::FALSE;
+  _states[QN] = Tristate::TRUE;
 }
 
-nts::Tristate nts::Jdecade4017::nand_gate(size_t first_pin, size_t second_pin) const {
-  return static_cast<Tristate>(!(first_pin && second_pin));
+static int isInput(size_t pin) {
+  switch (pin) {
+  // INPUT
+  case 13 ... 15:
+    return 1;
+
+  // OUTPUT
+  case 1 ... 7:
+  case 9 ... 12:
+    return 0;
+
+  // DEFAULT
+  default:
+    return -1;
+  };
 }
 
 nts::Tristate nts::Jdecade4017::Compute(size_t this_pin) {
-  if (this_pin > 14 || this_pin == 0) {
+  if (this_pin > _maxPin || this_pin == 0) {
     throw PinException(pinError(_type, this_pin));
   }
-  if (isInput(this_pin))
-    return Tristate::UNDEFINED;
+
+  if (isInput(this_pin) == 1) {
+    return this->calcInput(this_pin);
+  } else if (isInput(this_pin) == 0) {
+    return this->calcOutput(this_pin);
+  }
+
   return Tristate::UNDEFINED;
 }
 
@@ -61,18 +90,51 @@ nts::Tristate nts::Jdecade4017::calcInput(size_t this_pin) {
   return _pins[this_pin].compute();
 }
 
+static nts::Tristate computePin(nts::Link& link) {
+  if (link) {
+    return link.compute();
+  }
+
+  return nts::Tristate::UNDEFINED;
+}
+
+void nts::Jdecade4017::computeOutputs() {
+  _newCycle = false;
+  _states[_current] = Tristate::FALSE;
+  if (++_current > Q9) {
+    _current = Q0;
+  }
+  _states[_current] = Tristate::TRUE;
+  _states[QN] = static_cast<Tristate>(_current < Q5);
+}
+
 nts::Tristate nts::Jdecade4017::calcOutput(size_t this_pin) {
-  if (this_pin > 14 || this_pin == 0) {
+  Tristate reset = computePin(_pins[_reset]);
+  Tristate cp0 = computePin(_pins[_cp0]);
+  Tristate cp1 = computePin(_pins[_cp1]);
+
+  if (this_pin > _maxPin || this_pin == 0 || reset == Tristate::UNDEFINED ||
+      (cp0 == Tristate::UNDEFINED && cp1 == Tristate::UNDEFINED) ||
+      (reset == Tristate::FALSE && !_def)) {
     return Tristate::UNDEFINED;
   }
 
-  // size_t firstPin = _outputs[this_pin].first;
-  // size_t secondPin = _outputs[this_pin].second;
+  _def = true;
 
-  // if (!_pins[firstPin] || !_pins[secondPin]) {
-  //   return Tristate::UNDEFINED;
-  // }
+  if (reset == Tristate::TRUE) {
+    _current = Q0;
+    _newCycle = true;
+    resetStates();
+    return Tristate::FALSE;
+  }
 
-  // return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
-  return Tristate::UNDEFINED;
+  if (((cp0 == Tristate::TRUE && cp1 != Tristate::TRUE) ||
+      (cp1 == Tristate::FALSE && cp0 != Tristate::FALSE)) && _newCycle) {
+    computeOutputs();
+  } else if (!((cp0 == Tristate::TRUE && cp1 != Tristate::TRUE) ||
+	       (cp1 == Tristate::FALSE && cp0 != Tristate::FALSE))) {
+    _newCycle = true;
+  }
+
+  return _outputs.at(this_pin);
 }

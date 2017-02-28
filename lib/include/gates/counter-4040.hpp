@@ -15,7 +15,7 @@
 
 namespace nts {
   class counter4040 : public AComponent {
-  public:
+  private:
     struct Counter {
       Tristate q1; // pin 9
       Tristate q2; // pin 7
@@ -47,8 +47,8 @@ namespace nts {
     Counter _counter;
     // binary counter
     bool _def;
+    bool _newCycle;
     unsigned int _count;
-    Tristate _oldClock;
     // map < Pin, TristateOutput >
     std::map<size_t, Tristate&> _outputs;
   };
