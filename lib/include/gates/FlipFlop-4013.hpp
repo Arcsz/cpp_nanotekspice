@@ -35,6 +35,9 @@ namespace nts {
   private:
     Tristate computeBarre(FlipFlop& output, Tristate state);
     Tristate computeDataInput(FlipFlop& output);
+
+  private:
+    Tristate _oldClock;
     std::map<size_t, FlipFlop> _outputs;
   };
 }
