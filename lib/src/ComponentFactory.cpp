@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Fri Feb  3 14:29:39 2017 Riamon Vincent
-// Last update Thu Feb  9 21:45:34 2017 Riamon Vincent
+// Last update Wed Mar  1 10:20:08 2017 Riamon Vincent
 //
 
 #include "ComponentFactory.hpp"
@@ -40,6 +40,7 @@ nts::ComponentFactory nts::ComponentFactory::getInstance() {
 
 nts::ComponentFactory::ComponentFactory() {
 }
+
 
 nts::ComponentFactory::~ComponentFactory() {
 }
