@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 10:40:37 2017 Riamon Vincent
-// Last update Wed Mar  1 10:34:04 2017 Riamon Vincent
+// Last update Wed Mar  1 18:07:26 2017 Riamon Vincent
 //
 
 #ifndef decoder4514_HPP_
@@ -38,7 +38,7 @@ namespace nts {
     void computeS13();
     void computeS14();
     void computeS15();
-    void setAllZero();
+    void setAll(Tristate);
 
   private:
     typedef void (decoder4514::*computeS)();

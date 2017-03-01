@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Wed Mar  1 18:00:16 2017 Riamon Vincent
+// Last update Wed Mar  1 18:16:15 2017 Riamon Vincent
 //
 
 #include "gates/decoder-4514.hpp"
@@ -33,7 +33,7 @@ nts::decoder4514::~decoder4514() {
 }
 
 static int isInput(size_t pin) {
-  if (pin == 2 || pin == 3 || pin == 21 || pin == 22) {
+  if (pin == 1 || pin == 2 || pin == 3 || pin == 21 || pin == 22) {
     return 1;
   } else if (pin == 11 || pin == 9 || pin == 10 || pin == 8 ||
 	     pin == 7 || pin == 6 || pin == 5 || pin == 4 ||
@@ -205,10 +205,10 @@ void nts::decoder4514::computeS15() {
     _outputs[15] = Tristate::FALSE;
 }
 
-void nts::decoder4514::setAllZero() {
+void nts::decoder4514::setAll(Tristate state) {
   for (int i = 0; i <= 16; i++) {
     if (!isInput(i))
-      _outputs[i] = Tristate::FALSE;
+      _outputs[i] = state;
   }
 }
 
@@ -259,17 +259,15 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
   _outFunc[16] = &nts::decoder4514::computeS14;
   _outFunc[15] = &nts::decoder4514::computeS15;
 
-  if (_pins[23].compute() == 1)
-    setAllZero();
+  if (_pins[1].compute() == 0) {
+    setAll(Tristate::UNDEFINED);
+    return Tristate::UNDEFINED;
+  }
+  else if (_pins[23].compute() == 1) {
+    setAll(Tristate::FALSE);
+    return Tristate::FALSE;
+  }
   else
     (this->*_outFunc[this_pin])();
-  // size_t firstPin = _outputs[this_pin].first;
-  // size_t secondPin = _outputs[this_pin].second;
-
-  // if (!_pins[firstPin] || !_pins[secondPin]) {
-  //   return Tristate::UNDEFINED;
-  // }
-
-  // return nand_gate(_pins[firstPin].compute(), _pins[secondPin].compute());
-  return _outputs.at(this_pin);;
+  return _outputs.at(this_pin);
 }
