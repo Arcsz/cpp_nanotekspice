@@ -5,12 +5,12 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Wed Mar  1 11:10:14 2017 Riamon Vincent
+// Last update Wed Mar  1 18:00:16 2017 Riamon Vincent
 //
 
 #include "gates/decoder-4514.hpp"
 
-nts::decoder4514::decoder4514(Tristate val) : AComponent(CONST::C4514, val, 23) {
+nts::decoder4514::decoder4514(Tristate val) : AComponent(CONST::C4514, val, 24) {
   _outputs[11] = Tristate::UNDEFINED;
   _outputs[9] = Tristate::UNDEFINED;
   _outputs[10] = Tristate::UNDEFINED;
@@ -40,8 +40,6 @@ static int isInput(size_t pin) {
 	     pin == 18 || pin == 17 || pin == 20 || pin == 19 ||
 	     pin == 14 || pin == 13 || pin == 16 || pin == 15 || pin == 23) {
     return 0;
-  } else if (pin == 23) {
-    return 2;
   }
   return -1;
 }
@@ -214,10 +212,6 @@ void nts::decoder4514::setAllZero() {
   }
 }
 
-// nts::Tristate nts::decoder4514::nand_gate(size_t first_pin, size_t second_pin) const {
-//   return static_cast<Tristate>(!(first_pin && second_pin));
-// }
-
 nts::Tristate nts::decoder4514::Compute(size_t this_pin) {
   if (this_pin == 12 || this_pin > 23 || this_pin == 0) {
     throw PinException(pinError(_type, this_pin));
@@ -226,9 +220,6 @@ nts::Tristate nts::decoder4514::Compute(size_t this_pin) {
     return this->calcInput(this_pin);
   } else if (isInput(this_pin) == 0) {
     return this->calcOutput(this_pin);
-  }
-  else if (isInput(this_pin) == 2) {
-    setAllZero();
   }
   return Tristate::UNDEFINED;
 }
@@ -268,7 +259,10 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
   _outFunc[16] = &nts::decoder4514::computeS14;
   _outFunc[15] = &nts::decoder4514::computeS15;
 
-  (this->*_outFunc[this_pin])();
+  if (_pins[23].compute() == 1)
+    setAllZero();
+  else
+    (this->*_outFunc[this_pin])();
   // size_t firstPin = _outputs[this_pin].first;
   // size_t secondPin = _outputs[this_pin].second;
 
