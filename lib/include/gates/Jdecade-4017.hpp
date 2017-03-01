@@ -16,11 +16,19 @@
 namespace nts {
   class Jdecade4017 : public AComponent {
   private:
-    typedef struct Jdecade {
-      size_t clock;
-      size_t master_reset;
-      Tristate value;
-    } Jdecade;
+    enum Counter {
+      Q0 = 0, // pin 3
+      Q1, // pin 2
+      Q2, // pin 4
+      Q3, // pin 7
+      Q4, // pin 10
+      Q5, // pin 1
+      Q6, // pin 5
+      Q7, // pin 6
+      Q8, // pin 9
+      Q9, // pin 11
+      QN, // pin 12
+    };
 
   public:
     Jdecade4017(Tristate val);
@@ -28,10 +36,20 @@ namespace nts {
     Tristate Compute(size_t this_pin = 1) override;
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
-    Tristate nand_gate(size_t first_pin, size_t second_pin) const;
 
   private:
-    std::map<size_t, Jdecade> _outputs;
+    void resetStates();
+    void computeOutputs();
+
+  private:
+    bool _newCycle;
+    size_t _cp0;
+    size_t _cp1;
+    size_t _reset;
+    Tristate _states[QN + 1];
+    int _current;
+    bool _def;
+    std::map<size_t, Tristate&> _outputs;
   };
 }
 

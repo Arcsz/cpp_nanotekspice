@@ -11,20 +11,42 @@
 #ifndef register4094_HPP_
 # define register4094_HPP_
 
-#include "AComponent.hpp"
+# include "AComponent.hpp"
 
 namespace nts {
   class register4094 : public AComponent {
+  private:
+    enum Counter {
+      Q1 = 0, // pin 4
+      Q2, // pin 5
+      Q3, // pin 6
+      Q4, // pin 7
+      Q5, // pin 14
+      Q6, // pin 13
+      Q7, // pin 12
+      Q8, // pin 11
+    };
+
   public:
     register4094(Tristate val);
     ~register4094();
     Tristate Compute(size_t this_pin = 1) override;
     Tristate calcInput(size_t pin);
     Tristate calcOutput(size_t pin);
-    Tristate nand_gate(size_t first_pin, size_t second_pin) const;
 
   private:
-    std::map<size_t, std::pair<size_t, size_t> > _outputs;
+    void shift(Tristate val);
+
+  private:
+    size_t _clock;
+    size_t _data;
+    size_t _strobe;
+    size_t _oe;
+    Tristate _states[8];
+    Tristate _qs2; // q's
+    Tristate _qs1; // qs
+    Tristate _oldClock;
+    std::map<size_t, Tristate&> _outputs;
   };
 }
 

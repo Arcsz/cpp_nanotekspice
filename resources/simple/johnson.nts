@@ -19,11 +19,14 @@ output		o9
 
 output		cascade
 
+output		oclock
+
 4017		johnson
 
 .links:
 clockup:1	johnson:14
 master_reset:1	johnson:15
+clockup:1	oclock:1
 
 o0:1		johnson:3
 o1:1		johnson:2

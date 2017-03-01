@@ -16,14 +16,14 @@
 namespace nts {
   class FLIPFLOP4013 : public AComponent {
   private:
-    typedef struct FlipFlop {
+    struct FlipFlop {
       size_t clock; // pin of clock
       size_t reset;
       size_t data;
       size_t set;
       bool barre;
       Tristate oldValue;
-    } FlipFlop;
+    };
 
   public:
     FLIPFLOP4013(Tristate val);
@@ -35,6 +35,9 @@ namespace nts {
   private:
     Tristate computeBarre(FlipFlop& output, Tristate state);
     Tristate computeDataInput(FlipFlop& output);
+
+  private:
+    Tristate _oldClock;
     std::map<size_t, FlipFlop> _outputs;
   };
 }

@@ -1,0 +1,42 @@
+# shift register 4094
+
+.chipsets:
+output		q1
+output		q2
+output		q3
+output		q4
+output		q5
+output		q6
+output		q7
+output		q8
+output		qs1
+output		qs2
+
+4094		register
+
+clock		clock
+
+output		oclock
+
+input		strobe
+input		data
+input		oe
+
+.links:
+clock:1		oclock:1
+
+strobe:1	register:1
+data:1		register:2
+clock:1		register:3
+q1:1		register:4
+q2:1		register:5
+q3:1		register:6
+q4:1		register:7
+
+oe:1		register:15
+q5:1		register:14
+q6:1		register:13
+q7:1		register:12
+q8:1		register:11
+qs1:1		register:10
+qs2:1		register:9

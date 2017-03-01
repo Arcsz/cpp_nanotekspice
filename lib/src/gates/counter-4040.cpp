@@ -12,7 +12,7 @@
 
 nts::counter4040::counter4040(Tristate val)
   : AComponent(CONST::C4040, val, 16), _clock(10), _reset(11), _def(false),
-    _count(0), _oldClock(Tristate::UNDEFINED) {
+    _newCycle(true), _count(0) {
   _outputs = std::map<size_t, Tristate&>{
     {1, _counter.q12},
     {2, _counter.q6},
@@ -115,12 +115,20 @@ void nts::counter4040::updateCounter() {
   };
 }
 
-nts::Tristate nts::counter4040::calcOutput(size_t this_pin) {
-  Tristate clock = _pins[_clock].compute();
-  Tristate reset = _pins[_reset].compute();
+static nts::Tristate computePin(nts::Link& link) {
+  if (link) {
+    return link.compute();
+  }
 
-  if (this_pin > _maxPin || this_pin == 0
-      || ((reset == Tristate::FALSE || reset == Tristate::UNDEFINED) && !_def)) {
+  return nts::Tristate::UNDEFINED;
+}
+
+nts::Tristate nts::counter4040::calcOutput(size_t this_pin) {
+  Tristate clock = computePin(_pins[_clock]);
+  Tristate reset = computePin(_pins[_reset]);
+
+  if (this_pin > _maxPin || this_pin == 0 || reset == UNDEFINED ||
+      (reset == Tristate::FALSE && !_def)) {
     return Tristate::UNDEFINED;
   }
 
@@ -128,18 +136,20 @@ nts::Tristate nts::counter4040::calcOutput(size_t this_pin) {
 
   if (reset == Tristate::TRUE) {
     resetCounter();
+    _newCycle = true;
     return Tristate::FALSE;
   }
 
-  if (clock == Tristate::FALSE && clock != _oldClock) {
+  if (clock == Tristate::TRUE) {
+    _newCycle = true;
+  } else if (clock == Tristate::FALSE && _newCycle) {
+    _newCycle = false;
     ++_count;
-    updateCounter();
     if (_count & (1u << 12)) {
       _count = 0;
     }
+    updateCounter();
   }
-
-  _oldClock = clock;
 
   return _outputs.at(this_pin);
 }

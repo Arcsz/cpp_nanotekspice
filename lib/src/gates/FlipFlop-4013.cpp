@@ -20,6 +20,8 @@ nts::FLIPFLOP4013::FLIPFLOP4013(Tristate val) : AComponent(CONST::C4013, val, 14
 		  false, Tristate::UNDEFINED};
   _outputs[12] = {.clock = 11, .reset = 10, .data = 9, .set = 8,
 		  true, Tristate::UNDEFINED};
+
+  _oldClock = Tristate::UNDEFINED;
 }
 
 nts::FLIPFLOP4013::~FLIPFLOP4013() {
@@ -87,6 +89,12 @@ nts::Tristate nts::FLIPFLOP4013::computeDataInput(FlipFlop& output) {
   }
 
   size_t clockVal = _pins[clock].compute();
+  if (clockVal == Tristate::TRUE && _oldClock == Tristate::UNDEFINED) {
+    return Tristate::UNDEFINED;
+  }
+  // TODO CONFIRM FOLLOWUP
+  _oldClock = static_cast<Tristate>(clockVal);
+
   if (clockVal == Tristate::FALSE) {
     return output.oldValue;
   }
