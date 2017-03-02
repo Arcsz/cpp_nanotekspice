@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Wed Mar  1 18:16:15 2017 Riamon Vincent
+// Last update Thu Mar  2 11:28:46 2017 Riamon Vincent
 //
 
 #include "gates/decoder-4514.hpp"
@@ -44,165 +44,13 @@ static int isInput(size_t pin) {
   return -1;
 }
 
-void nts::decoder4514::computeS0() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[11] = Tristate::TRUE;
+void nts::decoder4514::computeS(Tristate a0, Tristate a1,
+				Tristate a2, Tristate a3, size_t pin) {
+  if (_pins[2].compute() == a0 && _pins[3].compute() == a1
+      && _pins[21].compute() == a2 && _pins[22].compute() == a3)
+    _outputs[pin] = Tristate::TRUE;
   else
-    _outputs[11] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS1() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[9] = Tristate::TRUE;
-  else
-    _outputs[9] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS2() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[10] = Tristate::TRUE;
-  else
-    _outputs[10] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS3() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[8] = Tristate::TRUE;
-  else
-    _outputs[8] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS4() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[7] = Tristate::TRUE;
-  else
-    _outputs[7] = Tristate::FALSE;
-
-}
-
-void nts::decoder4514::computeS5() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[6] = Tristate::TRUE;
-  else
-    _outputs[6] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS6() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[5] = Tristate::TRUE;
-  else
-    _outputs[5] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS7() {
-  if (_pins[2].compute() == Tristate::FALSE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[4] = Tristate::TRUE;
-  else
-    _outputs[4] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS8() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[18] = Tristate::TRUE;
-  else
-    _outputs[18] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS9() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[17] = Tristate::TRUE;
-  else
-    _outputs[17] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS10() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[20] = Tristate::TRUE;
-  else
-    _outputs[20] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS11() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::FALSE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[19] = Tristate::TRUE;
-  else
-    _outputs[19] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS12() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[14] = Tristate::TRUE;
-  else
-    _outputs[14] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS13() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::FALSE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[13] = Tristate::TRUE;
-  else
-    _outputs[13] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS14() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::FALSE)
-    _outputs[16] = Tristate::TRUE;
-  else
-    _outputs[16] = Tristate::FALSE;
-}
-
-void nts::decoder4514::computeS15() {
-  if (_pins[2].compute() == Tristate::TRUE &&
-      _pins[3].compute() == Tristate::TRUE &&
-      _pins[21].compute() == Tristate::TRUE &&
-      _pins[22].compute() == Tristate::TRUE)
-    _outputs[15] = Tristate::TRUE;
-  else
-    _outputs[15] = Tristate::FALSE;
+    _outputs[pin] = Tristate::FALSE;
 }
 
 void nts::decoder4514::setAll(Tristate state) {
@@ -240,24 +88,40 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
   if (this_pin == 12 || this_pin > 23 || this_pin == 0) {
     return Tristate::UNDEFINED;
   }
-  std::map<size_t, nts::decoder4514::computeS> _outFunc;
+  std::map<size_t, std::function<void() > > _outFunc;
 
-  _outFunc[11] = &nts::decoder4514::computeS0;
-  _outFunc[9] = &nts::decoder4514::computeS1;
-  _outFunc[10] = &nts::decoder4514::computeS2;
-  _outFunc[8] = &nts::decoder4514::computeS3;
-  _outFunc[7] = &nts::decoder4514::computeS4;
-  _outFunc[6] = &nts::decoder4514::computeS5;
-  _outFunc[5] = &nts::decoder4514::computeS6;
-  _outFunc[4] = &nts::decoder4514::computeS7;
-  _outFunc[18] = &nts::decoder4514::computeS8;
-  _outFunc[17] = &nts::decoder4514::computeS9;
-  _outFunc[20] = &nts::decoder4514::computeS10;
-  _outFunc[19] = &nts::decoder4514::computeS11;
-  _outFunc[14] = &nts::decoder4514::computeS12;
-  _outFunc[13] = &nts::decoder4514::computeS13;
-  _outFunc[16] = &nts::decoder4514::computeS14;
-  _outFunc[15] = &nts::decoder4514::computeS15;
+  _outFunc[11] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
+			   Tristate::FALSE, Tristate::FALSE, 11);
+  _outFunc[9] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
+			  Tristate::FALSE, Tristate::TRUE, 9);
+  _outFunc[10] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
+			   Tristate::TRUE, Tristate::FALSE, 10);
+  _outFunc[8] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
+			  Tristate::TRUE, Tristate::TRUE, 8);
+  _outFunc[7] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
+			  Tristate::FALSE, Tristate::FALSE, 7);
+  _outFunc[6] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
+			  Tristate::FALSE, Tristate::TRUE, 6);
+  _outFunc[5] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
+			  Tristate::TRUE, Tristate::FALSE, 5);
+  _outFunc[4] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
+			  Tristate::TRUE, Tristate::TRUE, 4);
+  _outFunc[18] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
+			   Tristate::FALSE, Tristate::FALSE, 18);
+  _outFunc[17] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
+			   Tristate::FALSE, Tristate::TRUE, 17);
+  _outFunc[20] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
+			   Tristate::TRUE, Tristate::FALSE, 20);
+  _outFunc[19] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
+			   Tristate::TRUE, Tristate::TRUE, 19);
+  _outFunc[14] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
+			   Tristate::FALSE, Tristate::FALSE, 14);
+  _outFunc[13] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
+			   Tristate::FALSE, Tristate::TRUE, 13);
+  _outFunc[16] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
+			   Tristate::TRUE, Tristate::FALSE, 16);
+  _outFunc[15] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
+			   Tristate::TRUE, Tristate::TRUE, 15);
 
   if (_pins[1].compute() == 0) {
     setAll(Tristate::UNDEFINED);
@@ -267,7 +131,8 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
     setAll(Tristate::FALSE);
     return Tristate::FALSE;
   }
-  else
-    (this->*_outFunc[this_pin])();
+  else {
+    _outFunc[this_pin]();
+  }
   return _outputs.at(this_pin);
 }
