@@ -5,7 +5,7 @@
 // Login   <riamon_v@epitech.net>
 //
 // Started on  Wed Feb  1 11:33:54 2017 Riamon Vincent
-// Last update Thu Mar  2 11:28:46 2017 Riamon Vincent
+// Last update Thu Mar  2 18:26:00 2017 Riamon Vincent
 //
 
 #include "gates/decoder-4514.hpp"
@@ -90,38 +90,54 @@ nts::Tristate nts::decoder4514::calcOutput(size_t this_pin) {
   }
   std::map<size_t, std::function<void() > > _outFunc;
 
-  _outFunc[11] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
-			   Tristate::FALSE, Tristate::FALSE, 11);
-  _outFunc[9] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
-			  Tristate::FALSE, Tristate::TRUE, 9);
-  _outFunc[10] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
-			   Tristate::TRUE, Tristate::FALSE, 10);
-  _outFunc[8] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::FALSE,
-			  Tristate::TRUE, Tristate::TRUE, 8);
-  _outFunc[7] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
-			  Tristate::FALSE, Tristate::FALSE, 7);
-  _outFunc[6] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
-			  Tristate::FALSE, Tristate::TRUE, 6);
-  _outFunc[5] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
-			  Tristate::TRUE, Tristate::FALSE, 5);
-  _outFunc[4] = std::bind(&decoder4514::computeS, this, Tristate::FALSE, Tristate::TRUE,
-			  Tristate::TRUE, Tristate::TRUE, 4);
-  _outFunc[18] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
-			   Tristate::FALSE, Tristate::FALSE, 18);
-  _outFunc[17] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
-			   Tristate::FALSE, Tristate::TRUE, 17);
-  _outFunc[20] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
-			   Tristate::TRUE, Tristate::FALSE, 20);
-  _outFunc[19] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::FALSE,
-			   Tristate::TRUE, Tristate::TRUE, 19);
-  _outFunc[14] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
-			   Tristate::FALSE, Tristate::FALSE, 14);
-  _outFunc[13] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
-			   Tristate::FALSE, Tristate::TRUE, 13);
-  _outFunc[16] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
-			   Tristate::TRUE, Tristate::FALSE, 16);
-  _outFunc[15] = std::bind(&decoder4514::computeS, this, Tristate::TRUE, Tristate::TRUE,
-			   Tristate::TRUE, Tristate::TRUE, 15);
+  _outFunc[11] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::FALSE, Tristate::FALSE, Tristate::FALSE, 11);
+  };
+  _outFunc[9] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::FALSE,  Tristate::FALSE, Tristate::TRUE, 9);
+  };
+  _outFunc[10] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::FALSE, Tristate::TRUE, Tristate::FALSE, 10);
+  };
+  _outFunc[8] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::FALSE, Tristate::TRUE, Tristate::TRUE, 8);
+  };
+  _outFunc[7] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::TRUE, Tristate::FALSE, Tristate::FALSE, 7);
+  };
+  _outFunc[6] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::TRUE, Tristate::FALSE, Tristate::TRUE, 6);
+  };
+  _outFunc[5] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::TRUE, Tristate::TRUE, Tristate::FALSE, 5);
+  };
+  _outFunc[4] = [this] () {
+    this->computeS(Tristate::FALSE, Tristate::TRUE, Tristate::TRUE, Tristate::TRUE, 4);
+  };
+  _outFunc[18] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::FALSE, Tristate::FALSE, Tristate::FALSE, 18);
+  };
+  _outFunc[17] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::FALSE, Tristate::FALSE, Tristate::TRUE, 17);
+  };
+  _outFunc[20] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::FALSE, Tristate::TRUE, Tristate::FALSE, 20);
+  };
+  _outFunc[19] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::FALSE, Tristate::TRUE, Tristate::TRUE, 19);
+  };
+  _outFunc[14] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::TRUE, Tristate::FALSE, Tristate::FALSE, 14);
+  };
+  _outFunc[13] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::TRUE, Tristate::FALSE, Tristate::TRUE, 13);
+  };
+  _outFunc[16] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::TRUE, Tristate::TRUE, Tristate::FALSE, 16);
+  };
+  _outFunc[15] = [this] () {
+    this->computeS(Tristate::TRUE, Tristate::TRUE, Tristate::TRUE, Tristate::TRUE, 15);
+  };
 
   if (_pins[1].compute() == 0) {
     setAll(Tristate::UNDEFINED);
